@@ -9,6 +9,11 @@ public class GameViewer{
         window.setResizable(false);
         window.setTitle("Among Raptors");
 
+        GamePanel panel = new GamePanel();
+        window.add(panel);
+        
+        window.pack();
+        
         window.setLocationRelativeTo(null);
         window.setVisible(true);
     }
