@@ -1,4 +1,5 @@
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class GameViewer{
 
@@ -9,13 +10,19 @@ public class GameViewer{
         window.setResizable(false);
         window.setTitle("Among Raptors");
 
+        
+        
         GamePanel panel = new GamePanel();
+                
+        window.add(new Player());
         window.add(panel);
         
         window.pack();
         
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+
     }
+    
 }
 
