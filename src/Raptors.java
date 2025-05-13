@@ -17,7 +17,7 @@ public class Raptors {
 	
 	public Raptors() {
 		try {
-			image = ImageIO.read(new File("src/images/CatDunking.png"));
+			image = ImageIO.read(new File("src/Images/Raptor.png"));
 			spriteLoaded = true;
 		} catch (IOException e) {
 			spriteLoaded = false;

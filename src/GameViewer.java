@@ -11,16 +11,17 @@ public class GameViewer{
         window.setTitle("Among Raptors");
 
         
-        
         GamePanel panel = new GamePanel();
                 
-        window.add(new Player());
         window.add(panel);
         
         window.pack();
         
         window.setLocationRelativeTo(null);
         window.setVisible(true);
+        
+        panel.startGamethread();       
+        panel.requestFocusInWindow();
 
     }
     
