@@ -4,7 +4,7 @@ import javax.imageio.*;
 import java.awt.*;
 import javax.swing.*;
 
-public class Player extends JComponent{
+public class Player extends JComponent {
 
 	private int x = 0;
 	private int y = 0;
@@ -13,7 +13,7 @@ public class Player extends JComponent{
 	private boolean spriteLoaded;
 	private int dx = 10;
 	private int dy = 10;
-	
+
 	public Player() {
 		try {
 			image = ImageIO.read(new File("src/Images/Player.png"));
@@ -25,10 +25,10 @@ public class Player extends JComponent{
 //		Timer animationTimer = new Timer(50, e -> updateListener());
 //		animationTimer.start();
 	}
-	
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.drawImage(image, x, y, null);
-	}	
+	}
 }

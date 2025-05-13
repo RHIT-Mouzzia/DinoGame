@@ -4,7 +4,6 @@ import javax.imageio.*;
 import java.awt.*;
 import javax.swing.*;
 
-
 public class Raptors {
 
 	private int x = 0;
@@ -14,7 +13,7 @@ public class Raptors {
 	private boolean spriteLoaded;
 	private int dx = 10;
 	private int dy = 10;
-	
+
 	public Raptors() {
 		try {
 			image = ImageIO.read(new File("src/Images/Raptor.png"));
@@ -26,5 +25,5 @@ public class Raptors {
 //		Timer animationTimer = new Timer(50, e -> updateListener());
 //		animationTimer.start();
 	}
-	
+
 }

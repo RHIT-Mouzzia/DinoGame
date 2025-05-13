@@ -5,7 +5,6 @@ public class KeyHandler implements KeyListener {
 
 	public boolean up, down, left, right;
 
-
 	@Override
 	public void keyPressed(KeyEvent ke) {
 		int keyCode = ke.getKeyCode();
@@ -45,6 +44,6 @@ public class KeyHandler implements KeyListener {
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

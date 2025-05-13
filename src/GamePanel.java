@@ -1,7 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable {
 
 	final int originalTileSize = 16;
 	final int scale = 3;
@@ -13,10 +13,10 @@ public class GamePanel extends JPanel implements Runnable{
 	final int screenHeight = tileSize * maxScreenRow;
 
 	int fps = 60;
-	
+
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
-	
+
 	int playerX = 100;
 	int playerY = 100;
 	int playerSpeed = 100;
@@ -30,39 +30,39 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 
 	public void startGamethread() {
-		
+
 		gameThread = new Thread(this);
 		gameThread.start();
-		
+
 	}
-	
+
 	public void run() {
 
-	    double drawInterval = 1000000000.0 / fps;
-	    double nextDrawTime = System.nanoTime() + drawInterval;
+		double drawInterval = 1000000000.0 / fps;
+		double nextDrawTime = System.nanoTime() + drawInterval;
 
-	    while (gameThread != null) {
-	        update();
-	        repaint();
+		while (gameThread != null) {
+			update();
+			repaint();
 
-	        try {
-	            double remainingTime = nextDrawTime - System.nanoTime();
-	            remainingTime = remainingTime / 1000000; 
+			try {
+				double remainingTime = nextDrawTime - System.nanoTime();
+				remainingTime = remainingTime / 1000000;
 
-	            if (remainingTime < 0) {
-	                remainingTime = 0;
-	            }
+				if (remainingTime < 0) {
+					remainingTime = 0;
+				}
 
-	            Thread.sleep((long) remainingTime);
+				Thread.sleep((long) remainingTime);
 
-	            nextDrawTime += drawInterval;
+				nextDrawTime += drawInterval;
 
-	        } catch (InterruptedException ex) {
-	            ex.printStackTrace();
-	        }
-	    }
+			} catch (InterruptedException ex) {
+				ex.printStackTrace();
+			}
+		}
 	}
-	
+
 	public void update() {
 
 		if (keyH.up == true) {
