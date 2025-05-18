@@ -14,7 +14,7 @@ public class Player extends Entities {
 	private KeyHandler keyH;
 	public int x, y, speed;
 	public String direction;
-	private BufferedImage upRight, upLeft, downRight, downLeft, left1, left2, right1, right2;
+	private BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
 
 	public Player(GamePanel gp, KeyHandler keyH) {
 		this.gp = gp;
@@ -32,14 +32,14 @@ public class Player extends Entities {
 
 	public void getPlayerImage() {
 		try {
-			upRight = ImageIO.read(getClass().getResourceAsStream("/Images/up up.png"));
-			upLeft = ImageIO.read(getClass().getResourceAsStream("/Images/up right.png"));
-			downRight = ImageIO.read(getClass().getResourceAsStream("/Images/up right.png"));
-			downLeft = ImageIO.read(getClass().getResourceAsStream("/Images/up right.png"));
-			left1 = ImageIO.read(getClass().getResourceAsStream("/Images/up right.png"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/Images/up right.png"));
-			right1 = ImageIO.read(getClass().getResourceAsStream("/Images/up right.png"));
-			right2 = ImageIO.read(getClass().getResourceAsStream("/Images/up right.png"));
+			up1 = ImageIO.read(getClass().getResourceAsStream("/Images/up.png"));
+			up2 = ImageIO.read(getClass().getResourceAsStream("/Images/up.png"));
+			down1 = ImageIO.read(getClass().getResourceAsStream("/Images/down.png"));
+			down2 = ImageIO.read(getClass().getResourceAsStream("/Images/down.png"));
+			left1 = ImageIO.read(getClass().getResourceAsStream("/Images/left.png"));
+			left2 = ImageIO.read(getClass().getResourceAsStream("/Images/left.png"));
+			right1 = ImageIO.read(getClass().getResourceAsStream("/Images/right.png"));
+			right2 = ImageIO.read(getClass().getResourceAsStream("/Images/right.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -64,8 +64,23 @@ public class Player extends Entities {
 
 	public void draw(Graphics2D g2) {
 
-		g2.setColor(Color.white);
+		BufferedImage image = null;
 
-		g2.fillRect(x, y, gp.getTileSize(), gp.getTileSize());
+		switch (direction) {
+		case "up":
+			image = up1;
+			break;
+		case "down":
+			image = down1;
+			break;
+		case "left":
+			image = left1;
+			break;
+		case "right":
+			image = right1;
+			break;
+		}
+
+		g2.drawImage(image, x, y, gp.gettileSize(), gp.gettileSize(), null);
 	}
 }
