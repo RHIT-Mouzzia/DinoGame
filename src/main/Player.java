@@ -1,10 +1,11 @@
+package main;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import javax.imageio.*;
 import java.awt.*;
 import javax.swing.*;
 
-public class Raptors {
+public class Player extends JComponent {
 
 	private int x = 0;
 	private int y = 0;
@@ -14,9 +15,9 @@ public class Raptors {
 	private int dx = 10;
 	private int dy = 10;
 
-	public Raptors() {
+	public Player() {
 		try {
-			image = ImageIO.read(new File("src/Images/Raptor.png"));
+			image = ImageIO.read(new File("src/Images/Player.png"));
 			spriteLoaded = true;
 		} catch (IOException e) {
 			spriteLoaded = false;
@@ -26,4 +27,9 @@ public class Raptors {
 //		animationTimer.start();
 	}
 
+	@Override
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		g.drawImage(image, x, y, null);
+	}
 }
