@@ -1,4 +1,5 @@
 package main;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -19,11 +20,39 @@ public class GamePanel extends JPanel implements Runnable {
 
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
-	Player player= new Player(this,keyH);
+	Player player = new Player(this, keyH);
 
 	int playerX = 100;
 	int playerY = 100;
 	int playerSpeed = 10;
+
+	public int gettileSize() {
+		return this.tileSize;
+	}
+
+	public int getOriginalTileSize() {
+		return originalTileSize;
+	}
+
+	public int getScale() {
+		return scale;
+	}
+
+	public int getMaxScreenCol() {
+		return maxScreenCol;
+	}
+
+	public int getMaxScreenRow() {
+		return maxScreenRow;
+	}
+
+	public int getScreenWidth() {
+		return screenWidth;
+	}
+
+	public int getScreenHeight() {
+		return screenHeight;
+	}
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -32,7 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 	}
-	
+
 	public int getTileSize() {
 		return this.tileSize;
 	}
@@ -49,25 +78,25 @@ public class GamePanel extends JPanel implements Runnable {
 		double drawInterval = 1000000000.0 / fps;
 		double delta = 0;
 		long currentTime = System.nanoTime();
-		
+
 		long timer = 0;
 		int drawCount = 0;
 		long lastTime = System.nanoTime();
 
 		while (gameThread != null) {
 
-			currentTime = System.nanoTime();	
-			
+			currentTime = System.nanoTime();
+
 			delta += (currentTime - lastTime) / drawInterval;
 			lastTime = currentTime;
-			
+
 			if (delta >= 1) {
 				update();
 				repaint();
 				delta--;
 				drawCount++;
 			}
-			
+
 			if (timer >= 1000000000) {
 				System.out.println("FPS:" + drawCount);
 				drawCount = 0;
@@ -78,15 +107,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public void update() {
 
-		if (keyH.up == true) {
-			playerY -= playerSpeed;
-		} else if (keyH.down == true) {
-			playerY += playerSpeed;
-		} else if (keyH.left == true) {
-			playerX -= playerSpeed;
-		} else if (keyH.right == true) {
-			playerX += playerSpeed;
-		}
+		player.update();
+
 	}
 
 	@Override
@@ -95,9 +117,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 		Graphics2D g2 = (Graphics2D) g;
 
-		g2.setColor(Color.white);
-
-		g2.fillRect(playerX, playerY, tileSize, tileSize);
+		player.draw(g2);
 
 		g2.dispose();
 	}
