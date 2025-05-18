@@ -2,6 +2,8 @@ package main;
 import java.awt.*;
 import javax.swing.*;
 
+import GameObjects.Player;
+
 public class GamePanel extends JPanel implements Runnable {
 
 	final int originalTileSize = 16;
@@ -17,6 +19,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
+	Player player= new Player(this,keyH);
 
 	int playerX = 100;
 	int playerY = 100;
