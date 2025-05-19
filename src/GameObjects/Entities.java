@@ -6,11 +6,42 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Entities {
-	public int x, y;
-	public int speed;
-
-	public String direction;
+	private int x, y;
+	private int speed;
+	private String direction;
 	private BufferedImage up, down, left, right;
+
+	public int getX() {
+		return x;
+	}
+
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public int getY() {
+		return y;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
+	public String getDirection() {
+		return direction;
+	}
+
+	public void setDirection(String direction) {
+		this.direction = direction;
+	}
 
 	public BufferedImage getUp() {
 		return up;
@@ -24,7 +55,6 @@ public class Entities {
 		}
 	}
 
-	
 	public BufferedImage getDown() {
 		return down;
 	}
@@ -36,7 +66,7 @@ public class Entities {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public BufferedImage getLeft() {
 		return left;
 	}

@@ -10,16 +10,16 @@ public class KeyHandler implements KeyListener {
 	public void keyPressed(KeyEvent ke) {
 		int keyCode = ke.getKeyCode();
 
-		if (keyCode == KeyEvent.VK_W) {
+		if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
 			up = true;
 		}
-		if (keyCode == KeyEvent.VK_S) {
+		if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
 			down = true;
 		}
-		if (keyCode == KeyEvent.VK_A) {
+		if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) {
 			left = true;
 		}
-		if (keyCode == KeyEvent.VK_D) {
+		if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
 			right = true;
 		}
 	}
@@ -28,16 +28,16 @@ public class KeyHandler implements KeyListener {
 	public void keyReleased(KeyEvent ke) {
 		int keyCode = ke.getKeyCode();
 
-		if (keyCode == KeyEvent.VK_W) {
+		if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
 			up = false;
 		}
-		if (keyCode == KeyEvent.VK_S) {
+		if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
 			down = false;
 		}
-		if (keyCode == KeyEvent.VK_A) {
+		if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) {
 			left = false;
 		}
-		if (keyCode == KeyEvent.VK_D) {
+		if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
 			right = false;
 		}
 	}

@@ -9,10 +9,11 @@ import GameObjects.Player;
 import main.GamePanel;
 import main.KeyHandler;
 
+
+
 public class Player extends Entities {
 	private GamePanel gp;
 	private KeyHandler keyH;
-	public String direction;
 
 	public Player(GamePanel gp, KeyHandler keyH) {
 		this.gp = gp;
@@ -22,10 +23,10 @@ public class Player extends Entities {
 	}
 
 	public void setDefaultValues() {
-		x = 100;
-		y = 100;
-		speed = 4;
-		direction = "down";
+		this.setX(8*this.gp.gettileSize());
+		this.setY(8*this.gp.gettileSize());
+		this.setSpeed(4);
+		this.setDirection("down");
 	}
 
 	public void getPlayerImage() {
@@ -36,18 +37,18 @@ public class Player extends Entities {
 	}
 
 	public void update() {
-		if (keyH.up) {	
-			direction = "up";
-			y -= speed;
+		if (keyH.up) {
+			setDirection("up");
+			this.setY(getY() - getSpeed());
 		} else if (keyH.down) {
-			direction = "down";
-			y += speed;
+			setDirection("down");
+			setY(getY() + getSpeed());
 		} else if (keyH.left) {
-			direction = "left";
-			x -= speed;
+			setDirection("left");
+			setX(getX() - getSpeed());
 		} else if (keyH.right) {
-			direction = "right";
-			x += speed;
+			setDirection("right");
+			setX(getX() + getSpeed());
 		}
 	}
 
@@ -55,7 +56,7 @@ public class Player extends Entities {
 
 		BufferedImage image = null;
 
-		switch (direction) {
+		switch (getDirection()) {
 		case "up":
 			image = this.getUp();
 			break;
@@ -70,6 +71,6 @@ public class Player extends Entities {
 			break;
 		}
 
-		g2.drawImage(image, x, y, gp.gettileSize(), gp.gettileSize(), null);
+		g2.drawImage(image, getX(), getY(), gp.gettileSize(), gp.gettileSize(), null);
 	}
 }
