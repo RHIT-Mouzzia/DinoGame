@@ -12,9 +12,7 @@ import main.KeyHandler;
 public class Player extends Entities {
 	private GamePanel gp;
 	private KeyHandler keyH;
-	public int x, y, speed;
 	public String direction;
-	private BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
 
 	public Player(GamePanel gp, KeyHandler keyH) {
 		this.gp = gp;
@@ -31,23 +29,14 @@ public class Player extends Entities {
 	}
 
 	public void getPlayerImage() {
-		try {
-			up1 = ImageIO.read(getClass().getResourceAsStream("/Images/up.png"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/Images/up.png"));
-			down1 = ImageIO.read(getClass().getResourceAsStream("/Images/down.png"));
-			down2 = ImageIO.read(getClass().getResourceAsStream("/Images/down.png"));
-			left1 = ImageIO.read(getClass().getResourceAsStream("/Images/left.png"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/Images/left.png"));
-			right1 = ImageIO.read(getClass().getResourceAsStream("/Images/right.png"));
-			right2 = ImageIO.read(getClass().getResourceAsStream("/Images/right.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
+		this.setUp("/Images/up.png");
+		this.setDown("/Images/down.png");
+		this.setLeft("/Images/left.png");
+		this.setRight("/Images/right.png");
 	}
 
 	public void update() {
-		if (keyH.up) {
+		if (keyH.up) {	
 			direction = "up";
 			y -= speed;
 		} else if (keyH.down) {
@@ -68,16 +57,16 @@ public class Player extends Entities {
 
 		switch (direction) {
 		case "up":
-			image = up1;
+			image = this.getUp();
 			break;
 		case "down":
-			image = down1;
+			image = this.getDown();
 			break;
 		case "left":
-			image = left1;
+			image = this.getLeft();
 			break;
 		case "right":
-			image = right1;
+			image = this.getRight();
 			break;
 		}
 
