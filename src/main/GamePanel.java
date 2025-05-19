@@ -8,6 +8,7 @@ import javax.swing.*;
 import GameObjects.Entities;
 import GameObjects.Meat;
 import GameObjects.Player;
+import GameObjects.Raptor;
 import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -71,6 +72,8 @@ public class GamePanel extends JPanel implements Runnable {
 		this.setFocusable(true);
 		gameObj.add(player);
 		gameObj.add(meat);
+		gameObj.add(new Raptor(this, 3));
+		gameObj.add(new Raptor(this, 1));
 	}
 
 	public int getTileSize() {

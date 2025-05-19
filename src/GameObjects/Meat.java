@@ -10,15 +10,17 @@ public class Meat extends Entities {
 	public Meat(GamePanel gp) {
 		this.gp = gp;
 		setDefaultValues();
-		getMeatImage();
+		setImage();
 		this.setDirection("down");
 	}
 
-	private void getMeatImage() {
+	@Override
+	public void setImage() {
 		this.setDown("/Images/meat_crate.png");
 	}
 
-	private void setDefaultValues() {
+	@Override
+	public void setDefaultValues() {
 		this.setX(7*this.gp.gettileSize());
 		this.setY(10*this.gp.gettileSize());
 	}

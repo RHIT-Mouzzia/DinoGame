@@ -19,7 +19,7 @@ public class Player extends Entities {
 		this.gp = gp;
 		this.keyH = keyH;
 		setDefaultValues();
-		getPlayerImage();
+		setImage();
 	}
 
 	public void setDefaultValues() {
@@ -29,7 +29,8 @@ public class Player extends Entities {
 		this.setDirection("down");
 	}
 
-	public void getPlayerImage() {
+	@Override
+	public void setImage() {
 		this.setUp("/Images/up.png");
 		this.setDown("/Images/down.png");
 		this.setLeft("/Images/left.png");

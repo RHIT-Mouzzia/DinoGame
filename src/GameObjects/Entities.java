@@ -94,4 +94,6 @@ public abstract class Entities {
 	
 	public abstract void update();
 	public abstract void draw(Graphics2D g2);
+	public abstract void setDefaultValues();
+	public abstract void setImage();
 }
