@@ -1,11 +1,12 @@
 package GameObjects;
 
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Entities {
+public abstract class Entities {
 	private int x, y;
 	private int speed;
 	private String direction;
@@ -90,4 +91,7 @@ public class Entities {
 			e.printStackTrace();
 		}
 	}
+	
+	public abstract void update();
+	public abstract void draw(Graphics2D g2);
 }

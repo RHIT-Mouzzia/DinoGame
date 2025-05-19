@@ -1,8 +1,12 @@
 package main;
 
 import java.awt.*;
+import java.util.ArrayList;
+
 import javax.swing.*;
 
+import GameObjects.Entities;
+import GameObjects.Meat;
 import GameObjects.Player;
 import tile.TileManager;
 
@@ -22,7 +26,10 @@ public class GamePanel extends JPanel implements Runnable {
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
 	Player player = new Player(this, keyH);
+	Meat meat  = new Meat(this);
 	TileManager tileM = new TileManager(this);
+	
+	ArrayList<Entities> gameObj = new ArrayList<Entities>();
 
 	int playerX = 100;
 	int playerY = 100;
@@ -62,6 +69,8 @@ public class GamePanel extends JPanel implements Runnable {
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
+		gameObj.add(player);
+		gameObj.add(meat);
 	}
 
 	public int getTileSize() {
@@ -109,7 +118,10 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public void update() {
 
-		player.update();
+		//player.update();
+		for (Entities obj : gameObj) {
+			obj.update();
+		}
 
 	}
 
@@ -121,7 +133,10 @@ public class GamePanel extends JPanel implements Runnable {
 		
 		tileM.draw(g2);
 
-		player.draw(g2);
+		//player.draw(g2);
+		for (Entities obj : gameObj) {
+			obj.draw(g2);
+		}
 
 		g2.dispose();
 	}

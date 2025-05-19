@@ -36,6 +36,7 @@ public class Player extends Entities {
 		this.setRight("/Images/right.png");
 	}
 
+	@Override
 	public void update() {
 		if (keyH.up) {
 			setDirection("up");
@@ -52,6 +53,7 @@ public class Player extends Entities {
 		}
 	}
 
+	@Override
 	public void draw(Graphics2D g2) {
 
 		BufferedImage image = null;
@@ -73,4 +75,6 @@ public class Player extends Entities {
 
 		g2.drawImage(image, getX(), getY(), gp.gettileSize(), gp.gettileSize(), null);
 	}
+
+
 }
