@@ -12,21 +12,15 @@ import main.KeyHandler;
 
 
 public class Player extends Entities {
-	private GamePanel gp;
 	private KeyHandler keyH;
 
-	public Player(GamePanel gp, KeyHandler keyH) {
-		this.gp = gp;
-		this.keyH = keyH;
-		setDefaultValues();
+	public Player(GamePanel gp, int x, int y, int width,int height, int speed, String direction, KeyHandler keyH) {
+		super(gp, x, y, width, height, speed, direction);
 		setImage();
+		this.keyH = keyH;
 	}
 
 	public void setDefaultValues() {
-		this.setX(8*this.gp.gettileSize());
-		this.setY(8*this.gp.gettileSize());
-		this.setSpeed(4);
-		this.setDirection("down");
 	}
 
 	@Override
@@ -39,6 +33,17 @@ public class Player extends Entities {
 
 	@Override
 	public void update() {
+		
+		if(offBottom()) {
+			setY(gp.getHeight() - this.getHeight());
+		}
+		if(offLeft()) {
+			setX(0);
+		}
+		if(offRight()) {
+			setX(gp.getWidth() - this.getWidth());
+		}
+		
 		if (keyH.up) {
 			setDirection("up");
 			this.setY(getY() - getSpeed());
@@ -74,7 +79,7 @@ public class Player extends Entities {
 			break;
 		}
 
-		g2.drawImage(image, getX(), getY(), gp.gettileSize(), gp.gettileSize(), null);
+		g2.drawImage(image, getX(), getY(), getWidth(), getHeight(), null);
 	}
 
 

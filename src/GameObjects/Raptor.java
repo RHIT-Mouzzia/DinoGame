@@ -6,13 +6,11 @@ import java.awt.image.BufferedImage;
 import main.GamePanel;
 
 public class Raptor extends Entities {
-	private GamePanel gp;
 	private int cage;
 
-	public Raptor(GamePanel gp, int cage) {
-		this.gp = gp;
+	public Raptor(GamePanel gp, int width,int height, int cage) {
+		super(gp, 0, 0, width, height, "down");
 		this.cage = cage;
-		this.setDirection("down");
 		setDefaultValues();
 		setImage();
 	}
@@ -49,7 +47,7 @@ public class Raptor extends Entities {
 			break;
 		}
 
-		g2.drawImage(image, getX(), getY(), gp.gettileSize(), gp.gettileSize(), null);
+		g2.drawImage(image, getX(), getY(), getWidth(), getHeight(), null);
 	}
 
 	@Override

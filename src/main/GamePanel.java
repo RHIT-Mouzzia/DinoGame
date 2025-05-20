@@ -26,15 +26,9 @@ public class GamePanel extends JPanel implements Runnable {
 
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
-	Player player = new Player(this, keyH);
-	Meat meat  = new Meat(this);
 	TileManager tileM = new TileManager(this);
 	
 	ArrayList<Entities> gameObj = new ArrayList<Entities>();
-
-	int playerX = 100;
-	int playerY = 100;
-	int playerSpeed = 10;
 
 	public int gettileSize() {
 		return this.tileSize;
@@ -70,10 +64,10 @@ public class GamePanel extends JPanel implements Runnable {
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
-		gameObj.add(player);
-		gameObj.add(meat);
-		gameObj.add(new Raptor(this, 3));
-		gameObj.add(new Raptor(this, 1));
+		gameObj.add(new Player(this, 8*this.gettileSize(), 8*this.gettileSize(), this.gettileSize(), this.gettileSize(), 4, "down", keyH));
+		gameObj.add(new Meat(this, 7*this.gettileSize(), 10*this.gettileSize(), 2*this.gettileSize(), 2*this.gettileSize()));
+		gameObj.add(new Raptor(this, this.gettileSize(), this.gettileSize(), 3));
+		gameObj.add(new Raptor(this, this.gettileSize(), this.gettileSize(), 1));
 	}
 
 	public int getTileSize() {
@@ -121,7 +115,6 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public void update() {
 
-		//player.update();
 		for (Entities obj : gameObj) {
 			obj.update();
 		}
@@ -136,7 +129,6 @@ public class GamePanel extends JPanel implements Runnable {
 		
 		tileM.draw(g2);
 
-		//player.draw(g2);
 		for (Entities obj : gameObj) {
 			obj.draw(g2);
 		}

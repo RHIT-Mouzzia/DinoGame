@@ -5,13 +5,10 @@ import java.awt.Graphics2D;
 import main.GamePanel;
 
 public class Meat extends Entities {
-	private GamePanel gp;
 	
-	public Meat(GamePanel gp) {
-		this.gp = gp;
-		setDefaultValues();
+	public Meat(GamePanel gp, int x, int y, int width,int height) {
+		super(gp, x, y, width, height, "down");
 		setImage();
-		this.setDirection("down");
 	}
 
 	@Override
@@ -21,8 +18,6 @@ public class Meat extends Entities {
 
 	@Override
 	public void setDefaultValues() {
-		this.setX(7*this.gp.gettileSize());
-		this.setY(10*this.gp.gettileSize());
 	}
 	
 	@Override
@@ -32,7 +27,7 @@ public class Meat extends Entities {
 	
 	@Override
 	public void draw(Graphics2D g2) {
-		g2.drawImage(this.getDown(), getX(), getY(), 2*gp.gettileSize(), 2*gp.gettileSize(), null);
+		g2.drawImage(getDown(), getX(), getY(), getWidth(), getHeight(), null);
 	}
 	
 }

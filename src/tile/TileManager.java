@@ -57,10 +57,10 @@ public class TileManager {
 	
 	public void getTileImage() {
 		try {
-			tiles[0] = new Tile();
+			tiles[0] = new Tile(gp.gettileSize(), gp.gettileSize());
 			tiles[0].image = ImageIO.read(getClass().getResourceAsStream("/images/fence.png"));// fence
 			
-			tiles[1] = new Tile();
+			tiles[1] = new Tile(gp.gettileSize(), gp.gettileSize());
 			tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/images/grass.png")); 
 //			tiles[1] = new Tile();
 //			tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/images/feeddoor.png")); // feed door
@@ -93,7 +93,7 @@ public class TileManager {
 			
 			int tileNum = mapTile[col][row];
 			
-			g2.drawImage(tiles[tileNum].image, x, y, gp.gettileSize(), gp.gettileSize(), null);
+			g2.drawImage(tiles[tileNum].image, x, y, tiles[tileNum].getWidth(), tiles[tileNum].getHeight(), null);
 			col++;
 			x += gp.gettileSize();
 
