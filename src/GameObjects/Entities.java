@@ -132,7 +132,7 @@ public abstract class Entities {
 	}
 	
 	public Rectangle2D.Double getBoundingBox() {
-		return new Rectangle2D.Double(this.x, this.y, 0.8 * getWidth(), 0.8 * getHeight() );
+		return new Rectangle2D.Double(this.x, this.y, 0.8* getWidth(), 0.8 * getHeight() );
 	}
 
 	public boolean overlaps(Entities e) {
@@ -159,8 +159,12 @@ public abstract class Entities {
 		return x + this.width > gp.getWidth();
 	}
 	
-	public abstract void update();
+	public void update() {
+		this.x += speed;
+		this.y += speed;
+	}
 	public abstract void draw(Graphics2D g2);
 	public abstract void setDefaultValues();
 	public abstract void setImage();
+	public abstract void collidedWithBox(Entities e);
 }

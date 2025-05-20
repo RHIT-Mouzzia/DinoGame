@@ -57,6 +57,10 @@ public class GamePanel extends JPanel implements Runnable {
 	public int getScreenHeight() {
 		return screenHeight;
 	}
+	
+	public TileManager getTileManager() {
+		return this.tileM;
+	}
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -114,7 +118,17 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	public void update() {
-
+		
+		for (Entities e1 : gameObj) {
+			for(Entities e2 : gameObj) {
+				if(e1 != e2) {
+					if(e1.overlaps(e2)) {
+						e1.collidedWithBox(e2);
+					}
+				}
+			}
+		}
+		
 		for (Entities obj : gameObj) {
 			obj.update();
 		}

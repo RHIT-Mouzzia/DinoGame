@@ -14,6 +14,7 @@ public class Tile extends Entities {
 	}
 	public BufferedImage image;
 	public boolean collision  = false;
+	
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
@@ -31,6 +32,11 @@ public class Tile extends Entities {
 	}
 	@Override
 	public void setImage() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void collidedWithBox(Entities e) {
 		// TODO Auto-generated method stub
 		
 	}

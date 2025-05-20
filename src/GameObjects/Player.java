@@ -13,11 +13,13 @@ import main.KeyHandler;
 
 public class Player extends Entities {
 	private KeyHandler keyH;
+	private boolean collided;
 
 	public Player(GamePanel gp, int x, int y, int width,int height, int speed, String direction, KeyHandler keyH) {
 		super(gp, x, y, width, height, speed, direction);
 		setImage();
 		this.keyH = keyH;
+		this.collided = false;
 	}
 
 	public void setDefaultValues() {
@@ -33,6 +35,9 @@ public class Player extends Entities {
 
 	@Override
 	public void update() {
+//		int nextX = getX();
+//		int nextY = getY();
+		
 		
 		if(offBottom()) {
 			setY(gp.getHeight() - this.getHeight());
@@ -44,19 +49,30 @@ public class Player extends Entities {
 			setX(gp.getWidth() - this.getWidth());
 		}
 		
+		//if(this.gp.getTileManager().fenceCollision(getSpeed(), getHeight()))
+		
 		if (keyH.up) {
 			setDirection("up");
 			this.setY(getY() - getSpeed());
+			//nextY -= getSpeed();
 		} else if (keyH.down) {
 			setDirection("down");
 			setY(getY() + getSpeed());
+			//nextY += getSpeed();
 		} else if (keyH.left) {
 			setDirection("left");
 			setX(getX() - getSpeed());
+			//nextX -= getSpeed();
 		} else if (keyH.right) {
 			setDirection("right");
 			setX(getX() + getSpeed());
+			//nextX += getSpeed();
 		}
+
+//		if(!collided) {
+//			setY(nextY);
+//			setX(nextX);
+//		}
 	}
 
 	@Override
@@ -80,6 +96,16 @@ public class Player extends Entities {
 		}
 
 		g2.drawImage(image, getX(), getY(), getWidth(), getHeight(), null);
+	}
+
+	@Override
+	public void collidedWithBox(Entities e) {
+		System.out.println("Touching other box");
+		int diffX = this.getX() - e.getX();
+		int diffY = this.getY() - e.getY();
+		setX(e.getX() + diffX);
+		setY(getY() + diffY);
+		
 	}
 
 

@@ -25,7 +25,7 @@ public class Raptor extends Entities {
 
 	@Override
 	public void update() {
-
+		
 	}
 
 	@Override
@@ -64,6 +64,12 @@ public class Raptor extends Entities {
 			this.setX(3*this.gp.gettileSize());
 			this.setY(2*this.gp.gettileSize());
 		}
+	}
+
+	@Override
+	public void collidedWithBox(Entities e) {
+		this.setSpeed(-getSpeed());
+		
 	}
 	
 

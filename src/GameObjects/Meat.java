@@ -29,5 +29,11 @@ public class Meat extends Entities {
 	public void draw(Graphics2D g2) {
 		g2.drawImage(getDown(), getX(), getY(), getWidth(), getHeight(), null);
 	}
+
+	@Override
+	public void collidedWithBox(Entities e) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
