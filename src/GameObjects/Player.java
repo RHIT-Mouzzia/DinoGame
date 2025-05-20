@@ -14,6 +14,7 @@ import main.KeyHandler;
 public class Player extends Entities {
 	private KeyHandler keyH;
 	private boolean collided;
+	private int prevX, prevY;
 
 	public Player(GamePanel gp, int x, int y, int width,int height, int speed, String direction, KeyHandler keyH) {
 		super(gp, x, y, width, height, speed, direction);
@@ -35,8 +36,8 @@ public class Player extends Entities {
 
 	@Override
 	public void update() {
-//		int nextX = getX();
-//		int nextY = getY();
+		prevX = getX();
+		prevY = getY();
 		
 		
 		if(offBottom()) {
@@ -54,25 +55,17 @@ public class Player extends Entities {
 		if (keyH.up) {
 			setDirection("up");
 			this.setY(getY() - getSpeed());
-			//nextY -= getSpeed();
 		} else if (keyH.down) {
 			setDirection("down");
 			setY(getY() + getSpeed());
-			//nextY += getSpeed();
 		} else if (keyH.left) {
 			setDirection("left");
 			setX(getX() - getSpeed());
-			//nextX -= getSpeed();
 		} else if (keyH.right) {
 			setDirection("right");
 			setX(getX() + getSpeed());
-			//nextX += getSpeed();
 		}
 
-//		if(!collided) {
-//			setY(nextY);
-//			setX(nextX);
-//		}
 	}
 
 	@Override
@@ -101,10 +94,8 @@ public class Player extends Entities {
 	@Override
 	public void collidedWithBox(Entities e) {
 		System.out.println("Touching other box");
-		int diffX = this.getX() - e.getX();
-		int diffY = this.getY() - e.getY();
-		setX(e.getX() + diffX);
-		setY(getY() + diffY);
+		setX(prevX);
+		setY(prevY);
 		
 	}
 

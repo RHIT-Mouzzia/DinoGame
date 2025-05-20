@@ -119,6 +119,10 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public void update() {
 		
+		for (Entities obj : gameObj) {
+			obj.update();
+		}
+		
 		for (Entities e1 : gameObj) {
 			for(Entities e2 : gameObj) {
 				if(e1 != e2) {
@@ -127,10 +131,6 @@ public class GamePanel extends JPanel implements Runnable {
 					}
 				}
 			}
-		}
-		
-		for (Entities obj : gameObj) {
-			obj.update();
 		}
 
 	}

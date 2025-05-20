@@ -12,6 +12,7 @@ public class Raptor extends Entities {
 		super(gp, 0, 0, width, height, "down");
 		this.cage = cage;
 		setDefaultValues();
+		this.setSpeed(2);
 		setImage();
 	}
 	
@@ -26,6 +27,13 @@ public class Raptor extends Entities {
 	@Override
 	public void update() {
 		
+		System.out.println("Raptor is out of screen:" +isOffScreen());
+		if (this.isOffScreen()) {
+			this.setSpeed(-getSpeed());
+		}
+		
+		super.update();
+
 	}
 
 	@Override
