@@ -13,14 +13,12 @@ import main.KeyHandler;
 
 public class Player extends Entities {
 	private KeyHandler keyH;
-	private boolean collided;
 	private int prevX, prevY;
 
 	public Player(GamePanel gp, int x, int y, int width,int height, int speed, String direction, KeyHandler keyH) {
 		super(gp, x, y, width, height, speed, direction);
 		setImage();
 		this.keyH = keyH;
-		this.collided = false;
 	}
 
 	public void setDefaultValues() {

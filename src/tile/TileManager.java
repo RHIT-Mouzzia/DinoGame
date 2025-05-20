@@ -62,7 +62,8 @@ public class TileManager {
 			tiles[0].collision = true;
 			
 			tiles[1] = new Tile(gp.gettileSize(), gp.gettileSize());
-			tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/images/grass.png")); 
+			tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/images/grass.png"));
+			
 //			tiles[1] = new Tile();
 //			tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/images/feeddoor.png")); // feed door
 //			
