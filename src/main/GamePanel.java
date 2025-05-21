@@ -167,7 +167,6 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 		}
-
 	}
 
 	@Override
@@ -183,6 +182,5 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 
 		g2.dispose();
-	}
-/// hello 
+	} 
 }
