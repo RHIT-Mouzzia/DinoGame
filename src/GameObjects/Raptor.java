@@ -8,14 +8,14 @@ import main.GamePanel;
 public class Raptor extends Entities {
 	private int cage;
 
-	public Raptor(GamePanel gp, int width,int height, int cage) {
+	public Raptor(GamePanel gp, int width, int height, int cage) {
 		super(gp, 0, 0, width, height, "down");
 		this.cage = cage;
 		setDefaultValues();
 		this.setSpeed(2);
 		setImage();
 	}
-	
+
 	@Override
 	public void setImage() {
 		this.setUp("/Images/Raptor.png");
@@ -26,12 +26,11 @@ public class Raptor extends Entities {
 
 	@Override
 	public void update() {
-		
-		System.out.println("Raptor is out of screen:" +isOffScreen());
+
 		if (this.isOffScreen()) {
 			this.setSpeed(-getSpeed());
 		}
-		
+
 		super.update();
 
 	}
@@ -60,25 +59,22 @@ public class Raptor extends Entities {
 
 	@Override
 	public void setDefaultValues() {
-		if(this.cage == 3) {
-			this.setX(13*this.gp.gettileSize());
-			this.setY(2*this.gp.gettileSize());
-		}
-		else if(this.cage == 2){
-			this.setX(8*this.gp.gettileSize());
-			this.setY(2*this.gp.gettileSize());
-		}
-		else {
-			this.setX(3*this.gp.gettileSize());
-			this.setY(2*this.gp.gettileSize());
+		if (this.cage == 3) {
+			this.setX(13 * this.gp.gettileSize());
+			this.setY(2 * this.gp.gettileSize());
+		} else if (this.cage == 2) {
+			this.setX(8 * this.gp.gettileSize());
+			this.setY(2 * this.gp.gettileSize());
+		} else {
+			this.setX(3 * this.gp.gettileSize());
+			this.setY(2 * this.gp.gettileSize());
 		}
 	}
 
 	@Override
 	public void collidedWithBox(Entities e) {
 		this.setSpeed(-getSpeed());
-		
+
 	}
-	
 
 }
