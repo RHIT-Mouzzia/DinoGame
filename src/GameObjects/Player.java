@@ -14,11 +14,13 @@ import main.KeyHandler;
 public class Player extends Entities {
 	private KeyHandler keyH;
 	private int prevX, prevY;
+	private boolean food;
 
 	public Player(GamePanel gp, int x, int y, int width,int height, int speed, String direction, KeyHandler keyH) {
 		super(gp, x, y, width, height, speed, direction);
 		setImage();
 		this.keyH = keyH;
+		this.food = false;
 	}
 
 	public void setDefaultValues() {
@@ -92,6 +94,8 @@ public class Player extends Entities {
 	@Override
 	public void collidedWithBox(Entities e) {
 		System.out.println("Touching other box");
+		this.food = true;
+		System.out.println("Player is carrying fodd: " + this.food);
 		setX(prevX);
 		setY(prevY);
 		
