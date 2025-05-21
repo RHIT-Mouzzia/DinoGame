@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
+import GameObjects.Cage;
 import GameObjects.Entities;
 import GameObjects.Meat;
 import GameObjects.Player;
@@ -22,7 +23,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private int screenHeight = tileSize * maxScreenRow;
 	private int fps = 60;
 
-	private String[] mapPaths = {"/mapLevel/MapDemo.txt", "/mapLevel/Level2.txt",};
+	private String[] mapPaths = { "/mapLevel/MapDemo.txt", "/mapLevel/Level2.txt", };
 
 	private int currentMap = 0;
 
@@ -78,12 +79,8 @@ public class GamePanel extends JPanel implements Runnable {
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
-		gameObj.add(new Player(this, 8 * this.gettileSize(), 8 * this.gettileSize(), this.gettileSize(),
-				this.gettileSize(), 4, "down", keyH));
-		gameObj.add(new Meat(this, 7 * this.gettileSize(), 10 * this.gettileSize(), 2 * this.gettileSize(),
-				2 * this.gettileSize()));
-		gameObj.add(new Raptor(this, this.gettileSize(), this.gettileSize(), 3));
-		gameObj.add(new Raptor(this, this.gettileSize(), this.gettileSize(), 1));
+		changeMap(0);
+
 	}
 
 	public void changeMap(int newMap) {
@@ -97,13 +94,27 @@ public class GamePanel extends JPanel implements Runnable {
 		gameObj.add(new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH));
 
 		if (currentMap == 0) {
+			gameObj.add(new Meat(this, 7 * this.gettileSize(), 10 * this.gettileSize(), 2 * this.gettileSize(),
+					2 * this.gettileSize()));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 1));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 2));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 3));
+
+			int id = 1;
+			
+			for (int i = 1; i <= this.getMaxScreenRow(); i+=5) {
+				gameObj.add(new Cage(this, i * this.gettileSize(), 3 * this.gettileSize(), 4 * this.gettileSize(),
+						this.gettileSize(), id));
+				id+=1;
+			}
+
+			for (int i = 0; i <= this.getMaxScreenCol(); i += 5) {
+				gameObj.add(new Cage(this, i * this.gettileSize(), 0, this.gettileSize(), 4 * this.gettileSize()));
+			}
+
 		}
-		
 		if (currentMap == 1) {
-			//Level 2 in progress;
+			// Level 2 in progress;
 		}
 	}
 
@@ -182,5 +193,5 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 
 		g2.dispose();
-	} 
+	}
 }
