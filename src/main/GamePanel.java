@@ -2,6 +2,7 @@ package main;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -9,6 +10,7 @@ import GameObjects.Cage;
 import GameObjects.Entities;
 import GameObjects.Meat;
 import GameObjects.Player;
+import GameObjects.Pterodactyl;
 import GameObjects.Raptor;
 import tile.TileManager;
 
@@ -35,6 +37,7 @@ public class GamePanel extends JPanel implements Runnable {
 	Thread gameThread;
 	TileManager tileM = new TileManager(this);
 
+	ArrayList<Entities> allObj = new ArrayList<Entities>(); 
 	ArrayList<Entities> gameObj = new ArrayList<Entities>();
 	ArrayList<Cage> fences = new ArrayList<Cage>();
 
@@ -94,9 +97,10 @@ public class GamePanel extends JPanel implements Runnable {
 
 		tileM.loadMap(getCurrentMapPath());
 
-		gameObj.clear();
+		allObj.clear();
+//		gameObj.clear();
 
-		gameObj.add(new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH));
+		allObj.add(new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH));
 
 		if (currentMap == 0) {
 			gameObj.add(new Meat(this, 7 * this.gettileSize(), 10 * this.gettileSize(), 2 * this.gettileSize(),
@@ -116,11 +120,14 @@ public class GamePanel extends JPanel implements Runnable {
 			for (int i = 0; i <= this.getMaxScreenCol(); i += 5) {
 				gameObj.add(new Cage(this, i * this.gettileSize(), 0, this.gettileSize(), 4 * this.gettileSize()));
 			}
-
 		}
 		if (currentMap == 1) {
 			// Level 2 in progress;
+			//gameObj.add(new Pterodactyl(this, 2, 2));
 		}
+		
+		allObj.addAll(gameObj);
+		allObj.addAll(fences);
 	}
 
 	public void startGamethread() {
@@ -170,16 +177,37 @@ public class GamePanel extends JPanel implements Runnable {
 			changeMap(1);
 		}
 
-		for (Entities obj : gameObj) {
-			obj.update();
-		}
-		
-		for (Entities f : fences) {
-			f.update();
+//		for (Entities obj : gameObj) {
+//			obj.update();
+//		}
+//		
+//		for (Entities f : fences) {
+//			f.update();
+//		}
+		for (Entities e : allObj) {
+			e.update();
 		}
 
-		for (Entities e1 : gameObj) {
-			for (Entities e2 : gameObj) {
+//		for (Entities e1 : allObj) {
+//			for (Entities e2 : gameObj) {
+//				if (e1 != e2) {
+//					if (e1.overlaps(e2)) {
+//						e1.collidedWithBox(e2);
+//					}
+//				}
+//			}
+//		}
+//		
+//		for (Entities e : allObj) {
+//			for (Cage f : fences) {
+//					if (e.overlaps(f)) {
+//						e.collidedWithFeederFence(f);
+//					}
+//			}
+//		}
+		
+		for (Entities e1 : allObj) {
+			for (Entities e2 : allObj) {
 				if (e1 != e2) {
 					if (e1.overlaps(e2)) {
 						e1.collidedWithBox(e2);
@@ -188,12 +216,18 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 		}
 		
-		for (Entities e : gameObj) {
-			for (Cage f : fences) {
-					if (e.overlaps(f)) {
-						e.collidedWithFeederFence(f);
-					}
+		List<Entities> shouldRemove = new ArrayList<>();
+		
+		for(Entities object: allObj){
+			if(object.shouldRemove()){
+				shouldRemove.add(object);
 			}
+		}
+		
+		for(Entities object: shouldRemove){
+//			this.bullets.remove(object);
+//			this.flyers.remove(object);
+			object.onRemove();
 		}
 	}
 
@@ -205,12 +239,15 @@ public class GamePanel extends JPanel implements Runnable {
 
 		tileM.draw(g2);
 
-		for (Entities obj : gameObj) {
-			obj.draw(g2);
-		}
-		
-		for (Entities f : fences) {
-			f.draw(g2);
+//		for (Entities obj : gameObj) {
+//			obj.draw(g2);
+//		}
+//		
+//		for (Entities f : fences) {
+//			f.draw(g2);
+//		}
+		for (Entities e : allObj) {
+			e.draw(g2);
 		}
 
 		g2.dispose();

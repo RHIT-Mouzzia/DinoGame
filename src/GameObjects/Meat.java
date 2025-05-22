@@ -42,4 +42,16 @@ public class Meat extends Entities {
 		
 	}
 
+	@Override
+	public void collidedWithBullets(Bullet b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onRemove() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

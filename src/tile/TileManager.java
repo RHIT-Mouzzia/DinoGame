@@ -83,10 +83,6 @@ public class TileManager {
 		}
 	}
 
-//	public boolean fenceCollision(int col, int row) {
-//		return tiles[mapTile[col][row]].collision;
-//	}
-
 	public void draw(Graphics2D g2) {
 
 		int col = 0;

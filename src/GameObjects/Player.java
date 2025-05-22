@@ -93,24 +93,49 @@ public class Player extends Entities {
 
 	@Override
 	public void collidedWithBox(Entities e) {
-	
-		this.food = true;
-
+		//Block by objects
 		setX(prevX);
 		setY(prevY);
+		//collide with feeder
+		if (e instanceof Cage) {
+			Cage c = (Cage)e;
+			this.collidedWithFeederFence(c);
+		}
+		else {
+		//collide with food crate
+		this.food = true;
+		}
 	}
+	
+	
 
 	@Override
 	public void collidedWithFeederFence(Cage f) {
-		// TODO Auto-generated method stub
 		setX(prevX);
 		setY(prevY);
-		this.food = false;
 		for (Entities e : gp.getEntities()) {
 			if (e instanceof Raptor) {
-			
+				Raptor r = (Raptor)e;
+				if (r.getCage() == f.getCage() && this.food == true) {
+				r.getFeed();
+				System.out.println("Player feeding raptor: " + r.getCage());
+				System.out.println("Raptor " + r.getCage() + " is now: " + r.getHunger()); 
+				}
 			}
 		}
+		this.food = false;
+		
+	}
+
+	@Override
+	public void collidedWithBullets(Bullet b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onRemove() {
+		// TODO Auto-generated method stub
 		
 	}
 
