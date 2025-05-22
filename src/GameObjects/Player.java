@@ -27,8 +27,14 @@ public class Player extends Entities {
 	}
 	
 	public void fireBullet() {
-		int bSpeed = 8;
-		
+	    int bSize  = 16;
+	    int bSpeed = 8;
+	   
+	    int bx = getX() + (getWidth()  - bSize)/2;
+	    int by = getY() + (getHeight() - bSize)/2;
+	    Bullet b = new Bullet(gp, bx, by, bSize, bSpeed, getDirection());
+	    gp.addBullet(b);
+		keyH.shoot = false;
 	}
 
 	@Override
@@ -55,8 +61,6 @@ public class Player extends Entities {
 			setX(gp.getWidth() - this.getWidth());
 		}
 		
-		//if(this.gp.getTileManager().fenceCollision(getSpeed(), getHeight()))
-		
 		if (keyH.up) {
 			setDirection("up");
 			this.setY(getY() - getSpeed());
@@ -69,6 +73,11 @@ public class Player extends Entities {
 		} else if (keyH.right) {
 			setDirection("right");
 			setX(getX() + getSpeed());
+		}
+		
+		if(keyH.shoot) {
+			fireBullet();
+			
 		}
 
 	}

@@ -14,13 +14,14 @@ public class Bullet extends Entities {
 	 @Override
 	    public void update() {
 	        // move straight in the given direction
+		 	setImage();
 	        switch (getDirection()) {
 	            case "up":    setY(getY() - getSpeed()); break;
 	            case "down":  setY(getY() + getSpeed()); break;
 	            case "left":  setX(getX() - getSpeed()); break;
 	            case "right": setX(getX() + getSpeed()); break;
-	            case "nothing" : setSpeed(0);
 	        }
+	       
 	    }
 
 	@Override

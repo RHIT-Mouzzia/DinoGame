@@ -82,6 +82,14 @@ public class GamePanel extends JPanel implements Runnable {
 	public ArrayList<Entities> getEntities(){
 		return this.gameObj;
 	}
+	
+	public ArrayList<Bullet> getBullets(){
+		return this.bullets;
+	}
+	
+	public void addBullet(Bullet b) {
+		this.bullets.add(b);
+	}
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -130,11 +138,8 @@ public class GamePanel extends JPanel implements Runnable {
 		else if (currentMap == 1) {
 			// Level 2 in progress;
 			//gameObj.add(new Pterodactyl(this, 2, 2));
-			for (int i = 0; i < 10; i++) {
-				bullets.add(new Bullet(this, 0, 0, this.gettileSize()/2, this.gettileSize()/2, "nothing"));
-			}
 		}
-		
+		System.out.println("Player has " +bullets.size() + " bullets");
 		allObj.addAll(gameObj);
 		allObj.addAll(fences);
 		allObj.addAll(bullets);
@@ -232,6 +237,11 @@ public class GamePanel extends JPanel implements Runnable {
 			if(object.shouldRemove()){
 				shouldRemove.add(object);
 			}
+		}
+		
+		if(!bullets.isEmpty()) {
+			allObj.addAll(bullets);
+			bullets.clear();
 		}
 		
 		for(Entities object: shouldRemove){
