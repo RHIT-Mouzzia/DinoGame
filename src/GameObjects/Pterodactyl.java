@@ -17,6 +17,14 @@ public class Pterodactyl extends Entities {
     }
 
     private void loadSprites() {
+    	 try {
+             right1 = ImageIO.read(getClass().getResourceAsStream(""));
+             right2 = ImageIO.read(getClass().getResourceAsStream("/pterodactyl/ptero_right2.png"));
+             left1  = ImageIO.read(getClass().getResourceAsStream("/pterodactyl/ptero_left1.png"));
+             left2  = ImageIO.read(getClass().getResourceAsStream("/pterodactyl/ptero_left2.png"));
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
     }
 
     @Override
