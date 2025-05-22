@@ -21,6 +21,11 @@ public class Bullet extends Entities {
 	            case "left":  setX(getX() - getSpeed()); break;
 	            case "right": setX(getX() + getSpeed()); break;
 	        }
+	        
+	        if(isOffScreen()) {
+	        	markToRemove();
+	        	System.out.println("Bullet removed");
+	        }
 	       
 	    }
 

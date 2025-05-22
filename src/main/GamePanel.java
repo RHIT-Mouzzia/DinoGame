@@ -245,7 +245,7 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 		
 		for(Entities object: shouldRemove){
-//			this.bullets.remove(object);
+			this.bullets.remove(object);
 //			this.flyers.remove(object);
 			object.onRemove();
 		}
