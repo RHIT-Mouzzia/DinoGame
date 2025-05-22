@@ -26,6 +26,16 @@ public abstract class Entities {
 		this.speed = speed;
 		this.direction = direction;
 	}
+	//tile-based movement logic
+	public Entities(GamePanel gp, int col, int row, int width, int height) {
+	    this.gp = gp;
+	    this.width = width;
+	    this.height = height;
+	    this.x = col * width;
+	    this.y = row * height;
+	    setDefaultValues();
+	    setImage();   
+	}
 	
 	//static object
 	public Entities(GamePanel gp, int x, int y, int width,int height, String direction) {
