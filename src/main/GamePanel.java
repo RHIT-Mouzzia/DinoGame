@@ -36,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
 	TileManager tileM = new TileManager(this);
 
 	ArrayList<Entities> gameObj = new ArrayList<Entities>();
+	ArrayList<Cage> fences = new ArrayList<Cage>();
 
 	public int gettileSize() {
 		return this.tileSize;
@@ -72,6 +73,10 @@ public class GamePanel extends JPanel implements Runnable {
 	public int getTileSize() {
 		return this.tileSize;
 	}
+	
+	public ArrayList<Entities> getEntities(){
+		return this.gameObj;
+	}
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -103,7 +108,7 @@ public class GamePanel extends JPanel implements Runnable {
 			int id = 1;
 			
 			for (int i = 1; i <= this.getMaxScreenRow(); i+=5) {
-				gameObj.add(new Cage(this, i * this.gettileSize(), 3 * this.gettileSize(), 4 * this.gettileSize(),
+				fences.add(new Cage(this, i * this.gettileSize(), 3 * this.gettileSize(), 4 * this.gettileSize(),
 						this.gettileSize(), id));
 				id+=1;
 			}
@@ -168,6 +173,10 @@ public class GamePanel extends JPanel implements Runnable {
 		for (Entities obj : gameObj) {
 			obj.update();
 		}
+		
+		for (Entities f : fences) {
+			f.update();
+		}
 
 		for (Entities e1 : gameObj) {
 			for (Entities e2 : gameObj) {
@@ -176,6 +185,14 @@ public class GamePanel extends JPanel implements Runnable {
 						e1.collidedWithBox(e2);
 					}
 				}
+			}
+		}
+		
+		for (Entities e : gameObj) {
+			for (Cage f : fences) {
+					if (e.overlaps(f)) {
+						e.collidedWithFeederFence(f);
+					}
 			}
 		}
 	}
@@ -190,6 +207,10 @@ public class GamePanel extends JPanel implements Runnable {
 
 		for (Entities obj : gameObj) {
 			obj.draw(g2);
+		}
+		
+		for (Entities f : fences) {
+			f.draw(g2);
 		}
 
 		g2.dispose();

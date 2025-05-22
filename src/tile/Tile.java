@@ -3,6 +3,7 @@ package tile;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
+import GameObjects.Cage;
 import GameObjects.Entities;
 import main.GamePanel;
 
@@ -37,6 +38,11 @@ public class Tile extends Entities {
 	}
 	@Override
 	public void collidedWithBox(Entities e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void collidedWithFeederFence(Cage f) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -93,11 +93,24 @@ public class Player extends Entities {
 
 	@Override
 	public void collidedWithBox(Entities e) {
-		System.out.println("Touching other box");
+	
 		this.food = true;
-		System.out.println("Player is carrying fodd: " + this.food);
+
 		setX(prevX);
 		setY(prevY);
+	}
+
+	@Override
+	public void collidedWithFeederFence(Cage f) {
+		// TODO Auto-generated method stub
+		setX(prevX);
+		setY(prevY);
+		this.food = false;
+		for (Entities e : gp.getEntities()) {
+			if (e instanceof Raptor) {
+			
+			}
+		}
 		
 	}
 

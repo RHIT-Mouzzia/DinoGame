@@ -73,8 +73,16 @@ public abstract class Entities {
 		return speed;
 	}
 	
+	public void setWidth(int w) {
+		this.width = w;
+	}
+	
 	public int getWidth() {
 		return this.width;
+	}
+	
+	public void setHeight(int h) {
+		this.height = h;
 	}
 	
 	public int getHeight() {
@@ -177,4 +185,5 @@ public abstract class Entities {
 	public abstract void setDefaultValues();
 	public abstract void setImage();
 	public abstract void collidedWithBox(Entities e);
+	public abstract void collidedWithFeederFence(Cage f);
 }

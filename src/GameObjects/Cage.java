@@ -43,4 +43,11 @@ public class Cage extends Entities {
 
 	}
 
+	@Override
+	public void collidedWithFeederFence(Cage f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }
