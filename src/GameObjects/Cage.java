@@ -5,10 +5,12 @@ import java.awt.Graphics2D;
 import main.GamePanel;
 
 public class Cage extends Entities {
+	private int cage;
 
 	//Feeder
 	public Cage(GamePanel gp, int x, int y, int width, int height, int id) {
 		super(gp, x, y, width, height, "down");
+		this.cage = id;
 		setImage();
 	}
 
@@ -16,6 +18,10 @@ public class Cage extends Entities {
 	public Cage(GamePanel gp, int x, int y, int width, int height) {
 		super(gp, x, y, width, height, "down");
 		setImage();
+	}
+	
+	public int getCage() {
+		return this.cage;
 	}
 	
 	@Override

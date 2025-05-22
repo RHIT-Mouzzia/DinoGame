@@ -7,7 +7,6 @@ import main.GamePanel;
 
 public class Raptor extends Entities {
 	private int cage;
-	private int maturity;
 	private int hunger;
 
 	public Raptor(GamePanel gp, int width, int height, int cage) {
@@ -22,18 +21,20 @@ public class Raptor extends Entities {
 		this.hunger += 1;
 	}
 	
-	public void grow() {
-		if (hunger > 0 && hunger % 5 == 0) {
-			this.maturity += 1;
-		}
-	}
-	
 	public boolean matured() {
-		if (this.maturity == 15) {
+		if (this.hunger == 10) {
 			return true;
 		}
 		
 		return false;
+	}
+	
+	public int getHunger() {
+		return this.hunger;
+	}
+	
+	public int getCage() {
+		return this.cage;
 	}
 
 	@Override
@@ -54,6 +55,7 @@ public class Raptor extends Entities {
 		if (matured()) {
 			this.setWidth(2*gp.getTileSize());
 			this.setHeight(2*gp.gettileSize());
+			this.setSpeed(0);
 		}
 
 		super.update();
@@ -85,7 +87,6 @@ public class Raptor extends Entities {
 	@Override
 	public void setDefaultValues() {
 		this.hunger = 0;
-		this.maturity = 0;
 		if (this.cage == 3) {
 			this.setX(13 * this.gp.gettileSize());
 			this.setY(2 * this.gp.gettileSize());
