@@ -61,5 +61,11 @@ public class Pterodactyl extends Entities {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void collidedWithFeederFence(Cage f) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
