@@ -3,34 +3,27 @@ import main.GamePanel;
 import java.awt.*;
 import javax.imageio.*;
 public class Pterodactyl extends Entities {
-    private int tileSize;
-	private int speed;
-	private String direction;
+	private int tileSize = gp.getTileSize();
     
     public Pterodactyl(GamePanel gp, int startCol, int startRow) {
         super(gp, startCol, startRow, gp.getTileSize(), gp.getTileSize() );
-        this.gp = gp;
-        this.tileSize = gp.getTileSize();
-        this.speed = 4;
-        this.direction = "right";
-        loadSprites();
-    }
-
-    private void loadSprites() {
+        this.setSpeed(4);
+        this.setDirection("right");
+        setImage();
     }
 
     @Override
     public void update() {
-        if (direction.equals("right")) {
-            setX(getX() + speed);
+        if (this.getDirection().equals("right")) {
+            setX(getX() + this.getSpeed());
             if (getX() + tileSize >= gp.getScreenWidth()) {
-                direction = "left";
+                this.setDirection("left");
                 setY(getY() + tileSize);
             }
         } else {
-            setX(getX() - speed);
+            setX(getX() - this.getSpeed());
             if (getX() <= 0) {
-                direction = "right";
+                this.setDirection("right");
                 setY(getY() + tileSize);
             }
         }
@@ -53,7 +46,8 @@ public class Pterodactyl extends Entities {
 	@Override
 	public void setImage() {
 		// TODO Auto-generated method stub
-		
+		this.setRight("");
+		this.setLeft("");
 	}
 
 	@Override
@@ -64,6 +58,19 @@ public class Pterodactyl extends Entities {
 
 	@Override
 	public void collidedWithFeederFence(Cage f) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void collidedWithBullets(Bullet b) {
+		// TODO Auto-generated method stub
+		b.markToRemove();
+		this.markToRemove();
+	}
+
+	@Override
+	public void onRemove() {
 		// TODO Auto-generated method stub
 		
 	}

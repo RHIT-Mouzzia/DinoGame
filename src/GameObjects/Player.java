@@ -93,12 +93,21 @@ public class Player extends Entities {
 
 	@Override
 	public void collidedWithBox(Entities e) {
-	
-		this.food = true;
-
+		//Block by objects
 		setX(prevX);
 		setY(prevY);
+		//collide with feeder
+		if (e instanceof Cage) {
+			Cage c = (Cage)e;
+			this.collidedWithFeederFence(c);
+		}
+		else {
+		//collide with food crate
+		this.food = true;
+		}
 	}
+	
+	
 
 	@Override
 	public void collidedWithFeederFence(Cage f) {
@@ -115,6 +124,18 @@ public class Player extends Entities {
 			}
 		}
 		this.food = false;
+		
+	}
+
+	@Override
+	public void collidedWithBullets(Bullet b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onRemove() {
+		// TODO Auto-generated method stub
 		
 	}
 
