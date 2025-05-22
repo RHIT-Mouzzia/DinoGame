@@ -25,6 +25,11 @@ public class Player extends Entities {
 
 	public void setDefaultValues() {
 	}
+	
+	public void fireBullet() {
+		int bSpeed = 8;
+		
+	}
 
 	@Override
 	public void setImage() {

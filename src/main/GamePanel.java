@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.*;
 
+import GameObjects.Bullet;
 import GameObjects.Cage;
 import GameObjects.Entities;
 import GameObjects.Meat;
@@ -40,6 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
 	ArrayList<Entities> allObj = new ArrayList<Entities>(); 
 	ArrayList<Entities> gameObj = new ArrayList<Entities>();
 	ArrayList<Cage> fences = new ArrayList<Cage>();
+	ArrayList<Bullet> bullets  = new ArrayList<Bullet>();
 
 	public int gettileSize() {
 		return this.tileSize;
@@ -97,18 +99,15 @@ public class GamePanel extends JPanel implements Runnable {
 
 		tileM.loadMap(getCurrentMapPath());
 
+		
+		gameObj.clear();
+		fences.clear();
+		bullets.clear();
 		allObj.clear();
-//		gameObj.clear();
 
 		allObj.add(new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH));
 
 		if (currentMap == 0) {
-			gameObj.add(new Meat(this, 7 * this.gettileSize(), 10 * this.gettileSize(), 2 * this.gettileSize(),
-					2 * this.gettileSize()));
-			gameObj.add(new Raptor(this, tileSize, tileSize, 1));
-			gameObj.add(new Raptor(this, tileSize, tileSize, 2));
-			gameObj.add(new Raptor(this, tileSize, tileSize, 3));
-
 			int id = 1;
 			
 			for (int i = 1; i <= this.getMaxScreenRow(); i+=5) {
@@ -120,14 +119,25 @@ public class GamePanel extends JPanel implements Runnable {
 			for (int i = 0; i <= this.getMaxScreenCol(); i += 5) {
 				gameObj.add(new Cage(this, i * this.gettileSize(), 0, this.gettileSize(), 4 * this.gettileSize()));
 			}
+			
+			gameObj.add(new Meat(this, 7 * this.gettileSize(), 10 * this.gettileSize(), 2 * this.gettileSize(),
+					2 * this.gettileSize()));
+			gameObj.add(new Raptor(this, tileSize, tileSize, 1));
+			gameObj.add(new Raptor(this, tileSize, tileSize, 2));
+			gameObj.add(new Raptor(this, tileSize, tileSize, 3));
+
 		}
-		if (currentMap == 1) {
+		else if (currentMap == 1) {
 			// Level 2 in progress;
 			//gameObj.add(new Pterodactyl(this, 2, 2));
+			for (int i = 0; i < 10; i++) {
+				bullets.add(new Bullet(this, 0, 0, this.gettileSize()/2, this.gettileSize()/2, "nothing"));
+			}
 		}
 		
 		allObj.addAll(gameObj);
 		allObj.addAll(fences);
+		allObj.addAll(bullets);
 	}
 
 	public void startGamethread() {
@@ -239,13 +249,6 @@ public class GamePanel extends JPanel implements Runnable {
 
 		tileM.draw(g2);
 
-//		for (Entities obj : gameObj) {
-//			obj.draw(g2);
-//		}
-//		
-//		for (Entities f : fences) {
-//			f.draw(g2);
-//		}
 		for (Entities e : allObj) {
 			e.draw(g2);
 		}

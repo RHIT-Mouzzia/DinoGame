@@ -1,6 +1,7 @@
 package GameObjects;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 
 import main.GamePanel;
 
@@ -18,13 +19,33 @@ public class Bullet extends Entities {
 	            case "down":  setY(getY() + getSpeed()); break;
 	            case "left":  setX(getX() - getSpeed()); break;
 	            case "right": setX(getX() + getSpeed()); break;
+	            case "nothing" : setSpeed(0);
 	        }
 	    }
 
 	@Override
 	public void draw(Graphics2D g2) {
 		// TODO Auto-generated method stub
+		BufferedImage image = null;
 
+		switch (getDirection()) {
+		case "up":
+			image = this.getUp();
+			break;
+		case "down":
+			image = this.getDown();
+			break;
+		case "left":
+			image = this.getLeft();
+			break;
+		case "right":
+			image = this.getRight();
+			break;
+		case "nothing":
+			image = null;
+			break;
+		}
+		g2.drawImage(image, getX(), getY(), getWidth(), getHeight(), null);
 	}
 
 	@Override
@@ -36,7 +57,10 @@ public class Bullet extends Entities {
 	@Override
 	public void setImage() {
 		// TODO Auto-generated method stub
-
+		setUp("/Images/bullet.png");
+		setDown("/Images/bullet.png");
+		setLeft("/Images/bullet.png");
+		setRight("/Images/bullet.png");
 	}
 
 	@Override
