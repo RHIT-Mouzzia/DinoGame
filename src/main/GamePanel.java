@@ -272,14 +272,26 @@ public class GamePanel extends JPanel implements Runnable {
 		ArrayList<Entities> drawList = new ArrayList<>(allObj);
 		
 		for (Entities e : drawList) {
-			
 			e.draw(g2);
+		}
+		
+		if (currentMap == 1) {
 			g2.setColor(Color.WHITE);
 			g2.setFont(new Font("SansSerif", Font.PLAIN, 24));
 			// add a variable later
-			g2.drawString("Meals: "  + currentMap, 50, 240);
+			for (Entities e : drawList) {
+				if(e instanceof Raptor) {
+					Raptor r = (Raptor)e;
+					g2.drawString("Raptor "+ r.getCage()+ " lv: "  + r.getHunger(), 50, 240 + r.getCage()* tileSize);
+				}
+				if(e instanceof Player) {
+					Player p = (Player)e;
+					g2.drawString("Player is" + p.getMeat() + " carrying meat", 50, 240 + 4 * tileSize);
+				}
+			}
 			
 		}
+		
 		g2.dispose();
 	}
 

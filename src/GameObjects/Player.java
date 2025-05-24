@@ -21,9 +21,6 @@ public class Player extends Entities {
 		this.food = false;
 	}
 
-	public void setDefaultValues() {
-	}
-
 	public void fireBullet() {
 		int bSize = 16;
 		int bSpeed = 8;
@@ -33,6 +30,11 @@ public class Player extends Entities {
 		Bullet b = new Bullet(gp, bx, by, bSize, bSpeed, getDirection());
 		gp.addBullet(b);
 		keyH.shoot = false;
+	}
+	
+	public String getMeat() {
+		if(food == true) return "";
+		return " not";
 	}
 
 	@Override
