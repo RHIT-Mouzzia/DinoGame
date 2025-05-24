@@ -246,23 +246,35 @@ public class GamePanel extends JPanel implements Runnable {
 
 		if (currentMap == 0) {
 
+			tileM.draw(g2);
+
+			ArrayList<Entities> drawList = new ArrayList<>(allObj);
+
+			for (Entities e : drawList) {
+				e.draw(g2);
+			}
+			
 			g2.setFont(new Font("SansSerif", Font.BOLD, 36));
 			g2.setColor(Color.WHITE);
 			g2.drawString("Welcome to Among Chickens!", 100, 100);
-
 			g2.setFont(new Font("SansSerif", Font.PLAIN, 24));
 			g2.drawString("Press 0 for Start Menu", 100, 160);
 			g2.drawString("Press 1 for Level 1", 100, 200);
 			g2.drawString("Press 2 for Level 2", 100, 240);
 			return;
 		}
-
+		
 		tileM.draw(g2);
 
 		ArrayList<Entities> drawList = new ArrayList<>(allObj);
-
+		
 		for (Entities e : drawList) {
+			
 			e.draw(g2);
+			g2.setColor(Color.WHITE);
+			g2.setFont(new Font("SansSerif", Font.PLAIN, 24));
+			g2.drawString("Score: " + currentMap, 50, 240);
+			
 		}
 		g2.dispose();
 	}
