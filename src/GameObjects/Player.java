@@ -115,9 +115,9 @@ public class Player extends Entities {
 			// collide with food crate
 			this.food = true;
 		}
-		
+
 		if (e instanceof Effect) {
-			Effect pw = (Effect)e;
+			Effect pw = (Effect) e;
 			pw.collidedWithBox(this);
 		}
 	}

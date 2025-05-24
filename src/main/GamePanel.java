@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private int screenHeight = tileSize * maxScreenRow;
 	private int fps = 60;
 
-	private String[] mapPaths = { "/mapLevel/MapDemo.txt", "/mapLevel/Level2.txt" };
+	private String[] mapPaths = { "/mapLevel/Level0.txt", "/mapLevel/Level1.txt", "/mapLevel/Level2.txt" };
 
 	private int currentMap = 0;
 
@@ -112,9 +112,13 @@ public class GamePanel extends JPanel implements Runnable {
 		bullets.clear();
 		allObj.clear();
 
+		if (currentMap == 0) {
+
+		}
+
 		allObj.add(new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH));
 
-		if (currentMap == 0) {
+		if (currentMap == 1) {
 			int id = 1;
 
 			for (int i = 1; i <= this.getMaxScreenRow(); i += 5) {
@@ -132,9 +136,9 @@ public class GamePanel extends JPanel implements Runnable {
 			gameObj.add(new Raptor(this, tileSize, tileSize, 1));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 2));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 3));
-			gameObj.add(new Effect(this, 10*tileSize, 10*tileSize, tileSize, false));
+			gameObj.add(new Effect(this, 10 * tileSize, 10 * tileSize, tileSize, false));
 
-		} else if (currentMap == 1) {
+		} else if (currentMap == 2) {
 
 		}
 		allObj.addAll(gameObj);
@@ -183,10 +187,20 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public void update() {
 
+		if (keyH.map0) {
+			currentMap = 0;
+			allObj.clear();
+			bullets.clear();
+			gameObj.clear();
+			fences.clear();
+			keyH.map0 = false;
+			return;
+		}
+
 		if (keyH.map1) {
-			changeMap(0);
-		} else if (keyH.map2) {
 			changeMap(1);
+		} else if (keyH.map2) {
+			changeMap(2);
 		}
 
 		for (Entities e : allObj) {
@@ -229,6 +243,19 @@ public class GamePanel extends JPanel implements Runnable {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
+
+		if (currentMap == 0) {
+
+			g2.setFont(new Font("SansSerif", Font.BOLD, 36));
+			g2.setColor(Color.WHITE);
+			g2.drawString("Welcome to Among Chickens!", 100, 100);
+
+			g2.setFont(new Font("SansSerif", Font.PLAIN, 24));
+			g2.drawString("Press 0 for Start Menu", 100, 160);
+			g2.drawString("Press 1 for Level 1", 100, 200);
+			g2.drawString("Press 2 for Level 2", 100, 240);
+			return;
+		}
 
 		tileM.draw(g2);
 

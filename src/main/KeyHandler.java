@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 public class KeyHandler implements KeyListener {
 
 	public boolean up, down, left, right;
-	public boolean map1, map2;
+	public boolean map0, map1, map2;
 	public boolean shoot = false;
 
 	@Override
@@ -25,6 +25,10 @@ public class KeyHandler implements KeyListener {
 		if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
 			right = true;
 		}
+
+		if (keyCode == KeyEvent.VK_0)
+			map0 = true;
+
 		if (keyCode == KeyEvent.VK_1)
 			map1 = true;
 
@@ -51,6 +55,9 @@ public class KeyHandler implements KeyListener {
 		if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
 			right = false;
 		}
+
+		if (keyCode == KeyEvent.VK_0)
+			map0 = true;
 
 		if (keyCode == KeyEvent.VK_1)
 			map1 = false;

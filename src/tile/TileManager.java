@@ -20,7 +20,7 @@ public class TileManager {
 		tiles = new Tile[10];
 		mapTile = new int[gp.getMaxScreenCol()][gp.getMaxScreenRow()];
 		getTileImage();
-		loadMap("/mapLevel/MapDemo.txt");
+		loadMap("/mapLevel/Level0.txt");
 	}
 
 	public void loadMap(String m) {
