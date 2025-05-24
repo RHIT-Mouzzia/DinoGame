@@ -6,27 +6,36 @@ import java.awt.image.BufferedImage;
 import main.GamePanel;
 
 public class Bullet extends Entities {
-	
-	 public Bullet(GamePanel gp, int x, int y, int size, int speed, String direction) {
-	        super(gp, x, y, size, size, speed, direction);
-	 }
-	 
-	 @Override
-	    public void update() {
-	        // move straight in the given direction
-		 	setImage();
-	        switch (getDirection()) {
-	            case "up":    setY(getY() - getSpeed()); break;
-	            case "down":  setY(getY() + getSpeed()); break;
-	            case "left":  setX(getX() - getSpeed()); break;
-	            case "right": setX(getX() + getSpeed()); break;
-	        }
-	        
-	        if(isOffScreen()) {
-	        	markToRemove();
-	        }
-	       
-	    }
+
+	public Bullet(GamePanel gp, int x, int y, int size, int speed, String direction) {
+		super(gp, x, y, size, size, speed, direction);
+
+		setImage();
+	}
+
+	@Override
+	public void update() {
+
+		switch (getDirection()) {
+		case "up":
+			setY(getY() - getSpeed());
+			break;
+		case "down":
+			setY(getY() + getSpeed());
+			break;
+		case "left":
+			setX(getX() - getSpeed());
+			break;
+		case "right":
+			setX(getX() + getSpeed());
+			break;
+		}
+
+		if (isOffScreen()) {
+			markToRemove();
+		}
+
+	}
 
 	@Override
 	public void draw(Graphics2D g2) {
@@ -77,13 +86,13 @@ public class Bullet extends Entities {
 	@Override
 	public void collidedWithBullets(Bullet b) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onRemove() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

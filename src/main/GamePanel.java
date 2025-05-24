@@ -38,10 +38,10 @@ public class GamePanel extends JPanel implements Runnable {
 	Thread gameThread;
 	TileManager tileM = new TileManager(this);
 
-	ArrayList<Entities> allObj = new ArrayList<Entities>(); 
+	ArrayList<Entities> allObj = new ArrayList<Entities>();
 	ArrayList<Entities> gameObj = new ArrayList<Entities>();
 	ArrayList<Cage> fences = new ArrayList<Cage>();
-	ArrayList<Bullet> bullets  = new ArrayList<Bullet>();
+	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
 	public int gettileSize() {
 		return this.tileSize;
@@ -78,15 +78,15 @@ public class GamePanel extends JPanel implements Runnable {
 	public int getTileSize() {
 		return this.tileSize;
 	}
-	
-	public ArrayList<Entities> getEntities(){
+
+	public ArrayList<Entities> getEntities() {
 		return this.gameObj;
 	}
-	
-	public ArrayList<Bullet> getBullets(){
+
+	public ArrayList<Bullet> getBullets() {
 		return this.bullets;
 	}
-	
+
 	public void addBullet(Bullet b) {
 		this.bullets.add(b);
 	}
@@ -107,7 +107,6 @@ public class GamePanel extends JPanel implements Runnable {
 
 		tileM.loadMap(getCurrentMapPath());
 
-		
 		gameObj.clear();
 		fences.clear();
 		bullets.clear();
@@ -117,27 +116,26 @@ public class GamePanel extends JPanel implements Runnable {
 
 		if (currentMap == 0) {
 			int id = 1;
-			
-			for (int i = 1; i <= this.getMaxScreenRow(); i+=5) {
+
+			for (int i = 1; i <= this.getMaxScreenRow(); i += 5) {
 				fences.add(new Cage(this, i * this.gettileSize(), 3 * this.gettileSize(), 4 * this.gettileSize(),
 						this.gettileSize(), id));
-				id+=1;
+				id += 1;
 			}
 
 			for (int i = 0; i <= this.getMaxScreenCol(); i += 5) {
 				gameObj.add(new Cage(this, i * this.gettileSize(), 0, this.gettileSize(), 4 * this.gettileSize()));
 			}
-			
+
 			gameObj.add(new Meat(this, 7 * this.gettileSize(), 10 * this.gettileSize(), 2 * this.gettileSize(),
 					2 * this.gettileSize()));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 1));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 2));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 3));
 
-		}
-		else if (currentMap == 1) {
+		} else if (currentMap == 1) {
 			// Level 2 in progress;
-			//gameObj.add(new Pterodactyl(this, 2, 2));
+			// gameObj.add(new Pterodactyl(this, 2, 2));
 		}
 		allObj.addAll(gameObj);
 		allObj.addAll(fences);
@@ -194,7 +192,7 @@ public class GamePanel extends JPanel implements Runnable {
 		for (Entities e : allObj) {
 			e.update();
 		}
-		
+
 		for (Entities e1 : allObj) {
 			for (Entities e2 : allObj) {
 				if (e1 != e2) {
@@ -204,21 +202,21 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 		}
-		
+
 		List<Entities> shouldRemove = new ArrayList<>();
-		
-		for(Entities object: allObj){
-			if(object.shouldRemove()){
+
+		for (Entities object : allObj) {
+			if (object.shouldRemove()) {
 				shouldRemove.add(object);
 			}
 		}
-		
-		if(!bullets.isEmpty()) {
+
+		if (!bullets.isEmpty()) {
 			allObj.addAll(bullets);
 			bullets.clear();
 		}
-		
-		for(Entities object: shouldRemove){
+
+		for (Entities object : shouldRemove) {
 			this.bullets.remove(object);
 			this.allObj.remove(object);
 //			this.flyers.remove(object);
@@ -228,17 +226,18 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	@Override
-	public void paintComponent(Graphics g) {
+	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
 		Graphics2D g2 = (Graphics2D) g;
 
 		tileM.draw(g2);
 
-		for (Entities e : allObj) {
+		ArrayList<Entities> drawList = new ArrayList<>(allObj);
+
+		for (Entities e : drawList) {
 			e.draw(g2);
 		}
-
 		g2.dispose();
 	}
+
 }

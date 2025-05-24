@@ -16,23 +16,23 @@ public class Raptor extends Entities {
 		this.setSpeed(2);
 		setImage();
 	}
-	
+
 	public void getFeed() {
 		this.hunger += 1;
 	}
-	
+
 	public boolean matured() {
 		if (this.hunger == 10) {
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	public int getHunger() {
 		return this.hunger;
 	}
-	
+
 	public int getCage() {
 		return this.cage;
 	}
@@ -51,10 +51,10 @@ public class Raptor extends Entities {
 		if (this.isOffScreen()) {
 			this.setSpeed(-getSpeed());
 		}
-		
+
 		if (matured()) {
-			this.setWidth(2*gp.getTileSize());
-			this.setHeight(2*gp.gettileSize());
+			this.setWidth(2 * gp.getTileSize());
+			this.setHeight(2 * gp.gettileSize());
 			this.setSpeed(0);
 		}
 
@@ -100,8 +100,13 @@ public class Raptor extends Entities {
 
 	@Override
 	public void collidedWithBox(Entities e) {
-		this.setSpeed(-getSpeed());
 
+		if (e instanceof Bullet) {
+			this.markToRemove();
+			e.markToRemove();
+		} else {
+			this.setSpeed(-getSpeed());
+		}
 	}
 
 	@Override
@@ -118,8 +123,7 @@ public class Raptor extends Entities {
 	@Override
 	public void onRemove() {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }
