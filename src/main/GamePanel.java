@@ -273,7 +273,8 @@ public class GamePanel extends JPanel implements Runnable {
 			e.draw(g2);
 			g2.setColor(Color.WHITE);
 			g2.setFont(new Font("SansSerif", Font.PLAIN, 24));
-			g2.drawString("Score: " + currentMap, 50, 240);
+			// add a variable later
+			g2.drawString("Meals: "  + currentMap, 50, 240);
 			
 		}
 		g2.dispose();

@@ -22,7 +22,7 @@ public class Raptor extends Entities {
 	}
 
 	public boolean matured() {
-		if (this.hunger == 10) {
+		if (this.hunger == 5) {
 			return true;
 		}
 
