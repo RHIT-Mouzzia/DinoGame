@@ -38,12 +38,6 @@ public class Pterodactyl extends Entities {
     }
 
 	@Override
-	public void setDefaultValues() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void setImage() {
 		// TODO Auto-generated method stub
 		this.setRight("");

@@ -55,12 +55,6 @@ public class Bullet extends Entities {
 	}
 
 	@Override
-	public void setDefaultValues() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void setImage() {
 		// TODO Auto-generated method stub
 		setUp("/Images/bullet.png");

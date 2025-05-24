@@ -17,10 +17,6 @@ public class Meat extends Entities {
 	}
 
 	@Override
-	public void setDefaultValues() {
-	}
-
-	@Override
 	public void update() {
 
 	}

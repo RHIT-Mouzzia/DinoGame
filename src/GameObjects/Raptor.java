@@ -84,7 +84,6 @@ public class Raptor extends Entities {
 		g2.drawImage(image, getX(), getY(), getWidth(), getHeight(), null);
 	}
 
-	@Override
 	public void setDefaultValues() {
 		this.hunger = 0;
 		if (this.cage == 3) {

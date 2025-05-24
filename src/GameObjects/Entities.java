@@ -34,8 +34,6 @@ public abstract class Entities {
 	    this.height = height;
 	    this.x = col * width;
 	    this.y = row * height;
-	    setDefaultValues();
-	    setImage();   
 	}
 	
 	//static object
@@ -191,7 +189,6 @@ public abstract class Entities {
 		this.y += speed;
 	}
 	public abstract void draw(Graphics2D g2);
-	public abstract void setDefaultValues();
 	public abstract void onRemove();
 	public abstract void setImage();
 	public abstract void collidedWithBox(Entities e);

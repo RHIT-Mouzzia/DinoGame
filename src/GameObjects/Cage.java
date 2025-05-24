@@ -30,10 +30,6 @@ public class Cage extends Entities {
 	}
 
 	@Override
-	public void setDefaultValues() {
-	}
-
-	@Override
 	public void update() {
 
 	}

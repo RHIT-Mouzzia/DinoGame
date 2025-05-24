@@ -192,34 +192,9 @@ public class GamePanel extends JPanel implements Runnable {
 			changeMap(1);
 		}
 
-//		for (Entities obj : gameObj) {
-//			obj.update();
-//		}
-//		
-//		for (Entities f : fences) {
-//			f.update();
-//		}
 		for (Entities e : allObj) {
 			e.update();
 		}
-
-//		for (Entities e1 : allObj) {
-//			for (Entities e2 : gameObj) {
-//				if (e1 != e2) {
-//					if (e1.overlaps(e2)) {
-//						e1.collidedWithBox(e2);
-//					}
-//				}
-//			}
-//		}
-//		
-//		for (Entities e : allObj) {
-//			for (Cage f : fences) {
-//					if (e.overlaps(f)) {
-//						e.collidedWithFeederFence(f);
-//					}
-//			}
-//		}
 		
 		for (Entities e1 : allObj) {
 			for (Entities e2 : allObj) {
@@ -246,9 +221,11 @@ public class GamePanel extends JPanel implements Runnable {
 		
 		for(Entities object: shouldRemove){
 			this.bullets.remove(object);
+			this.allObj.remove(object);
 //			this.flyers.remove(object);
 			object.onRemove();
 		}
+		shouldRemove.clear();
 	}
 
 	@Override
