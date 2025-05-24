@@ -136,7 +136,10 @@ public class GamePanel extends JPanel implements Runnable {
 			gameObj.add(new Raptor(this, tileSize, tileSize, 1));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 2));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 3));
-			gameObj.add(new Effect(this, 10 * tileSize, 10 * tileSize, tileSize, false));
+			gameObj.add(new Effect(this, 1*tileSize, 10*tileSize, tileSize, false));
+			gameObj.add(new Effect(this, 2*tileSize, 10*tileSize, tileSize, true));
+			gameObj.add(new Effect(this, 3*tileSize, 10*tileSize, tileSize, false));
+			gameObj.add(new Effect(this, 4*tileSize, 10*tileSize, tileSize, true));
 
 		} else if (currentMap == 2) {
 
