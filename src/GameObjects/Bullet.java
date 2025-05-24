@@ -24,7 +24,6 @@ public class Bullet extends Entities {
 	        
 	        if(isOffScreen()) {
 	        	markToRemove();
-	        	System.out.println("Bullet removed");
 	        }
 	       
 	    }

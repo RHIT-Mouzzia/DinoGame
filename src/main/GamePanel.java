@@ -139,7 +139,6 @@ public class GamePanel extends JPanel implements Runnable {
 			// Level 2 in progress;
 			//gameObj.add(new Pterodactyl(this, 2, 2));
 		}
-		System.out.println("Player has " +bullets.size() + " bullets");
 		allObj.addAll(gameObj);
 		allObj.addAll(fences);
 		allObj.addAll(bullets);

@@ -132,8 +132,6 @@ public class Player extends Entities {
 				Raptor r = (Raptor)e;
 				if (r.getCage() == f.getCage() && this.food == true) {
 				r.getFeed();
-				System.out.println("Player feeding raptor: " + r.getCage());
-				System.out.println("Raptor " + r.getCage() + " is now: " + r.getHunger()); 
 				}
 			}
 		}
