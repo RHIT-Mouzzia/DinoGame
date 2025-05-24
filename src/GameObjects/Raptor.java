@@ -94,7 +94,7 @@ public class Raptor extends Entities {
 			this.setY(2 * this.gp.gettileSize());
 		} else {
 			this.setX(3 * this.gp.gettileSize());
-			this.setY(2 * this.gp.gettileSize());s
+			this.setY(2 * this.gp.gettileSize());
 		}
 	}
 
