@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import GameObjects.Bullet;
 import GameObjects.Cage;
+import GameObjects.Effect;
 import GameObjects.Entities;
 import GameObjects.Meat;
 import GameObjects.Player;
@@ -25,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private int screenHeight = tileSize * maxScreenRow;
 	private int fps = 60;
 
-	private String[] mapPaths = { "/mapLevel/MapDemo.txt", "/mapLevel/Level2.txt", };
+	private String[] mapPaths = { "/mapLevel/MapDemo.txt", "/mapLevel/Level2.txt" };
 
 	private int currentMap = 0;
 
@@ -131,6 +132,7 @@ public class GamePanel extends JPanel implements Runnable {
 			gameObj.add(new Raptor(this, tileSize, tileSize, 1));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 2));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 3));
+			gameObj.add(new Effect(this, 10*tileSize, 10*tileSize, tileSize, false));
 
 		} else if (currentMap == 1) {
 
