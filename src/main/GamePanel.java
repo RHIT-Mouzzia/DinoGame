@@ -37,7 +37,7 @@ public class GamePanel extends JPanel implements Runnable {
 	Thread gameThread;
 	TileManager tileM = new TileManager(this);
 
-	ArrayList<Entities> allObj = new ArrayList<Entities>(); 
+	ArrayList<Entities> allObj = new ArrayList<Entities>();
 	ArrayList<Entities> gameObj = new ArrayList<Entities>();
 	ArrayList<Cage> fences = new ArrayList<Cage>();
 
@@ -76,8 +76,8 @@ public class GamePanel extends JPanel implements Runnable {
 	public int getTileSize() {
 		return this.tileSize;
 	}
-	
-	public ArrayList<Entities> getEntities(){
+
+	public ArrayList<Entities> getEntities() {
 		return this.gameObj;
 	}
 
@@ -98,7 +98,6 @@ public class GamePanel extends JPanel implements Runnable {
 		tileM.loadMap(getCurrentMapPath());
 
 		allObj.clear();
-//		gameObj.clear();
 
 		allObj.add(new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH));
 
@@ -110,11 +109,11 @@ public class GamePanel extends JPanel implements Runnable {
 			gameObj.add(new Raptor(this, tileSize, tileSize, 3));
 
 			int id = 1;
-			
-			for (int i = 1; i <= this.getMaxScreenRow(); i+=5) {
+
+			for (int i = 1; i <= this.getMaxScreenRow(); i += 5) {
 				fences.add(new Cage(this, i * this.gettileSize(), 3 * this.gettileSize(), 4 * this.gettileSize(),
 						this.gettileSize(), id));
-				id+=1;
+				id += 1;
 			}
 
 			for (int i = 0; i <= this.getMaxScreenCol(); i += 5) {
@@ -122,10 +121,11 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 		}
 		if (currentMap == 1) {
-			// Level 2 in progress;
-			//gameObj.add(new Pterodactyl(this, 2, 2));
+			int pteroStartCol = 0;
+			int pteroStartRow = 1;
+			allObj.add(new Pterodactyl(this, pteroStartCol, pteroStartRow));
 		}
-		
+
 		allObj.addAll(gameObj);
 		allObj.addAll(fences);
 	}
@@ -176,11 +176,9 @@ public class GamePanel extends JPanel implements Runnable {
 		} else if (keyH.map2) {
 			changeMap(1);
 		}
-
 //		for (Entities obj : gameObj) {
 //			obj.update();
 //		}
-//		
 //		for (Entities f : fences) {
 //			f.update();
 //		}
@@ -205,7 +203,7 @@ public class GamePanel extends JPanel implements Runnable {
 //					}
 //			}
 //		}
-		
+
 		for (Entities e1 : allObj) {
 			for (Entities e2 : allObj) {
 				if (e1 != e2) {
@@ -215,16 +213,16 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 		}
-		
+
 		List<Entities> shouldRemove = new ArrayList<>();
-		
-		for(Entities object: allObj){
-			if(object.shouldRemove()){
+
+		for (Entities object : allObj) {
+			if (object.shouldRemove()) {
 				shouldRemove.add(object);
 			}
 		}
-		
-		for(Entities object: shouldRemove){
+
+		for (Entities object : shouldRemove) {
 //			this.bullets.remove(object);
 //			this.flyers.remove(object);
 			object.onRemove();
