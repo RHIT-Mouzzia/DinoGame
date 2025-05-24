@@ -1,4 +1,5 @@
 package main;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -12,7 +13,7 @@ public class GameViewer {
 		window.setTitle("Among Raptors");
 
 		GamePanel panel = new GamePanel();
-		
+
 		window.add(panel);
 
 		window.pack();

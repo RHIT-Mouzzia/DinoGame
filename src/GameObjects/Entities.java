@@ -16,9 +16,9 @@ public abstract class Entities {
 	private BufferedImage up, down, left, right;
 	private boolean shouldRemove;
 	protected GamePanel gp;
-	
-	//moving object
-	public Entities(GamePanel gp, int x, int y, int width,int height, int speed, String direction) {
+
+	// moving object
+	public Entities(GamePanel gp, int x, int y, int width, int height, int speed, String direction) {
 		this.gp = gp;
 		this.x = x;
 		this.y = y;
@@ -27,17 +27,18 @@ public abstract class Entities {
 		this.speed = speed;
 		this.direction = direction;
 	}
-	//tile-based movement logic
+
+	// tile-based movement logic
 	public Entities(GamePanel gp, int col, int row, int width, int height) {
-	    this.gp = gp;
-	    this.width = width;
-	    this.height = height;
-	    this.x = col * width;
-	    this.y = row * height;
+		this.gp = gp;
+		this.width = width;
+		this.height = height;
+		this.x = col * width;
+		this.y = row * height;
 	}
-	
-	//static object
-	public Entities(GamePanel gp, int x, int y, int width,int height, String direction) {
+
+	// static object
+	public Entities(GamePanel gp, int x, int y, int width, int height, String direction) {
 		this.gp = gp;
 		this.x = x;
 		this.y = y;
@@ -45,8 +46,8 @@ public abstract class Entities {
 		this.height = height;
 		this.direction = direction;
 	}
-	
-	//tile
+
+	// tile
 	public Entities(int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -71,23 +72,23 @@ public abstract class Entities {
 	public int getSpeed() {
 		return speed;
 	}
-	
+
 	public void setWidth(int w) {
 		this.width = w;
 	}
-	
+
 	public int getWidth() {
 		return this.width;
 	}
-	
+
 	public void setHeight(int h) {
 		this.height = h;
 	}
-	
+
 	public int getHeight() {
 		return this.height;
 	}
-	
+
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
@@ -147,51 +148,57 @@ public abstract class Entities {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public boolean shouldRemove() {
 		return this.shouldRemove;
 	}
-	
+
 	public void markToRemove() {
 		this.shouldRemove = true;
 	}
-	
+
 	public Rectangle2D.Double getBoundingBox() {
-		return new Rectangle2D.Double(this.x, this.y, 0.8* getWidth(), 0.8 * getHeight() );
+		return new Rectangle2D.Double(this.x, this.y, 0.8 * getWidth(), 0.8 * getHeight());
 	}
 
 	public boolean overlaps(Entities e) {
 		return getBoundingBox().intersects(e.getBoundingBox());
 	}
-	
+
 	public boolean isOffScreen() {
-		boolean xLow = x <0;
+		boolean xLow = x < 0;
 		boolean xHigh = x + width > gp.getWidth();
-		boolean yLow = y <0;
+		boolean yLow = y < 0;
 		boolean yHigh = y + height > gp.getHeight();
-		return xLow || xHigh|| yLow|| yHigh;
+		return xLow || xHigh || yLow || yHigh;
 	}
-	
+
 	public boolean offBottom() {
 		return y + height > gp.getHeight();
 	}
-	
+
 	public boolean offLeft() {
 		return x < 0;
 	}
-	
+
 	public boolean offRight() {
 		return x + this.width > gp.getWidth();
 	}
-	
+
 	public void update() {
 		this.x += speed;
 		this.y += speed;
 	}
+
 	public abstract void draw(Graphics2D g2);
+
 	public abstract void onRemove();
+
 	public abstract void setImage();
+
 	public abstract void collidedWithBox(Entities e);
+
 	public abstract void collidedWithFeederFence(Cage f);
+
 	public abstract void collidedWithBullets(Bullet b);
 }

@@ -9,14 +9,12 @@ import GameObjects.Player;
 import main.GamePanel;
 import main.KeyHandler;
 
-
-
 public class Player extends Entities {
 	private KeyHandler keyH;
 	private int prevX, prevY;
 	private boolean food;
 
-	public Player(GamePanel gp, int x, int y, int width,int height, int speed, String direction, KeyHandler keyH) {
+	public Player(GamePanel gp, int x, int y, int width, int height, int speed, String direction, KeyHandler keyH) {
 		super(gp, x, y, width, height, speed, direction);
 		setImage();
 		this.keyH = keyH;
@@ -25,15 +23,15 @@ public class Player extends Entities {
 
 	public void setDefaultValues() {
 	}
-	
+
 	public void fireBullet() {
-	    int bSize  = 16;
-	    int bSpeed = 8;
-	   
-	    int bx = getX() + (getWidth()  - bSize)/2;
-	    int by = getY() + (getHeight() - bSize)/2;
-	    Bullet b = new Bullet(gp, bx, by, bSize, bSpeed, getDirection());
-	    gp.addBullet(b);
+		int bSize = 16;
+		int bSpeed = 8;
+
+		int bx = getX() + (getWidth() - bSize) / 2;
+		int by = getY() + (getHeight() - bSize) / 2;
+		Bullet b = new Bullet(gp, bx, by, bSize, bSpeed, getDirection());
+		gp.addBullet(b);
 		keyH.shoot = false;
 	}
 
@@ -49,18 +47,17 @@ public class Player extends Entities {
 	public void update() {
 		prevX = getX();
 		prevY = getY();
-		
-		
-		if(offBottom()) {
+
+		if (offBottom()) {
 			setY(gp.getHeight() - this.getHeight());
 		}
-		if(offLeft()) {
+		if (offLeft()) {
 			setX(0);
 		}
-		if(offRight()) {
+		if (offRight()) {
 			setX(gp.getWidth() - this.getWidth());
 		}
-		
+
 		if (keyH.up) {
 			setDirection("up");
 			this.setY(getY() - getSpeed());
@@ -74,10 +71,10 @@ public class Player extends Entities {
 			setDirection("right");
 			setX(getX() + getSpeed());
 		}
-		
-		if(keyH.shoot) {
+
+		if (keyH.shoot) {
 			fireBullet();
-			
+
 		}
 
 	}
@@ -107,21 +104,18 @@ public class Player extends Entities {
 
 	@Override
 	public void collidedWithBox(Entities e) {
-		//Block by objects
+		// Block by objects
 		setX(prevX);
 		setY(prevY);
-		//collide with feeder
+		// collide with feeder
 		if (e instanceof Cage) {
-			Cage c = (Cage)e;
+			Cage c = (Cage) e;
 			this.collidedWithFeederFence(c);
-		}
-		else {
-		//collide with food crate
-		this.food = true;
+		} else {
+			// collide with food crate
+			this.food = true;
 		}
 	}
-	
-	
 
 	@Override
 	public void collidedWithFeederFence(Cage f) {
@@ -129,27 +123,26 @@ public class Player extends Entities {
 		setY(prevY);
 		for (Entities e : gp.getEntities()) {
 			if (e instanceof Raptor) {
-				Raptor r = (Raptor)e;
+				Raptor r = (Raptor) e;
 				if (r.getCage() == f.getCage() && this.food == true) {
-				r.getFeed();
+					r.getFeed();
 				}
 			}
 		}
 		this.food = false;
-		
+
 	}
 
 	@Override
 	public void collidedWithBullets(Bullet b) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onRemove() {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }

@@ -7,23 +7,23 @@ import main.GamePanel;
 public class Cage extends Entities {
 	private int cage;
 
-	//Feeder
+	// Feeder
 	public Cage(GamePanel gp, int x, int y, int width, int height, int id) {
 		super(gp, x, y, width, height, "down");
 		this.cage = id;
 		setImage();
 	}
 
-	//Fence
+	// Fence
 	public Cage(GamePanel gp, int x, int y, int width, int height) {
 		super(gp, x, y, width, height, "down");
 		setImage();
 	}
-	
+
 	public int getCage() {
 		return this.cage;
 	}
-	
+
 	@Override
 	public void setImage() {
 		this.setDown("/Images/fence.png");
@@ -48,20 +48,19 @@ public class Cage extends Entities {
 	@Override
 	public void collidedWithFeederFence(Cage f) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void collidedWithBullets(Bullet b) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void onRemove() {
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 
 }
