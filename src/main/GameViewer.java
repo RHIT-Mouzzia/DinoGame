@@ -10,7 +10,7 @@ public class GameViewer {
 		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
-		window.setTitle("Among Raptors");
+		window.setTitle("Among Dinos");
 
 		GamePanel panel = new GamePanel();
 
