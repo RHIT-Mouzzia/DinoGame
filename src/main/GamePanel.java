@@ -134,8 +134,7 @@ public class GamePanel extends JPanel implements Runnable {
 			gameObj.add(new Raptor(this, tileSize, tileSize, 3));
 
 		} else if (currentMap == 1) {
-			// Level 2 in progress;
-			// gameObj.add(new Pterodactyl(this, 2, 2));
+
 		}
 		allObj.addAll(gameObj);
 		allObj.addAll(fences);
