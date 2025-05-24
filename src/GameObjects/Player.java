@@ -72,7 +72,7 @@ public class Player extends Entities {
 			setX(getX() + getSpeed());
 		}
 
-		if (keyH.shoot) {
+		if (keyH.shoot && gp.getCurrentMapPath().equals("/mapLevel/Level2.txt")) {
 			fireBullet();
 
 		}
