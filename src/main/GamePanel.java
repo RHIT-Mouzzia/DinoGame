@@ -11,7 +11,6 @@ import GameObjects.Cage;
 import GameObjects.Entities;
 import GameObjects.Meat;
 import GameObjects.Player;
-import GameObjects.Pterodactyl;
 import GameObjects.Raptor;
 import tile.TileManager;
 
