@@ -317,16 +317,15 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 
-			
 			if (totalLevel >= 10) {
 				gameWon = true;
-				multiplier  = remaining;
+				multiplier = remaining;
 				finalScore = 10 * multiplier;
 			} else if (remaining == 0) {
 				gameOver = true;
 				finalScore = totalLevel;
 			}
-			
+
 			if (!gameWon && !gameOver) {
 			for (Entities e : drawList) {
 				if (e instanceof Raptor) {
