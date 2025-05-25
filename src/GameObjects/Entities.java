@@ -28,15 +28,6 @@ public abstract class Entities {
 		this.direction = direction;
 	}
 
-	// tile-based movement logic
-	public Entities(GamePanel gp, int col, int row, int width, int height) {
-		this.gp = gp;
-		this.width = width;
-		this.height = height;
-		this.x = col * width;
-		this.y = row * height;
-	}
-
 	// static object
 	public Entities(GamePanel gp, int x, int y, int width, int height, String direction) {
 		this.gp = gp;
@@ -45,12 +36,6 @@ public abstract class Entities {
 		this.width = width;
 		this.height = height;
 		this.direction = direction;
-	}
-
-	// tile
-	public Entities(int width, int height) {
-		this.width = width;
-		this.height = height;
 	}
 
 	public int getX() {
@@ -192,13 +177,7 @@ public abstract class Entities {
 
 	public abstract void draw(Graphics2D g2);
 
-	public abstract void onRemove();
-
 	public abstract void setImage();
 
 	public abstract void collidedWithBox(Entities e);
-
-	public abstract void collidedWithFeederFence(Cage f);
-
-	public abstract void collidedWithBullets(Bullet b);
 }

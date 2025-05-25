@@ -126,7 +126,7 @@ public class Player extends Entities {
 		}
 	}
 
-	@Override
+	
 	public void collidedWithFeederFence(Cage f) {
 		setX(prevX);
 		setY(prevY);
@@ -139,18 +139,6 @@ public class Player extends Entities {
 			}
 		}
 		this.food = false;
-
-	}
-
-	@Override
-	public void collidedWithBullets(Bullet b) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onRemove() {
-		// TODO Auto-generated method stub
 
 	}
 

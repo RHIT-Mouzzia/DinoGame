@@ -43,12 +43,6 @@ public class Flyer extends Entities {
 	}
 
 	@Override
-	public void onRemove() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void setImage() {
 		// TODO Auto-generated method stub
 		setLeft("/Images/pte.png");
@@ -62,17 +56,6 @@ public class Flyer extends Entities {
 			this.markToRemove();
 			e.markToRemove();
 		}
-	}
-
-	@Override
-	public void collidedWithFeederFence(Cage f) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void collidedWithBullets(Bullet b) {
-		// TODO Auto-generated method stub
 	}
 
 }

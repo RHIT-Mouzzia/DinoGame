@@ -24,12 +24,6 @@ public class Effect extends Entities {
 	}
 
 	@Override
-	public void onRemove() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public void setImage() {
 		// TODO Auto-generated method stub
 		setUp("/Images/boba.png");
@@ -48,18 +42,6 @@ public class Effect extends Entities {
 			}
 		}
 		this.markToRemove();
-
-	}
-
-	@Override
-	public void collidedWithFeederFence(Cage f) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void collidedWithBullets(Bullet b) {
-		// TODO Auto-generated method stub
 
 	}
 

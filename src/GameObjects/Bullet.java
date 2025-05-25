@@ -77,22 +77,4 @@ public class Bullet extends Entities {
 
 	}
 
-	@Override
-	public void collidedWithFeederFence(Cage f) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void collidedWithBullets(Bullet b) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void onRemove() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

@@ -101,29 +101,9 @@ public class Raptor extends Entities {
 	@Override
 	public void collidedWithBox(Entities e) {
 
-		if (e instanceof Bullet) {
-			this.markToRemove();
-			e.markToRemove();
-		} else {
+ 
 			this.setSpeed(-getSpeed());
-		}
-	}
-
-	@Override
-	public void collidedWithFeederFence(Cage f) {
-		// TODO Auto-generated method stub
-		this.setSpeed(-getSpeed());
-	}
-
-	@Override
-	public void collidedWithBullets(Bullet b) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void onRemove() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }
