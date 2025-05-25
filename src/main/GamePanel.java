@@ -44,8 +44,6 @@ public class GamePanel extends JPanel implements Runnable {
 	Player pl;
 
 	ArrayList<Entities> allObj = new ArrayList<Entities>();
-	ArrayList<Entities> gameObj = new ArrayList<Entities>();
-	ArrayList<Cage> fences = new ArrayList<Cage>();
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
 	public int getOriginalTileSize() {
@@ -102,7 +100,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-		this.setBackground(Color.black);
+		this.setBackground(Color.BLACK);
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
@@ -115,14 +113,10 @@ public class GamePanel extends JPanel implements Runnable {
 		gameOver = false;
 		tileM.loadMap(getCurrentMapPath());
 
-		gameObj.clear();
-		fences.clear();
-		bullets.clear();
 		allObj.clear();
 
 		if (currentMap == 0) {
 			startTime = System.nanoTime();
-			gameOver = false;
 		}
 		
 		pl = new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH);
@@ -131,12 +125,11 @@ public class GamePanel extends JPanel implements Runnable {
 
 		if (currentMap == 1) {
 			startTime = System.nanoTime();
-			gameOver = false;
 
 			int id = 1;
 
 			for (int i = 1; i <= this.getMaxScreenRow(); i += 5) {
-				fences.add(new Cage(this, i * this.getTileSize(), 3 * this.getTileSize(), 4 * this.getTileSize(),
+				allObj.add(new Cage(this, i * this.getTileSize(), 3 * this.getTileSize(), 4 * this.getTileSize(),
 						this.getTileSize(), id));
 				id += 1;
 			}
@@ -162,8 +155,7 @@ public class GamePanel extends JPanel implements Runnable {
 			allObj.add(new Flyer(this, 8 * tileSize, 2 * tileSize, tileSize, 3));
 			allObj.add(new Flyer(this, 10 * tileSize, 2 * tileSize, tileSize, 3));
 		}
-		allObj.addAll(gameObj);
-		allObj.addAll(fences);
+
 		allObj.addAll(bullets);
 	}
 
@@ -211,9 +203,9 @@ public class GamePanel extends JPanel implements Runnable {
 		if (keyH.map0) {
 			currentMap = 0;
 			allObj.clear();
-			bullets.clear();
-			gameObj.clear();
-			fences.clear();
+//			bullets.clear();
+//			gameObj.clear();
+//			fences.clear();
 			keyH.map0 = false;
 			return;
 		}
@@ -252,9 +244,8 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 
 		for (Entities object : shouldRemove) {
-			this.bullets.remove(object);
+//			this.bullets.remove(object);
 			this.allObj.remove(object);
-//			this.flyers.remove(object);
 			object.onRemove();
 		}
 		shouldRemove.clear();
