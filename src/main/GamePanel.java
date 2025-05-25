@@ -25,11 +25,10 @@ public class GamePanel extends JPanel implements Runnable {
 	private int screenWidth = tileSize * maxScreenCol;
 	private int screenHeight = tileSize * maxScreenRow;
 	private int fps = 60;
-	private final int timeLimit = 100;
-	private long startTime;        
+	private final int timeLimit = 5;
+	private long startTime;
 	private boolean gameOver = false;
-	
-	
+
 	private String[] mapPaths = { "/mapLevel/Level0.txt", "/mapLevel/Level1.txt", "/mapLevel/Level2.txt" };
 
 	private int currentMap = 0;
@@ -117,12 +116,16 @@ public class GamePanel extends JPanel implements Runnable {
 		allObj.clear();
 
 		if (currentMap == 0) {
-
+			startTime = System.nanoTime();
+			gameOver = false;
 		}
 
 		allObj.add(new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH));
 
 		if (currentMap == 1) {
+			startTime = System.nanoTime();
+			gameOver = false;
+		
 			int id = 1;
 
 			for (int i = 1; i <= this.getMaxScreenRow(); i += 5) {
@@ -140,10 +143,10 @@ public class GamePanel extends JPanel implements Runnable {
 			gameObj.add(new Raptor(this, tileSize, tileSize, 1));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 2));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 3));
-			gameObj.add(new Effect(this, 1*tileSize, 10*tileSize, tileSize, false));
-			gameObj.add(new Effect(this, 2*tileSize, 10*tileSize, tileSize, true));
-			gameObj.add(new Effect(this, 3*tileSize, 10*tileSize, tileSize, false));
-			gameObj.add(new Effect(this, 4*tileSize, 10*tileSize, tileSize, true));
+			gameObj.add(new Effect(this, 1 * tileSize, 10 * tileSize, tileSize, false));
+			gameObj.add(new Effect(this, 2 * tileSize, 10 * tileSize, tileSize, true));
+			gameObj.add(new Effect(this, 3 * tileSize, 10 * tileSize, tileSize, false));
+			gameObj.add(new Effect(this, 4 * tileSize, 10 * tileSize, tileSize, true));
 
 		} else if (currentMap == 2) {
 
@@ -155,9 +158,9 @@ public class GamePanel extends JPanel implements Runnable {
 
 	public void startGamethread() {
 
+		startTime = System.nanoTime();
 		gameThread = new Thread(this);
 		gameThread.start();
-
 	}
 
 	public void run() {
@@ -252,7 +255,6 @@ public class GamePanel extends JPanel implements Runnable {
 		Graphics2D g2 = (Graphics2D) g;
 
 		if (currentMap == 0) {
-
 			tileM.draw(g2);
 
 			ArrayList<Entities> drawList = new ArrayList<>(allObj);
@@ -260,8 +262,8 @@ public class GamePanel extends JPanel implements Runnable {
 			for (Entities e : drawList) {
 				e.draw(g2);
 			}
-			
-			g2.setFont(new Font("SansSerif", Font.BOLD, 36));
+
+			g2.setFont(new Font("Arial", Font.BOLD, 40));
 			g2.setColor(Color.WHITE);
 			g2.drawString("Welcome to Among Chickens!", 100, 100);
 			g2.setFont(new Font("SansSerif", Font.PLAIN, 24));
@@ -270,37 +272,59 @@ public class GamePanel extends JPanel implements Runnable {
 			g2.drawString("Press 2 for Level 2", 100, 240);
 			return;
 		}
-		
+
 		tileM.draw(g2);
 
 		ArrayList<Entities> drawList = new ArrayList<>(allObj);
-		
+
 		for (Entities e : drawList) {
 			e.draw(g2);
 		}
-		
+
 		if (currentMap == 1) {
+			long pastTime = System.nanoTime() - startTime;
+			int pastSec = (int) (pastTime / 1_000_000_000L);
+			int remaining = timeLimit - pastSec;
+			if (remaining <= 0) {
+				gameOver = true;
+			}
+
 			g2.setColor(Color.WHITE);
-			g2.setFont(new Font("SansSerif", Font.PLAIN, 24));
-			// add a variable later
+			g2.setFont(new Font("Arial", Font.BOLD, 24));
+			g2.drawString("Time: " + remaining, 50, 240 + 5 * tileSize);
+
+			if (gameOver) {
+				g2.setColor(Color.RED);
+				g2.setFont(new Font("Arial", Font.BOLD, 45));
+				String GameOver = "Game Over";
+				FontMetrics fm = g2.getFontMetrics();
+				int x = (screenWidth - fm.stringWidth(GameOver)) / 2;
+				int y = (screenHeight - fm.getHeight()) / 2 + fm.getAscent();
+				g2.drawString(GameOver, x, y);
+				return;
+			}
+
+			g2.setColor(Color.WHITE);
+			g2.setFont(new Font("Arial", Font.PLAIN, 24));
+
 			for (Entities e : drawList) {
-				if(e instanceof Raptor) {
-					Raptor r = (Raptor)e;
+				if (e instanceof Raptor) {
+					Raptor r = (Raptor) e;
 					int lv = r.getHunger();
-					if(lv >= 5) {
+					if (lv >= 5) {
 						lv = 5;
 					}
-					
-					g2.drawString("Raptor "+ r.getCage()+ " lv: " + lv + "/5", 50, 240 + r.getCage()* tileSize);
+
+					g2.drawString("Raptor " + r.getCage() + " lv: " + lv + "/5", 50, 240 + r.getCage() * tileSize);
 				}
-				if(e instanceof Player) {
-					Player p = (Player)e;
+				if (e instanceof Player) {
+					Player p = (Player) e;
 					g2.drawString("Player is" + p.getMeat() + " carrying meat", 50, 240 + 4 * tileSize);
 				}
 			}
-			
+
 		}
-		
+
 		g2.dispose();
 	}
 
