@@ -302,6 +302,9 @@ public class GamePanel extends JPanel implements Runnable {
 				int x = (screenWidth - fm.stringWidth(GameOver)) / 2;
 				int y = (screenHeight - fm.getHeight()) / 2 + fm.getAscent();
 				g2.drawString(GameOver, x, y);
+				g2.setColor(Color.WHITE);
+				g2.setFont(new Font("Arial", Font.PLAIN, 24));
+				g2.drawString("Use the Keybad to select level or press 0 for Start Menu", x - 170, y + 40);
 				return;
 			}
 
