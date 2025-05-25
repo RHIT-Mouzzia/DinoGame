@@ -18,15 +18,15 @@ import tile.TileManager;
 
 public class GamePanel extends JPanel implements Runnable {
 
-	private int originalTileSize = 16;
-	private int scale = 3;
-	private int tileSize = originalTileSize * scale;
-	private int maxScreenCol = 16;
-	private int maxScreenRow = 12;
-	private int screenWidth = tileSize * maxScreenCol;
-	private int screenHeight = tileSize * maxScreenRow;
-	private int fps = 60;
-	private final int timeLimit = 5;
+	private final static int originalTileSize = 16;
+	private final static int SCALE = 3;
+	private final int tileSize = originalTileSize * SCALE;
+	private final static int maxScreenCol = 16;
+	private final static int maxScreenRow = 12;
+	private final int screenWidth = tileSize * maxScreenCol;
+	private final int screenHeight = tileSize * maxScreenRow;
+	private final static int fps = 60;
+	private final static int timeLimit = 5;
 	private long startTime;
 	private boolean gameOver = false;
 
@@ -41,22 +41,19 @@ public class GamePanel extends JPanel implements Runnable {
 	KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
 	TileManager tileM = new TileManager(this);
+	Player pl;
 
 	ArrayList<Entities> allObj = new ArrayList<Entities>();
 	ArrayList<Entities> gameObj = new ArrayList<Entities>();
 	ArrayList<Cage> fences = new ArrayList<Cage>();
 	ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 
-	public int gettileSize() {
-		return this.tileSize;
-	}
-
 	public int getOriginalTileSize() {
 		return originalTileSize;
 	}
 
 	public int getScale() {
-		return scale;
+		return SCALE;
 	}
 
 	public int getMaxScreenCol() {
@@ -110,13 +107,12 @@ public class GamePanel extends JPanel implements Runnable {
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 		changeMap(0);
-
 	}
 
 	public void changeMap(int newMap) {
 
 		currentMap = newMap;
-
+		gameOver = false;
 		tileM.loadMap(getCurrentMapPath());
 
 		gameObj.clear();
@@ -128,8 +124,10 @@ public class GamePanel extends JPanel implements Runnable {
 			startTime = System.nanoTime();
 			gameOver = false;
 		}
+		
+		pl = new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH);
 
-		allObj.add(new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH));
+		allObj.add(pl);
 
 		if (currentMap == 1) {
 			startTime = System.nanoTime();
@@ -138,17 +136,17 @@ public class GamePanel extends JPanel implements Runnable {
 			int id = 1;
 
 			for (int i = 1; i <= this.getMaxScreenRow(); i += 5) {
-				fences.add(new Cage(this, i * this.gettileSize(), 3 * this.gettileSize(), 4 * this.gettileSize(),
-						this.gettileSize(), id));
+				fences.add(new Cage(this, i * this.getTileSize(), 3 * this.getTileSize(), 4 * this.getTileSize(),
+						this.getTileSize(), id));
 				id += 1;
 			}
 
 			for (int i = 0; i <= this.getMaxScreenCol(); i += 5) {
-				gameObj.add(new Cage(this, i * this.gettileSize(), 0, this.gettileSize(), 4 * this.gettileSize()));
+				gameObj.add(new Cage(this, i * this.getTileSize(), 0, this.getTileSize(), 4 * this.getTileSize()));
 			}
 
-			gameObj.add(new Meat(this, 7 * this.gettileSize(), 10 * this.gettileSize(), 2 * this.gettileSize(),
-					2 * this.gettileSize()));
+			gameObj.add(new Meat(this, 7 * this.getTileSize(), 10 * this.getTileSize(), 2 * this.getTileSize(),
+					2 * this.getTileSize()));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 1));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 2));
 			gameObj.add(new Raptor(this, tileSize, tileSize, 3));

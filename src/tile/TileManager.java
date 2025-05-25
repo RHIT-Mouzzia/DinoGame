@@ -56,26 +56,11 @@ public class TileManager {
 
 	public void getTileImage() {
 		try {
-			tiles[0] = new Tile(gp.gettileSize(), gp.gettileSize());
-			tiles[0].image = ImageIO.read(getClass().getResourceAsStream("/images/fence.png"));// fence
+			tiles[0] = new Tile(gp.getTileSize(), gp.getTileSize());
+			tiles[0].image = ImageIO.read(getClass().getResourceAsStream("/images/fence.png"));
 
-			tiles[1] = new Tile(gp.gettileSize(), gp.gettileSize());
+			tiles[1] = new Tile(gp.getTileSize(), gp.getTileSize());
 			tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/images/grass.png"));
-
-//			tiles[1] = new Tile();
-//			tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/images/feeddoor.png")); // feed door
-//			
-//			tiles[2] = new Tile();
-//			tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/images/fence.png")); // fence
-//			
-//			tiles[3] = new Tile();
-//			tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/images/food.png")); // meat crate
-//			
-//			tiles[4] = new Tile();
-//			tiles[4].image = ImageIO.read(getClass().getResourceAsStream("/images/drug.png")); // medicine crate
-//			
-//			tiles[5] = new Tile();
-//			tiles[5].image = ImageIO.read(getClass().getResourceAsStream("/images/toys.png")); // toys crate
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -95,13 +80,13 @@ public class TileManager {
 
 			g2.drawImage(tiles[tileNum].image, x, y, tiles[tileNum].getWidth(), tiles[tileNum].getHeight(), null);
 			col++;
-			x += gp.gettileSize();
+			x += gp.getTileSize();
 
 			if (col == gp.getMaxScreenCol()) {
 				col = 0;
 				x = 0;
 				row++;
-				y += gp.gettileSize();
+				y += gp.getTileSize();
 			}
 		}
 

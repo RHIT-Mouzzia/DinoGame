@@ -54,7 +54,7 @@ public class Raptor extends Entities {
 
 		if (matured()) {
 			this.setWidth(2 * gp.getTileSize());
-			this.setHeight(2 * gp.gettileSize());
+			this.setHeight(2 * gp.getTileSize());
 			this.setSpeed(0);
 		}
 
@@ -87,14 +87,14 @@ public class Raptor extends Entities {
 	public void setDefaultValues() {
 		this.hunger = 0;
 		if (this.cage == 3) {
-			this.setX(13 * this.gp.gettileSize());
-			this.setY(2 * this.gp.gettileSize());
+			this.setX(13 * this.gp.getTileSize());
+			this.setY(2 * this.gp.getTileSize());
 		} else if (this.cage == 2) {
-			this.setX(8 * this.gp.gettileSize());
-			this.setY(2 * this.gp.gettileSize());
+			this.setX(8 * this.gp.getTileSize());
+			this.setY(2 * this.gp.getTileSize());
 		} else {
-			this.setX(3 * this.gp.gettileSize());
-			this.setY(2 * this.gp.gettileSize());
+			this.setX(3 * this.gp.getTileSize());
+			this.setY(2 * this.gp.getTileSize());
 		}
 	}
 
