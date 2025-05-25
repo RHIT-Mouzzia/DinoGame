@@ -121,8 +121,6 @@ public class GamePanel extends JPanel implements Runnable {
 		
 		pl = new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH);
 
-		allObj.add(pl);
-
 		if (currentMap == 1) {
 			startTime = System.nanoTime();
 
@@ -140,22 +138,25 @@ public class GamePanel extends JPanel implements Runnable {
 
 			allObj.add(new Meat(this, 7 * this.getTileSize(), 10 * this.getTileSize(), 2 * this.getTileSize(),
 					2 * this.getTileSize()));
-			allObj.add(new Raptor(this, tileSize, tileSize, 1));
-			allObj.add(new Raptor(this, tileSize, tileSize, 2));
-			allObj.add(new Raptor(this, tileSize, tileSize, 3));
-			allObj.add(new Effect(this, 1 * tileSize, 10 * tileSize, tileSize, false));
-			allObj.add(new Effect(this, 2 * tileSize, 10 * tileSize, tileSize, true));
-			allObj.add(new Effect(this, 3 * tileSize, 10 * tileSize, tileSize, false));
-			allObj.add(new Effect(this, 4 * tileSize, 10 * tileSize, tileSize, true));
+			
+			for(int i = 1; i <= 3; i ++) {
+				allObj.add(new Raptor(this, tileSize, tileSize, i));
+			}
+			
+			boolean powerUp = true;
+			for(int i = 1; i <= 4; i ++) {
+				allObj.add(new Effect(this, i * tileSize, 10 * tileSize, tileSize, powerUp));
+				powerUp = !powerUp;
+			}
+			
 
 		} else if (currentMap == 2) {
-			allObj.add(new Flyer(this, 2 * tileSize, 2 * tileSize, tileSize, 3));
-			allObj.add(new Flyer(this, 4 * tileSize, 2 * tileSize, tileSize, 3));
-			allObj.add(new Flyer(this, 6 * tileSize, 2 * tileSize, tileSize, 3));
-			allObj.add(new Flyer(this, 8 * tileSize, 2 * tileSize, tileSize, 3));
-			allObj.add(new Flyer(this, 10 * tileSize, 2 * tileSize, tileSize, 3));
+			for (int i = 2; i <= 10; i +=2) {
+				allObj.add(new Flyer(this, i * tileSize, 2 * tileSize, tileSize, 3));
+			}
 		}
-
+		
+		allObj.add(pl);
 		allObj.addAll(bullets);
 	}
 
@@ -203,9 +204,6 @@ public class GamePanel extends JPanel implements Runnable {
 		if (keyH.map0) {
 			currentMap = 0;
 			allObj.clear();
-//			bullets.clear();
-//			gameObj.clear();
-//			fences.clear();
 			keyH.map0 = false;
 			return;
 		}
@@ -244,7 +242,6 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 
 		for (Entities object : shouldRemove) {
-//			this.bullets.remove(object);
 			this.allObj.remove(object);
 			object.onRemove();
 		}
@@ -279,7 +276,6 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 
 		if (currentMap == 0) {
-			tileM.draw(g2);
 
 			g2.setFont(new Font("Arial", Font.BOLD, 40));
 			g2.setColor(Color.WHITE);
