@@ -10,6 +10,7 @@ import GameObjects.Bullet;
 import GameObjects.Cage;
 import GameObjects.Effect;
 import GameObjects.Entities;
+import GameObjects.Flyer;
 import GameObjects.Meat;
 import GameObjects.Player;
 import GameObjects.Raptor;
@@ -93,6 +94,14 @@ public class GamePanel extends JPanel implements Runnable {
 	public void addBullet(Bullet b) {
 		this.bullets.add(b);
 	}
+	
+	public boolean getGameOver() {
+		return this.gameOver;
+	}
+	
+	public void setGameOver(boolean over) {
+		this.gameOver = over;
+	}
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -149,7 +158,11 @@ public class GamePanel extends JPanel implements Runnable {
 			gameObj.add(new Effect(this, 4 * tileSize, 10 * tileSize, tileSize, true));
 
 		} else if (currentMap == 2) {
-
+			gameObj.add(new Flyer(this, 2*tileSize, 2 * tileSize, tileSize, 3));
+			gameObj.add(new Flyer(this, 4*tileSize, 2 * tileSize, tileSize, 3));
+			gameObj.add(new Flyer(this, 6*tileSize, 2 * tileSize, tileSize, 3));
+			gameObj.add(new Flyer(this, 8*tileSize, 2 * tileSize, tileSize, 3));
+			gameObj.add(new Flyer(this, 10*tileSize, 2 * tileSize, tileSize, 3));
 		}
 		allObj.addAll(gameObj);
 		allObj.addAll(fences);
