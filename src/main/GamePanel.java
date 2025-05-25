@@ -287,6 +287,7 @@ public class GamePanel extends JPanel implements Runnable {
 			int remaining = timeLimit - pastSec;
 			if (remaining <= 0) {
 				gameOver = true;
+				remaining = 0;
 			}
 
 			g2.setColor(Color.WHITE);
