@@ -25,7 +25,11 @@ public class GamePanel extends JPanel implements Runnable {
 	private int screenWidth = tileSize * maxScreenCol;
 	private int screenHeight = tileSize * maxScreenRow;
 	private int fps = 60;
-
+	private final int timeLimit = 100;
+	private long startTime;        
+	private boolean gameOver = false;
+	
+	
 	private String[] mapPaths = { "/mapLevel/Level0.txt", "/mapLevel/Level1.txt", "/mapLevel/Level2.txt" };
 
 	private int currentMap = 0;
@@ -282,7 +286,12 @@ public class GamePanel extends JPanel implements Runnable {
 			for (Entities e : drawList) {
 				if(e instanceof Raptor) {
 					Raptor r = (Raptor)e;
-					g2.drawString("Raptor "+ r.getCage()+ " lv: "  + r.getHunger(), 50, 240 + r.getCage()* tileSize);
+					int lv = r.getHunger();
+					if(lv >= 5) {
+						lv = 5;
+					}
+					
+					g2.drawString("Raptor "+ r.getCage()+ " lv: " + lv + "/5", 50, 240 + r.getCage()* tileSize);
 				}
 				if(e instanceof Player) {
 					Player p = (Player)e;
