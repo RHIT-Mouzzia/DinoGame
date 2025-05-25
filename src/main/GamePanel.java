@@ -94,11 +94,11 @@ public class GamePanel extends JPanel implements Runnable {
 	public void addBullet(Bullet b) {
 		this.bullets.add(b);
 	}
-	
+
 	public boolean getGameOver() {
 		return this.gameOver;
 	}
-	
+
 	public void setGameOver(boolean over) {
 		this.gameOver = over;
 	}
@@ -134,7 +134,7 @@ public class GamePanel extends JPanel implements Runnable {
 		if (currentMap == 1) {
 			startTime = System.nanoTime();
 			gameOver = false;
-		
+
 			int id = 1;
 
 			for (int i = 1; i <= this.getMaxScreenRow(); i += 5) {
@@ -158,11 +158,11 @@ public class GamePanel extends JPanel implements Runnable {
 			gameObj.add(new Effect(this, 4 * tileSize, 10 * tileSize, tileSize, true));
 
 		} else if (currentMap == 2) {
-			gameObj.add(new Flyer(this, 2*tileSize, 2 * tileSize, tileSize, 3));
-			gameObj.add(new Flyer(this, 4*tileSize, 2 * tileSize, tileSize, 3));
-			gameObj.add(new Flyer(this, 6*tileSize, 2 * tileSize, tileSize, 3));
-			gameObj.add(new Flyer(this, 8*tileSize, 2 * tileSize, tileSize, 3));
-			gameObj.add(new Flyer(this, 10*tileSize, 2 * tileSize, tileSize, 3));
+			gameObj.add(new Flyer(this, 2 * tileSize, 2 * tileSize, tileSize, 3));
+			gameObj.add(new Flyer(this, 4 * tileSize, 2 * tileSize, tileSize, 3));
+			gameObj.add(new Flyer(this, 6 * tileSize, 2 * tileSize, tileSize, 3));
+			gameObj.add(new Flyer(this, 8 * tileSize, 2 * tileSize, tileSize, 3));
+			gameObj.add(new Flyer(this, 10 * tileSize, 2 * tileSize, tileSize, 3));
 		}
 		allObj.addAll(gameObj);
 		allObj.addAll(fences);
@@ -262,19 +262,35 @@ public class GamePanel extends JPanel implements Runnable {
 		shouldRemove.clear();
 	}
 
+	public void playGameOver(Graphics2D g2) {
+		g2.setColor(Color.RED);
+		g2.setFont(new Font("Arial", Font.BOLD, 45));
+		String GameOver = "Game Over";
+		FontMetrics fm = g2.getFontMetrics();
+		int x = (screenWidth - fm.stringWidth(GameOver)) / 2;
+		int y = (screenHeight - fm.getHeight()) / 2 + fm.getAscent();
+		g2.drawString(GameOver, x, y);
+		g2.setColor(Color.WHITE);
+		g2.setFont(new Font("Arial", Font.PLAIN, 24));
+		g2.drawString("Use the Keybad to select level or press 0 for Start Menu", x - 170, y + 40);
+		return;
+	}
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 
+		tileM.draw(g2);
+
+		ArrayList<Entities> drawList = new ArrayList<>(allObj);
+
+		for (Entities e : drawList) {
+			e.draw(g2);
+		}
+
 		if (currentMap == 0) {
 			tileM.draw(g2);
-
-			ArrayList<Entities> drawList = new ArrayList<>(allObj);
-
-			for (Entities e : drawList) {
-				e.draw(g2);
-			}
 
 			g2.setFont(new Font("Arial", Font.BOLD, 40));
 			g2.setColor(Color.WHITE);
@@ -283,15 +299,8 @@ public class GamePanel extends JPanel implements Runnable {
 			g2.drawString("Press 0 for Start Menu", 100, 160);
 			g2.drawString("Press 1 for Level 1", 100, 200);
 			g2.drawString("Press 2 for Level 2", 100, 240);
+			g2.dispose();
 			return;
-		}
-
-		tileM.draw(g2);
-
-		ArrayList<Entities> drawList = new ArrayList<>(allObj);
-
-		for (Entities e : drawList) {
-			e.draw(g2);
 		}
 
 		if (currentMap == 1) {
@@ -308,17 +317,8 @@ public class GamePanel extends JPanel implements Runnable {
 			g2.drawString("Time: " + remaining, 50, 240 + 5 * tileSize);
 
 			if (gameOver) {
-				g2.setColor(Color.RED);
-				g2.setFont(new Font("Arial", Font.BOLD, 45));
-				String GameOver = "Game Over";
-				FontMetrics fm = g2.getFontMetrics();
-				int x = (screenWidth - fm.stringWidth(GameOver)) / 2;
-				int y = (screenHeight - fm.getHeight()) / 2 + fm.getAscent();
-				g2.drawString(GameOver, x, y);
-				g2.setColor(Color.WHITE);
-				g2.setFont(new Font("Arial", Font.PLAIN, 24));
-				g2.drawString("Use the Keybad to select level or press 0 for Start Menu", x - 170, y + 40);
-				return;
+				playGameOver(g2);
+				g2.dispose();
 			}
 
 			g2.setColor(Color.WHITE);
@@ -340,6 +340,21 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 
+		}
+
+		if (currentMap == 2) {
+			for (Entities e : allObj) {
+				if (e instanceof Flyer) {
+					Flyer f = (Flyer) e;
+					if (f.getY() >= 10 * tileSize)
+						gameOver = true;
+				}
+			}
+
+			if (gameOver) {
+				playGameOver(g2);
+				g2.dispose();
+			}
 		}
 
 		g2.dispose();
