@@ -317,13 +317,18 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 
-			if (totalLevel >= 10) {
+			if (totalLevel >= 15) {
 				gameWon = true;
-				multiplier = remaining;
+				multiplier = 0;
+				
+				for (int i = 5; i <= 15; i += 5) {
+					if (totalLevel > i) {
+						multiplier = i;
+				}
+			}
 				finalScore = 10 * multiplier;
 			} else if (remaining == 0) {
 				gameOver = true;
-				finalScore = totalLevel;
 			}
 
 			if (!gameWon && !gameOver) {
