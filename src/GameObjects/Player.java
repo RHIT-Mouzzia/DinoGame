@@ -78,6 +78,8 @@ public class Player extends Entities {
 			fireBullet();
 
 		}
+		
+		if(gp.getGameOver()) this.setSpeed(0);
 
 	}
 

@@ -81,7 +81,7 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	public ArrayList<Entities> getEntities() {
-		return this.gameObj;
+		return this.allObj;
 	}
 
 	public ArrayList<Bullet> getBullets() {
@@ -142,25 +142,25 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 
 			for (int i = 0; i <= this.getMaxScreenCol(); i += 5) {
-				gameObj.add(new Cage(this, i * this.getTileSize(), 0, this.getTileSize(), 4 * this.getTileSize()));
+				allObj.add(new Cage(this, i * this.getTileSize(), 0, this.getTileSize(), 4 * this.getTileSize()));
 			}
 
-			gameObj.add(new Meat(this, 7 * this.getTileSize(), 10 * this.getTileSize(), 2 * this.getTileSize(),
+			allObj.add(new Meat(this, 7 * this.getTileSize(), 10 * this.getTileSize(), 2 * this.getTileSize(),
 					2 * this.getTileSize()));
-			gameObj.add(new Raptor(this, tileSize, tileSize, 1));
-			gameObj.add(new Raptor(this, tileSize, tileSize, 2));
-			gameObj.add(new Raptor(this, tileSize, tileSize, 3));
-			gameObj.add(new Effect(this, 1 * tileSize, 10 * tileSize, tileSize, false));
-			gameObj.add(new Effect(this, 2 * tileSize, 10 * tileSize, tileSize, true));
-			gameObj.add(new Effect(this, 3 * tileSize, 10 * tileSize, tileSize, false));
-			gameObj.add(new Effect(this, 4 * tileSize, 10 * tileSize, tileSize, true));
+			allObj.add(new Raptor(this, tileSize, tileSize, 1));
+			allObj.add(new Raptor(this, tileSize, tileSize, 2));
+			allObj.add(new Raptor(this, tileSize, tileSize, 3));
+			allObj.add(new Effect(this, 1 * tileSize, 10 * tileSize, tileSize, false));
+			allObj.add(new Effect(this, 2 * tileSize, 10 * tileSize, tileSize, true));
+			allObj.add(new Effect(this, 3 * tileSize, 10 * tileSize, tileSize, false));
+			allObj.add(new Effect(this, 4 * tileSize, 10 * tileSize, tileSize, true));
 
 		} else if (currentMap == 2) {
-			gameObj.add(new Flyer(this, 2 * tileSize, 2 * tileSize, tileSize, 3));
-			gameObj.add(new Flyer(this, 4 * tileSize, 2 * tileSize, tileSize, 3));
-			gameObj.add(new Flyer(this, 6 * tileSize, 2 * tileSize, tileSize, 3));
-			gameObj.add(new Flyer(this, 8 * tileSize, 2 * tileSize, tileSize, 3));
-			gameObj.add(new Flyer(this, 10 * tileSize, 2 * tileSize, tileSize, 3));
+			allObj.add(new Flyer(this, 2 * tileSize, 2 * tileSize, tileSize, 3));
+			allObj.add(new Flyer(this, 4 * tileSize, 2 * tileSize, tileSize, 3));
+			allObj.add(new Flyer(this, 6 * tileSize, 2 * tileSize, tileSize, 3));
+			allObj.add(new Flyer(this, 8 * tileSize, 2 * tileSize, tileSize, 3));
+			allObj.add(new Flyer(this, 10 * tileSize, 2 * tileSize, tileSize, 3));
 		}
 		allObj.addAll(gameObj);
 		allObj.addAll(fences);
