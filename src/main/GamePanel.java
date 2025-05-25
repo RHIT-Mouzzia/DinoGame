@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private final int screenWidth = tileSize * maxScreenCol;
 	private final int screenHeight = tileSize * maxScreenRow;
 	private final static int fps = 60;
-	private final static int timeLimit = 5;
+	private final static int timeLimit = 40;
 	private long startTime;
 	private boolean gameOver = false;
 
@@ -291,23 +291,29 @@ public class GamePanel extends JPanel implements Runnable {
 			long pastTime = System.nanoTime() - startTime;
 			int pastSec = (int) (pastTime / 1_000_000_000L);
 			int remaining = timeLimit - pastSec;
+			int multiplier = 1;
+			int totalLevel = 0;
 			if (remaining <= 0) {
 				gameOver = true;
 				remaining = 0;
-			}
+			} else if (totalLevel == 15) {
+				gameOver = true;
+				multiplier = remaining;}
 
 			g2.setColor(Color.WHITE);
 			g2.setFont(new Font("Arial", Font.BOLD, 24));
 			g2.drawString("Time: " + remaining, 50, 240 + 5 * tileSize);
-
-			if (gameOver) {
-				playGameOver(g2);
-				g2.dispose();
-			}
-
+			
 			g2.setColor(Color.WHITE);
 			g2.setFont(new Font("Arial", Font.PLAIN, 24));
 
+			
+			if (gameOver) { 
+				playGameOver(g2);
+				g2.drawString("Your score is: " + totalLevel * multiplier, 10 * tileSize, 10 * tileSize);
+				g2.dispose();
+			}
+			
 			for (Entities e : drawList) {
 				if (e instanceof Raptor) {
 					Raptor r = (Raptor) e;
@@ -315,6 +321,7 @@ public class GamePanel extends JPanel implements Runnable {
 					if (lv >= 5) {
 						lv = 5;
 					}
+					totalLevel += lv;
 
 					g2.drawString("Raptor " + r.getCage() + " lv: " + lv + "/5", 50, 240 + r.getCage() * tileSize);
 				}
