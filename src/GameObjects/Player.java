@@ -115,7 +115,7 @@ public class Player extends Entities {
 		if (e instanceof Cage) {
 			Cage c = (Cage) e;
 			this.collidedWithFeederFence(c);
-		} else {
+		} else if ( e instanceof Meat){
 			// collide with food crate
 			this.food = true;
 		}

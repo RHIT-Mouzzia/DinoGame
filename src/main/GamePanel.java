@@ -29,6 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private final static int timeLimit = 40;
 	private long startTime;
 	private boolean gameOver = false;
+	private boolean gameWon = false;
 
 	private String[] mapPaths = { "/mapLevel/Level0.txt", "/mapLevel/Level1.txt", "/mapLevel/Level2.txt" };
 
@@ -247,14 +248,21 @@ public class GamePanel extends JPanel implements Runnable {
 		shouldRemove.clear();
 	}
 
-	public void playGameOver(Graphics2D g2) {
-		g2.setColor(Color.RED);
+	public void playGameEnding(Graphics2D g2, boolean win) {
+		String game = "";
 		g2.setFont(new Font("Arial", Font.BOLD, 45));
-		String GameOver = "Game Over";
-		FontMetrics fm = g2.getFontMetrics();
-		int x = (screenWidth - fm.stringWidth(GameOver)) / 2;
-		int y = (screenHeight - fm.getHeight()) / 2 + fm.getAscent();
-		g2.drawString(GameOver, x, y);
+		if (win) {
+			g2.setColor(Color.RED);
+			game = "Game Over";
+		}
+		else {
+			g2.setColor(Color.GREEN);
+			game = "YOU WIN!";
+		}
+		
+		int x = 5 * tileSize;
+		int y = 6 * tileSize;
+		g2.drawString(game, x, y);
 		g2.setColor(Color.WHITE);
 		g2.setFont(new Font("Arial", Font.PLAIN, 24));
 		g2.drawString("Use the Keybad to select level or press 0 for Start Menu", x - 170, y + 40);
@@ -265,7 +273,9 @@ public class GamePanel extends JPanel implements Runnable {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-
+		int multiplier = 1;
+		int totalLevel = 0;
+		int finalScore = 0;
 		tileM.draw(g2);
 
 		ArrayList<Entities> drawList = new ArrayList<>(allObj);
@@ -291,14 +301,7 @@ public class GamePanel extends JPanel implements Runnable {
 			long pastTime = System.nanoTime() - startTime;
 			int pastSec = (int) (pastTime / 1_000_000_000L);
 			int remaining = timeLimit - pastSec;
-			int multiplier = 1;
-			int totalLevel = 0;
-			if (remaining <= 0) {
-				gameOver = true;
-				remaining = 0;
-			} else if (totalLevel == 15) {
-				gameOver = true;
-				multiplier = remaining;}
+			if (remaining <= 0) remaining = 0;
 
 			g2.setColor(Color.WHITE);
 			g2.setFont(new Font("Arial", Font.BOLD, 24));
@@ -306,14 +309,25 @@ public class GamePanel extends JPanel implements Runnable {
 			
 			g2.setColor(Color.WHITE);
 			g2.setFont(new Font("Arial", Font.PLAIN, 24));
+			
+			for(Entities e : drawList) {
+				if ( e instanceof Raptor) {
+					Raptor r = (Raptor)e;
+					totalLevel += r.getHunger();
+				}
+			}
 
 			
-			if (gameOver) { 
-				playGameOver(g2);
-				g2.drawString("Your score is: " + totalLevel * multiplier, 10 * tileSize, 10 * tileSize);
-				g2.dispose();
+			if (totalLevel >= 10) {
+				gameWon = true;
+				multiplier  = remaining;
+				finalScore = 10 * multiplier;
+			} else if (remaining == 0) {
+				gameOver = true;
+				finalScore = totalLevel;
 			}
 			
+			if (!gameWon && !gameOver) {
 			for (Entities e : drawList) {
 				if (e instanceof Raptor) {
 					Raptor r = (Raptor) e;
@@ -321,8 +335,6 @@ public class GamePanel extends JPanel implements Runnable {
 					if (lv >= 5) {
 						lv = 5;
 					}
-					totalLevel += lv;
-
 					g2.drawString("Raptor " + r.getCage() + " lv: " + lv + "/5", 50, 240 + r.getCage() * tileSize);
 				}
 				if (e instanceof Player) {
@@ -330,7 +342,11 @@ public class GamePanel extends JPanel implements Runnable {
 					g2.drawString("Player is" + p.getMeat() + " carrying meat", 50, 240 + 4 * tileSize);
 				}
 			}
-
+		} else {
+			playGameEnding(g2, gameOver);
+			g2.drawString("Your final score: " + finalScore, 10 * tileSize, 10 * tileSize);
+			g2.dispose();
+		}
 		}
 
 		if (currentMap == 2) {
@@ -343,7 +359,7 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 
 			if (gameOver) {
-				playGameOver(g2);
+				playGameEnding(g2, gameOver);
 				g2.dispose();
 			}
 		}
