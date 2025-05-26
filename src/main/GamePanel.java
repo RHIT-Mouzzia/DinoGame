@@ -1,11 +1,14 @@
 package main;
 
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
-
 import GameObjects.Bullet;
 import GameObjects.Cage;
 import GameObjects.Effect;
@@ -167,6 +170,21 @@ public class GamePanel extends JPanel implements Runnable {
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 		changeMap(0);
+		playSound();
+	}
+
+	/*
+	 * Method to play the music
+	 */
+	private void playSound() {
+		try {
+			AudioInputStream a = AudioSystem.getAudioInputStream(new File("src/audio/music.wav"));
+			Clip clip = AudioSystem.getClip();
+			clip.open(a);
+			clip.start();
+		} catch (Exception e) {
+			System.err.println("playing sound: " + e.getMessage());
+		}
 	}
 
 	/*
@@ -187,6 +205,10 @@ public class GamePanel extends JPanel implements Runnable {
 
 		if (currentMap == 0) {
 			startTime = System.nanoTime(); // Start time
+			allObj.add(new Raptor(this, tileSize * 2, tileSize * 2, 0));
+			allObj.add(new Flyer(this, 1 * tileSize, 1 * tileSize, tileSize, 3));
+			allObj.add(new Flyer(this, 1 * tileSize, 1 * tileSize, tileSize, 3));
+
 		}
 
 		// Adding objects for level 1
@@ -368,7 +390,7 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.setColor(Color.WHITE);
 		g2.setFont(new Font("Arial", Font.PLAIN, 24));
 		g2.drawString("Press 1 for level one and 2 for level two", x - 80, y + 40);
-		g2.drawString("Press 0 for Start Menu", x , y + 70);
+		g2.drawString("Press 0 for Start Menu", x, y + 70);
 		return;
 	}
 
@@ -381,7 +403,7 @@ public class GamePanel extends JPanel implements Runnable {
 		int finalScore = 0;
 		int x = 5 * tileSize;
 		int y = 6 * tileSize;
-		
+
 		tileM.draw(g2);
 
 		ArrayList<Entities> drawList = new ArrayList<>(allObj);

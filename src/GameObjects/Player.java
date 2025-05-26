@@ -31,7 +31,7 @@ public class Player extends Entities {
 	}
 
 	public void fireBullet() {
-		int bSize = 16;
+		int bSize = gp.getTileSize();
 		int bSpeed = 8;
 
 		int bx = getX() + (getWidth() - bSize) / 2;
