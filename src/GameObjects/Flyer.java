@@ -100,10 +100,10 @@ public class Flyer extends Entities {
 	public void collidedWithBox(Entities e) {
 		// TODO Auto-generated method stub
 		if (e instanceof Bullet) {
+			System.out.println("Add 1 more kill");
 			this.markToRemove();
 			e.markToRemove();
 			this.gp.addKillCount(1);
-			System.out.println("Add 1 more kill");
 		}
 	}
 

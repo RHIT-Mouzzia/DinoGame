@@ -15,11 +15,13 @@ public class Player extends Entities {
 	private boolean food;
 	private BufferedImage u1, u2, u3, u4;
 	private BufferedImage d1, d2, d3, d4;
-	private BufferedImage r1,r2,r3,r4;
-	private BufferedImage l1,l2,l3,l4;
+	private BufferedImage r1, r2, r3, r4;
+	private BufferedImage l1, l2, l3, l4;
 	private int spriteNum = 1;
 	private int spriteCounter = 1;
 	private int stepDelay = 50;
+	private int coolDown = 0;
+	private int fireDelay = 20;
 
 	public Player(GamePanel gp, int x, int y, int width, int height, int speed, String direction, KeyHandler keyH) {
 		super(gp, x, y, width, height, speed, direction);
@@ -48,24 +50,24 @@ public class Player extends Entities {
 	@Override
 	public void setImage() {
 		try {
-			u1=ImageIO.read(getClass().getResourceAsStream("/Images/up1.png"));
-			u2=ImageIO.read(getClass().getResourceAsStream("/Images/up2.png"));
-			u3=ImageIO.read(getClass().getResourceAsStream("/Images/up3.png"));
-			u4=ImageIO.read(getClass().getResourceAsStream("/Images/up4.png"));
-			d1=ImageIO.read(getClass().getResourceAsStream("/Images/down1.png"));
-			d2=ImageIO.read(getClass().getResourceAsStream("/Images/down2.png"));
-			d3=ImageIO.read(getClass().getResourceAsStream("/Images/down3.png"));
-			d4=ImageIO.read(getClass().getResourceAsStream("/Images/down4.png"));
-			r1=ImageIO.read(getClass().getResourceAsStream("/Images/right1.png"));
-			r2=ImageIO.read(getClass().getResourceAsStream("/Images/right2.png"));
-			r3=ImageIO.read(getClass().getResourceAsStream("/Images/right3.png"));
-			r4=ImageIO.read(getClass().getResourceAsStream("/Images/right4.png"));
-			l1=ImageIO.read(getClass().getResourceAsStream("/Images/left1.png"));
-			l2=ImageIO.read(getClass().getResourceAsStream("/Images/left2.png"));
-			l3=ImageIO.read(getClass().getResourceAsStream("/Images/left3.png"));
-			l4=ImageIO.read(getClass().getResourceAsStream("/Images/left4.png"));
-		} catch(IOException e){
-			e.printStackTrace();			
+			u1 = ImageIO.read(getClass().getResourceAsStream("/Images/up1.png"));
+			u2 = ImageIO.read(getClass().getResourceAsStream("/Images/up2.png"));
+			u3 = ImageIO.read(getClass().getResourceAsStream("/Images/up3.png"));
+			u4 = ImageIO.read(getClass().getResourceAsStream("/Images/up4.png"));
+			d1 = ImageIO.read(getClass().getResourceAsStream("/Images/down1.png"));
+			d2 = ImageIO.read(getClass().getResourceAsStream("/Images/down2.png"));
+			d3 = ImageIO.read(getClass().getResourceAsStream("/Images/down3.png"));
+			d4 = ImageIO.read(getClass().getResourceAsStream("/Images/down4.png"));
+			r1 = ImageIO.read(getClass().getResourceAsStream("/Images/right1.png"));
+			r2 = ImageIO.read(getClass().getResourceAsStream("/Images/right2.png"));
+			r3 = ImageIO.read(getClass().getResourceAsStream("/Images/right3.png"));
+			r4 = ImageIO.read(getClass().getResourceAsStream("/Images/right4.png"));
+			l1 = ImageIO.read(getClass().getResourceAsStream("/Images/left1.png"));
+			l2 = ImageIO.read(getClass().getResourceAsStream("/Images/left2.png"));
+			l3 = ImageIO.read(getClass().getResourceAsStream("/Images/left3.png"));
+			l4 = ImageIO.read(getClass().getResourceAsStream("/Images/left4.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -98,18 +100,22 @@ public class Player extends Entities {
 			setX(getX() + getSpeed());
 		}
 
-		if (keyH.shoot && gp.getCurrentMapPath().equals("/mapLevel/Level2.txt") && !gp.getGameOver() && !gp.getGameWon()) {
-			fireBullet();
+		if (coolDown > 0) {
+			coolDown--;
+		}
 
+		if (keyH.shoot && gp.getCurrentMapPath().equals("/mapLevel/Level2.txt") && !gp.getGameOver() && coolDown == 0) {
+			fireBullet();
+			coolDown = fireDelay;
 		}
 
 		if (gp.getGameOver() || gp.getGameWon())
 			this.setSpeed(0);
 		spriteCounter++;
 		if (spriteCounter > stepDelay) {
-	        spriteNum = spriteNum % 4 + 1;
-	        spriteCounter = 0;
-	    }
+			spriteNum = spriteNum % 4 + 1;
+			spriteCounter = 0;
+		}
 
 	}
 
@@ -173,10 +179,10 @@ public class Player extends Entities {
 			case 2:
 				image = r2;
 				break;
-			case 3: 
+			case 3:
 				image = r3;
 				break;
-			case 4: 
+			case 4:
 				image = r4;
 				break;
 			}
@@ -187,15 +193,12 @@ public class Player extends Entities {
 
 	@Override
 	public void collidedWithBox(Entities e) {
-		// Block by objects
 		setX(prevX);
 		setY(prevY);
-		// collide with feeder
 		if (e instanceof Cage) {
 			Cage c = (Cage) e;
 			this.collidedWithFeederFence(c);
-		} else if ( e instanceof Meat){
-			// collide with food crate
+		} else if (e instanceof Meat) {
 			this.food = true;
 		}
 
@@ -205,7 +208,6 @@ public class Player extends Entities {
 		}
 	}
 
-	
 	public void collidedWithFeederFence(Cage f) {
 		setX(prevX);
 		setY(prevY);

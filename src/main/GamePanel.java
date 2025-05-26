@@ -317,6 +317,7 @@ public class GamePanel extends JPanel implements Runnable {
 			g2.drawString("S and Left_key: Move Up:", 100, 340);
 			g2.drawString("D and Rigth_key: Move Up:", 100, 370);
 			g2.drawString("A and Left_key: Move Up:", 100, 400);
+			g2.drawString("Space_Bar: Shoot up:", 100, 400);
 			g2.dispose();
 			return;
 		}
@@ -383,7 +384,7 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 			
-			if(killCount >= spawnCount) gameWon = true;
+			if(killCount == spawnCount) gameWon = true;
 			
 			if (gameOver) {
 				playGameEnding(g2, gameWon);
