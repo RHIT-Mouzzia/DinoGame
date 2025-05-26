@@ -26,7 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private final int screenWidth = tileSize * maxScreenCol;
 	private final int screenHeight = tileSize * maxScreenRow;
 	private final static int fps = 60;
-	private final static int timeLimit = 40;
+	private final static int timeLimit = 5;
 	private long startTime;
 	private boolean gameOver = false;
 	private boolean gameWon = false;
@@ -299,6 +299,11 @@ public class GamePanel extends JPanel implements Runnable {
 			g2.drawString("Press 0 for Start Menu", 100, 160);
 			g2.drawString("Press 1 for Level 1", 100, 200);
 			g2.drawString("Press 2 for Level 2", 100, 240);
+			g2.drawString("Controls:", 100, 280);
+			g2.drawString("W and UP_key: Move Up:", 100, 310);
+			g2.drawString("S and Left_key: Move Up:", 100, 340);
+			g2.drawString("D and Rigth_key: Move Up:", 100, 370);
+			g2.drawString("A and Left_key: Move Up:", 100, 400);
 			g2.dispose();
 			return;
 		}
