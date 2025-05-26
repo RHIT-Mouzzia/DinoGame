@@ -115,26 +115,30 @@ public class GamePanel extends JPanel implements Runnable {
 		tileM.loadMap(getCurrentMapPath());
 
 		allObj.clear();
+		pl = new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH);
 
 		if (currentMap == 0) {
 			startTime = System.nanoTime();
 		}
-		
-		pl = new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH);
 
 		if (currentMap == 1) {
 			startTime = System.nanoTime();
-
+			pl = new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH);
 			int id = 1;
 
-			for (int i = 1; i <= this.getMaxScreenRow(); i += 5) {
-				allObj.add(new Cage(this, i * this.getTileSize(), 3 * this.getTileSize(), 4 * this.getTileSize(),
-						this.getTileSize(), id));
-				id += 1;
+			for (int i = 1; i <= this.getMaxScreenCol(); i += 1) {
+				allObj.add(new Cage(this, i * tileSize, 3 * tileSize, tileSize,
+						tileSize, id));
+				if (i == 4 || i == 9 || i == 14) { 
+					id += 1;
+					i += 1;
+				}
 			}
 
 			for (int i = 0; i <= this.getMaxScreenCol(); i += 5) {
-				allObj.add(new Cage(this, i * this.getTileSize(), 0, this.getTileSize(), 4 * this.getTileSize()));
+				for (int j = 0; j < 4; j += 1) {
+				allObj.add(new Cage(this, i * tileSize, j * tileSize, tileSize, tileSize));
+				}
 			}
 
 			allObj.add(new Meat(this, 7 * this.getTileSize(), 10 * this.getTileSize(), 2 * this.getTileSize(),
@@ -152,6 +156,10 @@ public class GamePanel extends JPanel implements Runnable {
 			
 
 		} else if (currentMap == 2) {
+			pl = new Player(this, 8 * tileSize, 10 * tileSize, tileSize, tileSize, 3, "down", keyH);
+			for (int i = 0; i < maxScreenCol; i ++) {
+				allObj.add(new Cage(this, i * tileSize, 9 * tileSize, tileSize, tileSize));
+			}
 			for (int i = 2; i <= 10; i +=2) {
 				allObj.add(new Flyer(this, i * tileSize, 2 * tileSize, tileSize, 3));
 			}
@@ -302,6 +310,7 @@ public class GamePanel extends JPanel implements Runnable {
 			int pastSec = (int) (pastTime / 1_000_000_000L);
 			int remaining = timeLimit - pastSec;
 			if (remaining <= 0) remaining = 0;
+			multiplier = remaining;
 
 			g2.setColor(Color.WHITE);
 			g2.setFont(new Font("Arial", Font.BOLD, 24));
@@ -317,18 +326,13 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 
-			if (totalLevel >= 15) {
+			if (totalLevel >= 10) {
 				gameWon = true;
-				multiplier = 0;
-				
-				for (int i = 5; i <= 15; i += 5) {
-					if (totalLevel > i) {
-						multiplier = i;
-				}
-			}
+				remaining  = multiplier;
 				finalScore = 10 * multiplier;
 			} else if (remaining == 0) {
 				gameOver = true;
+				finalScore = totalLevel;
 			}
 
 			if (!gameWon && !gameOver) {
@@ -357,7 +361,7 @@ public class GamePanel extends JPanel implements Runnable {
 			for (Entities e : allObj) {
 				if (e instanceof Flyer) {
 					Flyer f = (Flyer) e;
-					if (f.getY() >= 10 * tileSize)
+					if (f.getY() >= 9 * tileSize)
 						gameOver = true;
 				}
 			}
