@@ -19,7 +19,7 @@ public class Player extends Entities {
 	private BufferedImage l1,l2,l3,l4;
 	private int spriteNum = 1;
 	private int spriteCounter = 1;
-	private int stepDelay = 15;
+	private int stepDelay = 50;
 
 	public Player(GamePanel gp, int x, int y, int width, int height, int speed, String direction, KeyHandler keyH) {
 		super(gp, x, y, width, height, speed, direction);
@@ -105,17 +105,16 @@ public class Player extends Entities {
 
 		if (gp.getGameOver())
 			this.setSpeed(0);
-
-	}
-
-	@Override
-	public void draw(Graphics2D g2) {
 		spriteCounter++;
 		if (spriteCounter > stepDelay) {
 	        spriteNum = spriteNum % 4 + 1;
 	        spriteCounter = 0;
 	    }
 
+	}
+
+	@Override
+	public void draw(Graphics2D g2) {
 		BufferedImage image = null;
 		switch (getDirection()) {
 		case "up":
