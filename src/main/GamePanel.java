@@ -127,9 +127,8 @@ public class GamePanel extends JPanel implements Runnable {
 			int id = 1;
 
 			for (int i = 1; i <= this.getMaxScreenCol(); i += 1) {
-				allObj.add(new Cage(this, i * tileSize, 3 * tileSize, tileSize,
-						tileSize, id));
-				if (i == 4 || i == 9 || i == 14) { 
+				allObj.add(new Cage(this, i * tileSize, 3 * tileSize, tileSize, tileSize, id));
+				if (i == 4 || i == 9 || i == 14) {
 					id += 1;
 					i += 1;
 				}
@@ -137,34 +136,33 @@ public class GamePanel extends JPanel implements Runnable {
 
 			for (int i = 0; i <= this.getMaxScreenCol(); i += 5) {
 				for (int j = 0; j < 4; j += 1) {
-				allObj.add(new Cage(this, i * tileSize, j * tileSize, tileSize, tileSize));
+					allObj.add(new Cage(this, i * tileSize, j * tileSize, tileSize, tileSize));
 				}
 			}
 
 			allObj.add(new Meat(this, 7 * this.getTileSize(), 10 * this.getTileSize(), 2 * this.getTileSize(),
 					2 * this.getTileSize()));
-			
-			for(int i = 1; i <= 3; i ++) {
+
+			for (int i = 1; i <= 3; i++) {
 				allObj.add(new Raptor(this, tileSize, tileSize, i));
 			}
-			
+
 			boolean powerUp = true;
-			for(int i = 1; i <= 4; i ++) {
+			for (int i = 1; i <= 4; i++) {
 				allObj.add(new Effect(this, i * tileSize, 10 * tileSize, tileSize, powerUp));
 				powerUp = !powerUp;
 			}
-			
 
 		} else if (currentMap == 2) {
 			pl = new Player(this, 8 * tileSize, 10 * tileSize, tileSize, tileSize, 3, "down", keyH);
-			for (int i = 0; i < maxScreenCol; i ++) {
+			for (int i = 0; i < maxScreenCol; i++) {
 				allObj.add(new Cage(this, i * tileSize, 9 * tileSize, tileSize, tileSize));
 			}
-			for (int i = 2; i <= 10; i +=2) {
+			for (int i = 2; i <= 10; i += 2) {
 				allObj.add(new Flyer(this, i * tileSize, 2 * tileSize, tileSize, 3));
 			}
 		}
-		
+
 		allObj.add(pl);
 		allObj.addAll(bullets);
 	}
@@ -262,12 +260,11 @@ public class GamePanel extends JPanel implements Runnable {
 		if (win) {
 			g2.setColor(Color.RED);
 			game = "Game Over";
-		}
-		else {
+		} else {
 			g2.setColor(Color.GREEN);
 			game = "YOU WIN!";
 		}
-		
+
 		int x = 5 * tileSize;
 		int y = 6 * tileSize;
 		g2.drawString(game, x, y);
@@ -310,8 +307,7 @@ public class GamePanel extends JPanel implements Runnable {
 			int pastSec = (int) (pastTime / 1_000_000_000L);
 			int remaining = timeLimit - pastSec;
 			if (remaining <= 0) remaining = 0;
-			multiplier = remaining;
-
+			
 			g2.setColor(Color.WHITE);
 			g2.setFont(new Font("Arial", Font.BOLD, 24));
 			g2.drawString("Time: " + remaining, 50, 240 + 5 * tileSize);
@@ -326,10 +322,16 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 
-			if (totalLevel >= 10) {
+			if (totalLevel >= 15) {
 				gameWon = true;
-				remaining  = multiplier;
-				finalScore = 10 * multiplier;
+				
+				for (int i = 5; i <= 15; i += 5) {
+					if (totalLevel <= i) {
+						multiplier = i;
+				}
+			}
+				finalScore = totalLevel * multiplier;
+				
 			} else if (remaining == 0) {
 				gameOver = true;
 				finalScore = totalLevel;
