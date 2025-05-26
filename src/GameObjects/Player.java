@@ -98,12 +98,12 @@ public class Player extends Entities {
 			setX(getX() + getSpeed());
 		}
 
-		if (keyH.shoot && gp.getCurrentMapPath().equals("/mapLevel/Level2.txt") && !gp.getGameOver()) {
+		if (keyH.shoot && gp.getCurrentMapPath().equals("/mapLevel/Level2.txt") && !gp.getGameOver() && !gp.getGameWon()) {
 			fireBullet();
 
 		}
 
-		if (gp.getGameOver())
+		if (gp.getGameOver() || gp.getGameWon())
 			this.setSpeed(0);
 
 	}

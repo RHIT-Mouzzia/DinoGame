@@ -30,6 +30,8 @@ public class GamePanel extends JPanel implements Runnable {
 	private long startTime;
 	private boolean gameOver = false;
 	private boolean gameWon = false;
+	private int killCount;
+	private int spawnCount;
 
 	private String[] mapPaths = { "/mapLevel/Level0.txt", "/mapLevel/Level1.txt", "/mapLevel/Level2.txt" };
 
@@ -98,6 +100,14 @@ public class GamePanel extends JPanel implements Runnable {
 	public void setGameOver(boolean over) {
 		this.gameOver = over;
 	}
+	
+	public void addKillCount(int i) {
+		killCount += i;
+	}
+	
+	public boolean getGameWon() {
+		return this.gameWon;
+	}
 
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -155,12 +165,15 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 
 		} else if (currentMap == 2) {
+			killCount = 0;
+			spawnCount = 0;
 			pl = new Player(this, 8 * tileSize, 10 * tileSize, tileSize, tileSize, 3, "down", keyH);
 			for (int i = 0; i < maxScreenCol; i++) {
 				allObj.add(new Cage(this, i * tileSize, 9 * tileSize, tileSize, tileSize));
 			}
 			for (int i = 2; i <= 10; i += 2) {
 				allObj.add(new Flyer(this, i * tileSize, 2 * tileSize, tileSize, 3));
+				spawnCount += 1;
 			}
 		}
 
@@ -259,11 +272,11 @@ public class GamePanel extends JPanel implements Runnable {
 		String game = "";
 		g2.setFont(new Font("Arial", Font.BOLD, 45));
 		if (win) {
-			g2.setColor(Color.RED);
-			game = "Game Over";
-		} else {
 			g2.setColor(Color.GREEN);
 			game = "YOU WIN!";
+		} else {
+			g2.setColor(Color.RED);
+			game = "Game Over";
 		}
 
 		int x = 5 * tileSize;
@@ -322,20 +335,13 @@ public class GamePanel extends JPanel implements Runnable {
 					totalLevel += r.getHunger();
 				}
 			}
-
+			
+			finalScore = totalLevel * multiplier;
 			if (totalLevel >= 15) {
 				gameWon = true;
 				
-				for (int i = 5; i <= 15; i += 5) {
-					if (totalLevel <= i) {
-						multiplier = i;
-				}
-			}
-				finalScore = totalLevel * multiplier;
-				
 			} else if (remaining == 0) {
 				gameOver = true;
-				finalScore = totalLevel;
 			}
 
 			if (!gameWon && !gameOver) {
@@ -354,7 +360,7 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 		} else {
-			playGameEnding(g2, gameOver);
+			playGameEnding(g2, gameWon);
 			g2.drawString("Your final score: " + finalScore, 10 * tileSize, 10 * tileSize);
 			g2.dispose();
 		}
@@ -368,9 +374,15 @@ public class GamePanel extends JPanel implements Runnable {
 						gameOver = true;
 				}
 			}
-
+			
+			if(killCount == spawnCount) gameWon = true;
+			
 			if (gameOver) {
 				playGameEnding(g2, gameOver);
+				g2.dispose();
+			}
+			else if (gameWon) {
+				playGameEnding(g2, gameWon);
 				g2.dispose();
 			}
 		}

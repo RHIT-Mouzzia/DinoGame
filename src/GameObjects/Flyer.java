@@ -102,6 +102,7 @@ public class Flyer extends Entities {
 		if (e instanceof Bullet) {
 			this.markToRemove();
 			e.markToRemove();
+			this.gp.addKillCount(1);
 		}
 	}
 
