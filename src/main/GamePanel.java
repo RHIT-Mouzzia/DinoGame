@@ -367,7 +367,8 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.drawString(game, x, y);
 		g2.setColor(Color.WHITE);
 		g2.setFont(new Font("Arial", Font.PLAIN, 24));
-		g2.drawString("Use the Keypad to select level or press 0 for Start Menu", x - 170, y + 40);
+		g2.drawString("Press 1 for level one and 2 for level two", x - 80, y + 40);
+		g2.drawString("Press 0 for Start Menu", x , y + 70);
 		return;
 	}
 
@@ -378,6 +379,9 @@ public class GamePanel extends JPanel implements Runnable {
 		int multiplier = 5;
 		int totalLevel = 0;
 		int finalScore = 0;
+		int x = 5 * tileSize;
+		int y = 6 * tileSize;
+		
 		tileM.draw(g2);
 
 		ArrayList<Entities> drawList = new ArrayList<>(allObj);
@@ -463,7 +467,7 @@ public class GamePanel extends JPanel implements Runnable {
 				// Draw if player is won or lost
 			} else {
 				playGameEnding(g2, gameWon);
-				g2.drawString("Your final score: " + finalScore, 10 * tileSize, 10 * tileSize);
+				g2.drawString("Your final score: " + finalScore, x, y + 100);
 				g2.dispose();
 			}
 		}
