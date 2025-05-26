@@ -23,15 +23,15 @@ public class TileManager {
 		tiles = new Tile[10];
 		mapTile = new int[gp.getMaxScreenCol()][gp.getMaxScreenRow()];
 		getTileImage();
-		loadMap("/mapLevel/Level0.txt");//Always load intro level when start game
+		loadMap("/mapLevel/Level0.txt");// Always load intro level when start game
 	}
 
 	/*
-	 * Load map by reading the input path, read from a txt file
-	 * input m: a String of the map path
+	 * Load map by reading the input path, read from a txt file input m: a String of
+	 * the map path
 	 */
 	public void loadMap(String m) {
-		//Reading the txt line by line and assign their number
+		// Reading the txt line by line and assign their number
 		try {
 			InputStream map = getClass().getResourceAsStream(m);
 			BufferedReader br = new BufferedReader(new InputStreamReader(map));
@@ -72,19 +72,18 @@ public class TileManager {
 
 			tiles[1] = new Tile(gp.getTileSize(), gp.getTileSize());
 			tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/images/grass.png"));
-			
+
 			tiles[5] = new Tile(gp.getTileSize(), gp.getTileSize());
 			tiles[5].image = ImageIO.read(getClass().getResourceAsStream("/images/sky.png"));
-			
+
 			tiles[2] = new Tile(gp.getTileSize(), gp.getTileSize());
 			tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/images/cloud.png"));
-			
+
 			tiles[3] = new Tile(gp.getTileSize(), gp.getTileSize());
 			tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/images/desert.png"));
-			
+
 			tiles[4] = new Tile(gp.getTileSize(), gp.getTileSize());
 			tiles[4].image = ImageIO.read(getClass().getResourceAsStream("/images/flower.png"));
-			
 
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -193,19 +193,19 @@ public class Player extends Entities {
 
 	@Override
 	public void collidedWithBox(Entities e) {
-		//By using previous x,y position to not let player go through objects
+		// By using previous x,y position to not let player go through objects
 		setX(prevX);
 		setY(prevY);
-		
-		//Feed raptor if collided with feeder fence
+
+		// Feed raptor if collided with feeder fence
 		if (e instanceof Cage) {
 			Cage c = (Cage) e;
 			this.collidedWithFeederFence(c);
-		} else if (e instanceof Meat) {//Collect food when collided with meat crate
+		} else if (e instanceof Meat) {// Collect food when collided with meat crate
 			this.food = true;
 		}
 
-		//Collide with power ups
+		// Collide with power ups
 		if (e instanceof Effect) {
 			Effect pw = (Effect) e;
 			pw.collidedWithBox(this);

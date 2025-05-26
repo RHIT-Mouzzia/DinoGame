@@ -142,14 +142,14 @@ public class GamePanel extends JPanel implements Runnable {
 	public void setGameOver(boolean over) {
 		this.gameOver = over;
 	}
-	
+
 	/*
 	 * Add i to the total number of kill count
 	 */
 	public void addKillCount(int i) {
 		killCount += i;
 	}
-	
+
 	/*
 	 * Return if the player won or not
 	 */
@@ -170,31 +170,32 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	/*
-	 * This method is used to change different lv
-	 * input newMap: the number of which lv the player want to play from the map paths
+	 * This method is used to change different lv input newMap: the number of which
+	 * lv the player want to play from the map paths
 	 */
 	public void changeMap(int newMap) {
-		
+
 		currentMap = newMap;
 		gameOver = false;
 		gameWon = false;
 		tileM.loadMap(getCurrentMapPath()); // load tiles base on which map is selected
 
 		allObj.clear(); // clear everything when change map
-		
-		pl = new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH); //  a player is added in the game
+
+		pl = new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH); // a player is added in
+																								// the game
 
 		if (currentMap == 0) {
-			startTime = System.nanoTime(); //  Start time 
+			startTime = System.nanoTime(); // Start time
 		}
 
-		//Adding objects for level 1
+		// Adding objects for level 1
 		if (currentMap == 1) {
 			startTime = System.nanoTime();
 			pl = new Player(this, 8 * tileSize, 8 * tileSize, tileSize, tileSize, 4, "down", keyH);
 			int id = 1;
-			
-			//Create horizontal cages or feeder fence
+
+			// Create horizontal cages or feeder fence
 			for (int i = 1; i <= this.getMaxScreenCol(); i += 1) {
 				allObj.add(new Cage(this, i * tileSize, 3 * tileSize, tileSize, tileSize, id));
 				if (i == 4 || i == 9 || i == 14) {
@@ -203,46 +204,46 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 
-			//Create vertical cages
+			// Create vertical cages
 			for (int i = 0; i <= this.getMaxScreenCol(); i += 5) {
 				for (int j = 0; j < 4; j += 1) {
 					allObj.add(new Cage(this, i * tileSize, j * tileSize, tileSize, tileSize));
 				}
 			}
 
-			//Add one box for meat crate
+			// Add one box for meat crate
 			allObj.add(new Meat(this, 7 * this.getTileSize(), 10 * this.getTileSize(), 2 * this.getTileSize(),
 					2 * this.getTileSize()));
 
-			//Create 3 raptors
+			// Create 3 raptors
 			for (int i = 1; i <= 3; i++) {
 				allObj.add(new Raptor(this, tileSize, tileSize, i));
 			}
 
-			//Create 4 power up
+			// Create 4 power up
 			boolean powerUp = true;
 			for (int i = 1; i <= 4; i++) {
 				allObj.add(new Effect(this, i * tileSize, 10 * tileSize, tileSize, powerUp));
 				powerUp = !powerUp;
 			}
 
-		//Adding objects for level 2
+			// Adding objects for level 2
 		} else if (currentMap == 2) {
 			killCount = 0;
 			spawnCount = 0;
 			pl = new Player(this, 8 * tileSize, 10 * tileSize, tileSize, tileSize, 3, "down", keyH);
-			//Add cage to prevent player move up
+			// Add cage to prevent player move up
 			for (int i = 0; i < maxScreenCol; i++) {
 				allObj.add(new Cage(this, i * tileSize, 9 * tileSize, tileSize, tileSize));
 			}
-			//Add fliers
+			// Add fliers
 			for (int i = 2; i <= 10; i += 2) {
 				allObj.add(new Flyer(this, i * tileSize, 2 * tileSize, tileSize, 3));
 				spawnCount += 1;
 			}
 		}
 
-		//Add everything to a list
+		// Add everything to a list
 		allObj.add(pl);
 		allObj.addAll(bullets);
 	}
@@ -258,8 +259,8 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	/*
-	 * A game loop called delta/accumulator method used 
-	 * to draw and update at every draw interval
+	 * A game loop called delta/accumulator method used to draw and update at every
+	 * draw interval
 	 */
 	public void run() {
 
@@ -294,29 +295,29 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	/*
-	 *Updated everything happen in the game
+	 * Updated everything happen in the game
 	 */
 	public void update() {
-		//Load intro level
+		// Load intro level
 		if (keyH.map0) {
 			currentMap = 0;
 			allObj.clear();
 			keyH.map0 = false;
 		}
 
-		//Load level 1
+		// Load level 1
 		if (keyH.map1) {
 			changeMap(1);
-		} else if (keyH.map2) { //Load level 2
+		} else if (keyH.map2) { // Load level 2
 			changeMap(2);
 		}
 
-		//Update every objects
+		// Update every objects
 		for (Entities e : allObj) {
 			e.update();
 		}
 
-		//Update for collisions of each objects
+		// Update for collisions of each objects
 		for (Entities e1 : allObj) {
 			for (Entities e2 : allObj) {
 				if (e1 != e2) {
@@ -327,7 +328,7 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 		}
 
-		//Removing objects
+		// Removing objects
 		List<Entities> shouldRemove = new ArrayList<>();
 
 		for (Entities object : allObj) {
@@ -380,12 +381,12 @@ public class GamePanel extends JPanel implements Runnable {
 		tileM.draw(g2);
 
 		ArrayList<Entities> drawList = new ArrayList<>(allObj);
-		//Draw every objects
+		// Draw every objects
 		for (Entities e : drawList) {
 			e.draw(g2);
 		}
 
-		//Draw for intro level
+		// Draw for intro level
 		if (currentMap == 0) {
 
 			g2.setFont(new Font("Arial", Font.BOLD, 40));
@@ -405,67 +406,70 @@ public class GamePanel extends JPanel implements Runnable {
 			return;
 		}
 
-		//Draw for level 1
+		// Draw for level 1
 		if (currentMap == 1) {
-			//Using time for scoring system
+			// Using time for scoring system
 			long pastTime = System.nanoTime() - startTime;
 			int pastSec = (int) (pastTime / 1_000_000_000L);
 			int remaining = timeLimit - pastSec;
-			if (remaining <= 0) remaining = 0; //Make remaining time 0 when game over
-			
+			if (remaining <= 0)
+				remaining = 0; // Make remaining time 0 when game over
+
 			g2.setColor(Color.WHITE);
 			g2.setFont(new Font("Arial", Font.BOLD, 24));
 			g2.drawString("Time: " + remaining, 50, 240 + 5 * tileSize);
-			
+
 			g2.setColor(Color.WHITE);
 			g2.setFont(new Font("Arial", Font.PLAIN, 24));
-			
-			for(Entities e : drawList) {
-				if ( e instanceof Raptor) {
-					Raptor r = (Raptor)e;
-					totalLevel += r.getHunger();
-				}
-			}
-			
-			//Setting multiplier, scoring for this level
-			if(totalLevel > 10) multiplier = 15;
-			else if(totalLevel > 5) multiplier = 10;
-			finalScore = totalLevel * multiplier;
-			
-			//Winning condition
-			if (totalLevel >= 15) {
-				gameWon = true;
-			//Losing condition
-			} else if (remaining == 0) {
-				gameOver = true;
-			}
-			
-			//Draw if the player is not lost or won
-			if (!gameWon && !gameOver) {
+
 			for (Entities e : drawList) {
 				if (e instanceof Raptor) {
 					Raptor r = (Raptor) e;
-					int lv = r.getHunger();
-					if (lv >= 5) {
-						lv = 5;
-					}
-					g2.drawString("Raptor " + r.getCage() + " lv: " + lv + "/5", 50, 240 + r.getCage() * tileSize);
-				}
-				if (e instanceof Player) {
-					Player p = (Player) e;
-					g2.drawString("Player is" + p.getMeat() + " carrying meat", 50, 240 + 4 * tileSize);
+					totalLevel += r.getHunger();
 				}
 			}
-		//Draw if player is won or lost
-		} else {
-			playGameEnding(g2, gameWon);
-			g2.drawString("Your final score: " + finalScore, 10 * tileSize, 10 * tileSize);
-			g2.dispose();
-		}
+
+			// Setting multiplier, scoring for this level
+			if (totalLevel > 10)
+				multiplier = 15;
+			else if (totalLevel > 5)
+				multiplier = 10;
+			finalScore = totalLevel * multiplier;
+
+			// Winning condition
+			if (totalLevel >= 15) {
+				gameWon = true;
+				// Losing condition
+			} else if (remaining == 0) {
+				gameOver = true;
+			}
+
+			// Draw if the player is not lost or won
+			if (!gameWon && !gameOver) {
+				for (Entities e : drawList) {
+					if (e instanceof Raptor) {
+						Raptor r = (Raptor) e;
+						int lv = r.getHunger();
+						if (lv >= 5) {
+							lv = 5;
+						}
+						g2.drawString("Raptor " + r.getCage() + " lv: " + lv + "/5", 50, 240 + r.getCage() * tileSize);
+					}
+					if (e instanceof Player) {
+						Player p = (Player) e;
+						g2.drawString("Player is" + p.getMeat() + " carrying meat", 50, 240 + 4 * tileSize);
+					}
+				}
+				// Draw if player is won or lost
+			} else {
+				playGameEnding(g2, gameWon);
+				g2.drawString("Your final score: " + finalScore, 10 * tileSize, 10 * tileSize);
+				g2.dispose();
+			}
 		}
 
-		//Draw for level 2
-		//If one flyer get over the set position, player lose
+		// Draw for level 2
+		// If one flyer get over the set position, player lose
 		if (currentMap == 2) {
 			for (Entities e : allObj) {
 				if (e instanceof Flyer) {
@@ -474,15 +478,15 @@ public class GamePanel extends JPanel implements Runnable {
 						gameOver = true;
 				}
 			}
-			
-			//If player kill all fliers, player won
-			if(killCount == spawnCount) gameWon = true;
-			
+
+			// If player kill all fliers, player won
+			if (killCount == spawnCount)
+				gameWon = true;
+
 			if (gameOver) {
 				playGameEnding(g2, gameWon);
 				g2.dispose();
-			}
-			else if (gameWon) {
+			} else if (gameWon) {
 				playGameEnding(g2, gameWon);
 				g2.dispose();
 			}
