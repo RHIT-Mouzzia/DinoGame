@@ -170,13 +170,12 @@ public class GamePanel extends JPanel implements Runnable {
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 		changeMap(0);
-		playSound();
 	}
 
 	/*
 	 * Method to play the music
 	 */
-	private void playSound() {
+	public void playSound() {
 		try {
 			AudioInputStream a = AudioSystem.getAudioInputStream(new File("src/audio/music.wav"));
 			Clip clip = AudioSystem.getClip();
@@ -206,7 +205,7 @@ public class GamePanel extends JPanel implements Runnable {
 		if (currentMap == 0) {
 			startTime = System.nanoTime(); // Start time
 			allObj.add(new Raptor(this, tileSize * 2, tileSize * 2, 0));
-			allObj.add(new Flyer(this, 1 * tileSize, 1 * tileSize, tileSize, 3));
+			allObj.add(new Flyer(this, 1 * tileSize, 2 * tileSize, tileSize, 3));
 			allObj.add(new Flyer(this, 1 * tileSize, 1 * tileSize, tileSize, 3));
 
 		}
@@ -333,6 +332,10 @@ public class GamePanel extends JPanel implements Runnable {
 			changeMap(2);
 		}
 
+		if (keyH.music) {
+			playSound();
+		}
+		
 		// Update every objects
 		for (Entities e : allObj) {
 			e.update();
@@ -414,19 +417,18 @@ public class GamePanel extends JPanel implements Runnable {
 		// Draw for intro level
 		if (currentMap == 0) {
 
-			g2.setFont(new Font("Arial", Font.BOLD, 40));
+			g2.setFont(new Font("Arial", Font.BOLD, 30));
 			g2.setColor(Color.WHITE);
-			g2.drawString("Welcome to Among Chickens!", 100, 100);
-			g2.setFont(new Font("SansSerif", Font.PLAIN, 24));
-			g2.drawString("Press 0 for Start Menu", 100, 160);
+			g2.drawString("Welcome to Among Prehistoric Chickens!", 80, 80);
+			g2.setFont(new Font("SansSerif", Font.PLAIN, 20));
 			g2.drawString("Press 1 for Level 1", 100, 200);
 			g2.drawString("Press 2 for Level 2", 100, 240);
 			g2.drawString("Controls:", 100, 280);
-			g2.drawString("W and UP_key: Move Up:", 100, 310);
-			g2.drawString("S and Left_key: Move Up:", 100, 340);
-			g2.drawString("D and Rigth_key: Move Up:", 100, 370);
-			g2.drawString("A and Left_key: Move Up:", 100, 400);
-			g2.drawString("Space_Bar: Shoot up:", 100, 430);
+			g2.drawString("W and Up key: Move Up", 100, 310);
+			g2.drawString("S and Down key: Move Down", 100, 340);
+			g2.drawString("D and Right key: Move Right", 100, 370);
+			g2.drawString("A and Left key: Move Left", 100, 400);
+			g2.drawString("Space Bar: Shoot up!", 100, 430);
 			g2.dispose();
 			return;
 		}

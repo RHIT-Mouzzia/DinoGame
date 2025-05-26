@@ -19,7 +19,7 @@ public class Player extends Entities {
 	private BufferedImage l1, l2, l3, l4;
 	private int spriteNum = 1;
 	private int spriteCounter = 1;
-	private int stepDelay = 50;
+	private int stepDelay = 15;
 	private int coolDown = 0;
 	private int fireDelay = 20;
 
@@ -104,10 +104,11 @@ public class Player extends Entities {
 			coolDown--;
 		}
 
-		if (keyH.shoot && gp.getCurrentMapPath().equals("/mapLevel/Level2.txt") && !gp.getGameOver() && coolDown == 0) {
+		if (keyH.shoot && !gp.getGameOver() && coolDown == 0 || gp.getCurrentMapPath().equals("/mapLevel/Level2.txt") && gp.getCurrentMapPath().equals("/mapLevel/Level0.txt")) {
 			fireBullet();
 			coolDown = fireDelay;
 		}
+		
 
 		if (gp.getGameOver() || gp.getGameWon())
 			this.setSpeed(0);

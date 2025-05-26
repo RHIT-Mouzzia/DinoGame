@@ -8,6 +8,7 @@ public class KeyHandler implements KeyListener {
 	public boolean up, down, left, right;
 	public boolean map0, map1, map2;
 	public boolean shoot = false;
+	public boolean music;
 
 	/*
 	 * Assigning action with key press
@@ -40,6 +41,9 @@ public class KeyHandler implements KeyListener {
 
 		if (keyCode == KeyEvent.VK_SPACE)
 			shoot = true;
+		
+		if (keyCode == KeyEvent.VK_M)
+			music = true;
 	}
 
 	@Override
@@ -70,6 +74,9 @@ public class KeyHandler implements KeyListener {
 
 		if (keyCode == KeyEvent.VK_SPACE)
 			shoot = false;
+	
+		if (keyCode == KeyEvent.VK_M)
+			music = false;
 	}
 
 	@Override
