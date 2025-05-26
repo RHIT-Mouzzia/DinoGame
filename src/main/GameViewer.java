@@ -3,6 +3,9 @@ package main;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+/*
+ * Create a frame to play the game
+ */
 public class GameViewer {
 
 	public static void main(String[] args) {
@@ -10,7 +13,7 @@ public class GameViewer {
 		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
-		window.setTitle("Among Dinos");
+		window.setTitle("Among The Prehistoric Chickens");
 
 		GamePanel panel = new GamePanel();
 

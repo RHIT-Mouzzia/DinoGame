@@ -20,10 +20,16 @@ public class Tile {
 
 	public BufferedImage image;
 
+	/*
+	 * Return tileWidth
+	 */
 	public int getWidth() {
 		return this.width;
 	}
 
+	/*
+	 * Return tile height
+	 */
 	public int getHeight() {
 		return this.height;
 	}

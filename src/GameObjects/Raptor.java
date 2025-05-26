@@ -17,10 +17,14 @@ public class Raptor extends Entities {
 		setImage();
 	}
 
+	//Adding to raptor hunger
 	public void getFeed() {
 		this.hunger += 1;
 	}
 
+	/*
+	 * Check if raptor is matured
+	 */
 	public boolean matured() {
 		if (this.hunger == 5) {
 			return true;
@@ -29,10 +33,16 @@ public class Raptor extends Entities {
 		return false;
 	}
 
+	/*
+	 * Return raptor's hunger
+	 */
 	public int getHunger() {
 		return this.hunger;
 	}
 
+	/*
+	 * Return raptor's cage
+	 */
 	public int getCage() {
 		return this.cage;
 	}
@@ -52,6 +62,7 @@ public class Raptor extends Entities {
 			this.setSpeed(-getSpeed());
 		}
 
+		//If raptor is matured, increase size
 		if (matured()) {
 			this.setWidth(2 * gp.getTileSize());
 			this.setHeight(2 * gp.getTileSize());
@@ -84,6 +95,9 @@ public class Raptor extends Entities {
 		g2.drawImage(image, getX(), getY(), getWidth(), getHeight(), null);
 	}
 
+	/*
+	 * Set the raptor position base on what cage it is spawn in
+	 */
 	public void setDefaultValues() {
 		this.hunger = 0;
 		if (this.cage == 3) {
@@ -100,10 +114,7 @@ public class Raptor extends Entities {
 
 	@Override
 	public void collidedWithBox(Entities e) {
-
- 
 			this.setSpeed(-getSpeed());
-		
 	}
 
 }
