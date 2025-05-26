@@ -103,6 +103,7 @@ public class Flyer extends Entities {
 			this.markToRemove();
 			e.markToRemove();
 			this.gp.addKillCount(1);
+			System.out.println("Add 1 more kill");
 		}
 	}
 

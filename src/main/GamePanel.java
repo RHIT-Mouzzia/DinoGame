@@ -292,7 +292,7 @@ public class GamePanel extends JPanel implements Runnable {
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
-		int multiplier = 1;
+		int multiplier = 5;
 		int totalLevel = 0;
 		int finalScore = 0;
 		tileM.draw(g2);
@@ -336,6 +336,9 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 			
+			if(totalLevel > 10) multiplier = 15;
+			else if(totalLevel > 5) multiplier = 10;
+			
 			finalScore = totalLevel * multiplier;
 			if (totalLevel >= 15) {
 				gameWon = true;
@@ -375,10 +378,10 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 			
-			if(killCount == spawnCount) gameWon = true;
+			if(killCount >= spawnCount) gameWon = true;
 			
 			if (gameOver) {
-				playGameEnding(g2, gameOver);
+				playGameEnding(g2, gameWon);
 				g2.dispose();
 			}
 			else if (gameWon) {
