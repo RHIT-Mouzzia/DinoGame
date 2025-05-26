@@ -112,6 +112,7 @@ public class GamePanel extends JPanel implements Runnable {
 
 		currentMap = newMap;
 		gameOver = false;
+		gameWon = false;
 		tileM.loadMap(getCurrentMapPath());
 
 		allObj.clear();
