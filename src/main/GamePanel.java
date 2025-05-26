@@ -170,6 +170,7 @@ public class GamePanel extends JPanel implements Runnable {
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 		changeMap(0);
+		playSound();
 	}
 
 	/*
@@ -330,10 +331,6 @@ public class GamePanel extends JPanel implements Runnable {
 			changeMap(1);
 		} else if (keyH.map2) { // Load level 2
 			changeMap(2);
-		}
-
-		if (keyH.music) {
-			playSound();
 		}
 		
 		// Update every objects
