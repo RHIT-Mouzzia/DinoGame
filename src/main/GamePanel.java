@@ -322,8 +322,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public void update() {
 		// Load intro level
 		if (keyH.map0) {
-			currentMap = 0;
-			allObj.clear();
+			changeMap(0);
 			keyH.map0 = false;
 		}
 
