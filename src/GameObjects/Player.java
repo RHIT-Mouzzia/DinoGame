@@ -13,6 +13,13 @@ public class Player extends Entities {
 	private KeyHandler keyH;
 	private int prevX, prevY;
 	private boolean food;
+	private BufferedImage u1, u2, u3, u4;
+	private BufferedImage d1, d2, d3, d4;
+	private BufferedImage r1,r2,r3,r4;
+	private BufferedImage l1,l2,l3,l4;
+	private int spriteNum = 1;
+	private int spriteCounter = 1;
+	private int stepDelay = 15;
 
 	public Player(GamePanel gp, int x, int y, int width, int height, int speed, String direction, KeyHandler keyH) {
 		super(gp, x, y, width, height, speed, direction);
@@ -31,18 +38,35 @@ public class Player extends Entities {
 		gp.addBullet(b);
 		keyH.shoot = false;
 	}
-	
+
 	public String getMeat() {
-		if(food == true) return "";
+		if (food == true)
+			return "";
 		return " not";
 	}
 
 	@Override
 	public void setImage() {
-		this.setUp("/Images/up.png");
-		this.setDown("/Images/down.png");
-		this.setLeft("/Images/left.png");
-		this.setRight("/Images/right.png");
+		try {
+			u1=ImageIO.read(getClass().getResourceAsStream("/Images/up1.png"));
+			u2=ImageIO.read(getClass().getResourceAsStream("/Images/up2.png"));
+			u3=ImageIO.read(getClass().getResourceAsStream("/Images/up3.png"));
+			u4=ImageIO.read(getClass().getResourceAsStream("/Images/up4.png"));
+			d1=ImageIO.read(getClass().getResourceAsStream("/Images/down1.png"));
+			d2=ImageIO.read(getClass().getResourceAsStream("/Images/down2.png"));
+			d3=ImageIO.read(getClass().getResourceAsStream("/Images/down3.png"));
+			d4=ImageIO.read(getClass().getResourceAsStream("/Images/down4.png"));
+			r1=ImageIO.read(getClass().getResourceAsStream("/Images/right1.png"));
+			r2=ImageIO.read(getClass().getResourceAsStream("/Images/right2.png"));
+			r3=ImageIO.read(getClass().getResourceAsStream("/Images/right3.png"));
+			r4=ImageIO.read(getClass().getResourceAsStream("/Images/right4.png"));
+			l1=ImageIO.read(getClass().getResourceAsStream("/Images/left1.png"));
+			l2=ImageIO.read(getClass().getResourceAsStream("/Images/left2.png"));
+			l3=ImageIO.read(getClass().getResourceAsStream("/Images/left3.png"));
+			l4=ImageIO.read(getClass().getResourceAsStream("/Images/left4.png"));
+		} catch(IOException e){
+			e.printStackTrace();			
+		}
 	}
 
 	@Override
@@ -78,31 +102,87 @@ public class Player extends Entities {
 			fireBullet();
 
 		}
-		
-		if(gp.getGameOver()) this.setSpeed(0);
+
+		if (gp.getGameOver())
+			this.setSpeed(0);
 
 	}
 
 	@Override
 	public void draw(Graphics2D g2) {
+		spriteCounter++;
+		if (spriteCounter > stepDelay) {
+	        spriteNum = spriteNum % 4 + 1;
+	        spriteCounter = 0;
+	    }
 
 		BufferedImage image = null;
-
 		switch (getDirection()) {
 		case "up":
-			image = this.getUp();
+			switch (spriteNum) {
+			case 1:
+				image = u1;
+				break;
+			case 2:
+				image = u2;
+				break;
+			case 3:
+				image = u3;
+				break;
+			case 4:
+				image = u4;
+				break;
+			}
 			break;
 		case "down":
-			image = this.getDown();
+			switch (spriteNum) {
+			case 1:
+				image = d1;
+				break;
+			case 2:
+				image = d2;
+				break;
+			case 3:
+				image = d3;
+				break;
+			case 4:
+				image = d4;
+				break;
+			}
 			break;
 		case "left":
-			image = this.getLeft();
+			switch (spriteNum) {
+			case 1:
+				image = l1;
+				break;
+			case 2:
+				image = l2;
+				break;
+			case 3:
+				image = l3;
+				break;
+			case 4:
+				image = l4;
+				break;
+			}
 			break;
 		case "right":
-			image = this.getRight();
+			switch (spriteNum) {
+			case 1:
+				image = r1;
+				break;
+			case 2:
+				image = r2;
+				break;
+			case 3: 
+				image = r3;
+				break;
+			case 4: 
+				image = r4;
+				break;
+			}
 			break;
 		}
-
 		g2.drawImage(image, getX(), getY(), getWidth(), getHeight(), null);
 	}
 
