@@ -17,7 +17,7 @@ public class Raptor extends Entities {
 		setImage();
 	}
 
-	//Adding to raptor hunger
+	// Adding to raptor hunger
 	public void getFeed() {
 		this.hunger += 1;
 	}
@@ -62,7 +62,7 @@ public class Raptor extends Entities {
 			this.setSpeed(-getSpeed());
 		}
 
-		//If raptor is matured, increase size
+		// If raptor is matured, increase size
 		if (matured()) {
 			this.setWidth(2 * gp.getTileSize());
 			this.setHeight(2 * gp.getTileSize());
@@ -114,7 +114,7 @@ public class Raptor extends Entities {
 
 	@Override
 	public void collidedWithBox(Entities e) {
-			this.setSpeed(-getSpeed());
+		this.setSpeed(-getSpeed());
 	}
 
 }

@@ -22,12 +22,12 @@ public class Flyer extends Entities {
 
 	@Override
 	public void draw(Graphics2D g2) {
-		//Switching sprite base on flap delay
+		// Switching sprite base on flap delay
 		spriteCounter++;
 		if (spriteCounter > flapDelay) {
-	        spriteNum = spriteNum % 4 + 1;
-	        spriteCounter = 0;
-	    }
+			spriteNum = spriteNum % 4 + 1;
+			spriteCounter = 0;
+		}
 
 		BufferedImage image = null;
 		switch (getDirection()) {
@@ -55,10 +55,10 @@ public class Flyer extends Entities {
 			case 2:
 				image = right2;
 				break;
-			case 3: 
+			case 3:
 				image = right3;
 				break;
-			case 4: 
+			case 4:
 				image = right2;
 				break;
 			}
@@ -69,11 +69,11 @@ public class Flyer extends Entities {
 
 	@Override
 	public void update() {
-		//Set game over if one flyer get to position
+		// Set game over if one flyer get to position
 		if (this.getY() == gp.getTileSize() * 10)
 			gp.setGameOver(true);
 
-		//Making flyer go down 1 tile when off screen
+		// Making flyer go down 1 tile when off screen
 		if (offLeft()) {
 			setSpeed(getSpeed() + 1);
 			flapDelay -= 2;

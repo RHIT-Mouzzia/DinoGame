@@ -157,7 +157,7 @@ public abstract class Entities {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/*
 	 * Get image for left direction
 	 */

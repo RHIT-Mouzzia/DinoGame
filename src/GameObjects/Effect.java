@@ -6,13 +6,13 @@ import main.GamePanel;
 
 public class Effect extends Entities {
 	private boolean buff;
-	
+
 	public Effect(GamePanel gp, int x, int y, int size, boolean buff) {
 		super(gp, x, y, size, size, "up");
 		this.buff = buff;
 		setImage();
 	}
-	
+
 	/*
 	 * Return if this is buff or debuff
 	 */
@@ -35,16 +35,15 @@ public class Effect extends Entities {
 	@Override
 	public void collidedWithBox(Entities e) {
 		// TODO Auto-generated method stub
-		if(e instanceof Player) {
-			Player p = (Player)e;
-			if(buff) {
-				p.setSpeed(p.getSpeed() + 1);//Add speed for buff
-			}
-			else {
-				p.setSpeed(p.getSpeed() - 1);//Slow speed for debuff
+		if (e instanceof Player) {
+			Player p = (Player) e;
+			if (buff) {
+				p.setSpeed(p.getSpeed() + 1);// Add speed for buff
+			} else {
+				p.setSpeed(p.getSpeed() - 1);// Slow speed for debuff
 			}
 		}
-		this.markToRemove();//Remove when collided
+		this.markToRemove();// Remove when collided
 
 	}
 
