@@ -13,6 +13,9 @@ public class Effect extends Entities {
 		setImage();
 	}
 	
+	/*
+	 * Return if this is buff or debuff
+	 */
 	public boolean getBuff() {
 		return buff;
 	}
@@ -35,13 +38,13 @@ public class Effect extends Entities {
 		if(e instanceof Player) {
 			Player p = (Player)e;
 			if(buff) {
-				p.setSpeed(p.getSpeed() + 1);
+				p.setSpeed(p.getSpeed() + 1);//Add speed for buff
 			}
 			else {
-				p.setSpeed(p.getSpeed() - 1);
+				p.setSpeed(p.getSpeed() - 1);//Slow speed for debuff
 			}
 		}
-		this.markToRemove();
+		this.markToRemove();//Remove when collided
 
 	}
 

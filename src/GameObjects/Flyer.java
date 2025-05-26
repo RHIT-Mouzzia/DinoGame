@@ -22,6 +22,7 @@ public class Flyer extends Entities {
 
 	@Override
 	public void draw(Graphics2D g2) {
+		//Switching sprite base on flap delay
 		spriteCounter++;
 		if (spriteCounter > flapDelay) {
 	        spriteNum = spriteNum % 4 + 1;
@@ -68,10 +69,11 @@ public class Flyer extends Entities {
 
 	@Override
 	public void update() {
-
+		//Set game over if one flyer get to position
 		if (this.getY() == gp.getTileSize() * 10)
 			gp.setGameOver(true);
 
+		//Making flyer go down 1 tile when off screen
 		if (offLeft()) {
 			setSpeed(getSpeed() + 1);
 			flapDelay -= 2;
@@ -100,7 +102,6 @@ public class Flyer extends Entities {
 	public void collidedWithBox(Entities e) {
 		// TODO Auto-generated method stub
 		if (e instanceof Bullet) {
-			System.out.println("Add 1 more kill");
 			this.markToRemove();
 			e.markToRemove();
 			this.gp.addKillCount(1);

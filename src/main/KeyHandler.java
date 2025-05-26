@@ -8,7 +8,10 @@ public class KeyHandler implements KeyListener {
 	public boolean up, down, left, right;
 	public boolean map0, map1, map2;
 	public boolean shoot = false;
-
+	
+	/*
+	 * Assigning action with key press
+	 */
 	@Override
 	public void keyPressed(KeyEvent ke) {
 		int keyCode = ke.getKeyCode();

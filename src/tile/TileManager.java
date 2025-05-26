@@ -9,6 +9,9 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import main.GamePanel;
 
+/*
+ * This class is for managing all the tiles
+ */
 public class TileManager {
 
 	GamePanel gp;
@@ -20,10 +23,15 @@ public class TileManager {
 		tiles = new Tile[10];
 		mapTile = new int[gp.getMaxScreenCol()][gp.getMaxScreenRow()];
 		getTileImage();
-		loadMap("/mapLevel/Level0.txt");
+		loadMap("/mapLevel/Level0.txt");//Always load intro level when start game
 	}
 
+	/*
+	 * Load map by reading the input path, read from a txt file
+	 * input m: a String of the map path
+	 */
 	public void loadMap(String m) {
+		//Reading the txt line by line and assign their number
 		try {
 			InputStream map = getClass().getResourceAsStream(m);
 			BufferedReader br = new BufferedReader(new InputStreamReader(map));
@@ -54,6 +62,9 @@ public class TileManager {
 		}
 	}
 
+	/*
+	 * Set tile image base
+	 */
 	public void getTileImage() {
 		try {
 			tiles[0] = new Tile(gp.getTileSize(), gp.getTileSize());
@@ -80,6 +91,9 @@ public class TileManager {
 		}
 	}
 
+	/*
+	 * Draw the tile image
+	 */
 	public void draw(Graphics2D g2) {
 
 		int col = 0;
