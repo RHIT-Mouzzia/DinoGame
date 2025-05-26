@@ -284,7 +284,7 @@ public class GamePanel extends JPanel implements Runnable {
 		g2.drawString(game, x, y);
 		g2.setColor(Color.WHITE);
 		g2.setFont(new Font("Arial", Font.PLAIN, 24));
-		g2.drawString("Use the Keybad to select level or press 0 for Start Menu", x - 170, y + 40);
+		g2.drawString("Use the Keypad to select level or press 0 for Start Menu", x - 170, y + 40);
 		return;
 	}
 
@@ -317,7 +317,7 @@ public class GamePanel extends JPanel implements Runnable {
 			g2.drawString("S and Left_key: Move Up:", 100, 340);
 			g2.drawString("D and Rigth_key: Move Up:", 100, 370);
 			g2.drawString("A and Left_key: Move Up:", 100, 400);
-			g2.drawString("Space_Bar: Shoot up:", 100, 400);
+			g2.drawString("Space_Bar: Shoot up:", 100, 430);
 			g2.dispose();
 			return;
 		}

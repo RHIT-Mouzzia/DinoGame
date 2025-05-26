@@ -61,6 +61,19 @@ public class TileManager {
 
 			tiles[1] = new Tile(gp.getTileSize(), gp.getTileSize());
 			tiles[1].image = ImageIO.read(getClass().getResourceAsStream("/images/grass.png"));
+			
+			tiles[5] = new Tile(gp.getTileSize(), gp.getTileSize());
+			tiles[5].image = ImageIO.read(getClass().getResourceAsStream("/images/sky.png"));
+			
+			tiles[2] = new Tile(gp.getTileSize(), gp.getTileSize());
+			tiles[2].image = ImageIO.read(getClass().getResourceAsStream("/images/cloud.png"));
+			
+			tiles[3] = new Tile(gp.getTileSize(), gp.getTileSize());
+			tiles[3].image = ImageIO.read(getClass().getResourceAsStream("/images/desert.png"));
+			
+			tiles[4] = new Tile(gp.getTileSize(), gp.getTileSize());
+			tiles[4].image = ImageIO.read(getClass().getResourceAsStream("/images/flower.png"));
+			
 
 		} catch (IOException e) {
 			e.printStackTrace();
